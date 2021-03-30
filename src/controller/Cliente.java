@@ -1,6 +1,6 @@
 package controller;
 
-public class nodeCliente {
+public class Cliente {
 	
 
 
@@ -11,10 +11,9 @@ public class nodeCliente {
 	private String DataNasc; //"dd/MM/yyyy"
 	private String DataCadastro; //Utilizar método para pegar automaticamente.
 	private int numLocacoes;
-	public nodeCliente prox;
 
 	//Construtor
-	public nodeCliente(int idCliente, String nome, String endereco, String cPF, String dataNasc, String dataCadastro,
+	public Cliente(int idCliente, String nome, String endereco, String cPF, String dataNasc, String dataCadastro,
 			int numLocacoes) {
 		this.idCliente = idCliente;
 		this.Nome = nome;
@@ -23,7 +22,6 @@ public class nodeCliente {
 		this.DataNasc = dataNasc;
 		this.DataCadastro = dataCadastro;
 		this.numLocacoes = numLocacoes;
-		this.prox = null;
 	}
 
 	
