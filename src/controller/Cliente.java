@@ -3,7 +3,7 @@ package controller;
 public class Cliente {
 	
 
-
+//Testando commit
 	private int idCliente; //criar uma statica autoincremental na passagem
 	private String Nome;
 	private String Endereco;
