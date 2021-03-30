@@ -9,5 +9,6 @@ public class NoCliente {
 	public NoCliente(Cliente n) {
 		this.cliente = n;
 		prox = null;		
+		
 	}
 }
