@@ -1,12 +1,12 @@
 package controller;
 
-public class nodeTema {
+public class NoTema {
 	
 	public Tema tema;
-	public nodeTema prox;
+	public NoTema prox;
 	
 	//Construtor da lista dinamica de temas
-	public nodeTema(Tema tema) {
+	public NoTema(Tema tema) {
 		this.tema = tema;
 		this.prox = null;
 	}

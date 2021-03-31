@@ -78,7 +78,7 @@ public class ListaCliente {
 				c = inicio.cliente;
 				inicio = null;
 			} else {
-				NoCliente aux1 = null;
+				NoCliente aux1 = inicio;
 				NoCliente aux2 = null;
 
 				while (aux1.prox != null) {
