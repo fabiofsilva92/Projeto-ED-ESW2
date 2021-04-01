@@ -1,5 +1,11 @@
 package controller;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.swing.JOptionPane;
 
 public class ListaCliente {
@@ -10,13 +16,14 @@ public class ListaCliente {
 		this.inicio = null;
 	}
 
-	public void adicionaInicio(Cliente n) {
+	public void adicionaInicio(Cliente n) throws IOException {
 		NoCliente c = new NoCliente(n);
 		c.prox = inicio;
 		inicio = c;
+		GerarNotaFiscal(n);
 	}
 
-	public void adicionaFinal(Cliente n) {
+	public void adicionaFinal(Cliente n) throws IOException {
 		if (inicio == null) {
 			NoCliente c = new NoCliente(n);
 			inicio = c;
@@ -30,9 +37,10 @@ public class ListaCliente {
 			aux.prox = c;
 			c.prox = null;
 		}
+		GerarNotaFiscal(n);
 	}
 
-	public void adicionaPosicao(Cliente n, int pos) {
+	public void adicionaPosicao(Cliente n, int pos) throws IOException {
 
 		NoCliente c = new NoCliente(n);
 
@@ -49,6 +57,7 @@ public class ListaCliente {
 			if (cont == pos - 1) {
 				c.prox = aux.prox;
 				aux.prox = c;
+				GerarNotaFiscal(n);
 			} else {
 				JOptionPane.showMessageDialog(null, "ERRO, Posição Inválida!");
 			}
@@ -155,6 +164,53 @@ public class ListaCliente {
 			JOptionPane.showMessageDialog(null, s.toString());
 		}
 
+	}
+
+	private void GerarNotaFiscal(Cliente c) throws IOException {
+		// Cria nota fiscal em um arquivo que abre no bloco de notas no diretorio
+		// C:\\TEMP\\NotaFiscal se não ouver uma pasta dessas ele vai criar
+		// automaticamente
+		File dir = new File("C:\\Users\\Usuario\\Documents\\GitHub\\Projeto-ED-ESW2");
+		File arq = new File(dir, "ListaCliente.txt");
+		int i = -1;
+
+		if (dir.exists() && dir.isDirectory()) {
+			JOptionPane.showMessageDialog(null, "Lista Preenchida Criada");
+		} else {
+			dir.mkdirs(); // cria uma pastase não existir, alterei mkdir para mkdirs
+			JOptionPane.showMessageDialog(null, "Lista Criada");
+		}
+
+		String conteudo = preencheNota(c);
+		FileWriter fileWriter = new FileWriter(arq);
+		PrintWriter print = new PrintWriter(fileWriter);
+		print.write(conteudo);
+		print.flush();
+		print.close();
+		fileWriter.close();
+
+	}
+
+	private String preencheNota(Cliente c) throws IOException {
+
+		StringBuffer buffer = new StringBuffer();
+		String fileName = "ListaCliente.txt";
+		BufferedWriter gravar = new BufferedWriter(new FileWriter(fileName)); // para gravar em um arquivo que aparece a
+																				// esquerda da tela
+		String linha = "";
+		linha = ("Clientes");
+		buffer.append(linha + "\n\r"); // vai adicionar as informações no arquivo.txt
+		gravar.write(linha);
+		gravar.newLine();
+		linha = ("ID Cliente: " + c.getIdCliente() + ", Cliente: " + c.getNome() + ", Endereço: " + c.getEndereco()
+				+ ", CPF: " + c.getCPF() + ", Data de Nascimento: " + c.getDataNasc() + ", Data de cadastro: "
+				+ c.getDataCadastro() + ", Numero de Locaçoes: " + c.getNumLocacoes());
+		buffer.append(linha + "\n\r");
+		gravar.write(linha);
+		gravar.newLine();
+		gravar.close();
+
+		return buffer.toString();
 	}
 
 }
