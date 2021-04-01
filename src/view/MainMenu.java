@@ -33,7 +33,6 @@ public class MainMenu {
 							+ "0 - Voltar Menu Anterior"));
 
 					switch (opc) {
-
 					case 1:
 						// tema = setarTema(tema2);
 						// int id = Integer.parseInt(JOptionPane.showInputDialog("id : "));
@@ -41,40 +40,32 @@ public class MainMenu {
 						lt.adicionaInicio(setarTema());
 						lt.percorrer();
 						break;
-
 					case 2:
 						lt.adicionaFinal(setarTema());
 						lt.percorrer();
 						break;
-
 					case 3:
 						pos = Integer.parseInt(JOptionPane.showInputDialog("Informe uma posição para inserção: "));
 						lt.adicionaPosicao(setarTema(), pos);
 						break;
-
 					case 4:
 						JOptionPane.showMessageDialog(null,
 								"O elemento removido foi : " + lt.removeInicio().getNomeTema());
 						break;
-
 					case 5:
 						JOptionPane.showMessageDialog(null,
 								"O elemento removido foi : " + lt.removefinal().getNomeTema());
 						break;
-
 					case 6:
 						pos = Integer.parseInt(JOptionPane.showInputDialog("Digite uma posição para remoção"));
 						JOptionPane.showMessageDialog(null,
 								"O elemento removido foi: " + lt.removePosicao(pos).getIdTema());
 						break;
-
 					case 7:
 						lt.percorrer();
 						break;
-
 					case 0:
 						break;
-
 					}
 				} while (opc != 0);
 			}
@@ -85,48 +76,37 @@ public class MainMenu {
 							+ "2 - Adiciona Final \n" + "3 - Escolhe posição \n" + "4 - Remove Inicio \n"
 							+ "5 - Remove Final\n" + "6 - Ecsolhe posição para remover\n" + "7 - Exibir lista\n"
 							+ "0 - Voltar Menu Anterior"));
-
 					switch (opc) {
-
 					case 1:
 						lc2.adicionaInicio(setarCliente());
 						lc2.percorrer();
 						break;
-
 					case 2:
 						lc2.adicionaFinal(setarCliente());
 						break;
-
 					case 3:
 						pos = Integer.parseInt(JOptionPane.showInputDialog("Informe uma posição para inserção: "));
 						lc2.adicionaPosicao(setarCliente(), pos);
 						break;
-
 					case 4:
 						JOptionPane.showMessageDialog(null,
 								"O elemento removido foi : " + lc2.removeInicio().getNome());
 						break;
-
 					case 5:
-						JOptionPane.showMessageDialog(null, "O elemento removido foi : " + lc2.removefinal().getNome());
+						JOptionPane.showMessageDialog(null, "O elemento removido foi: " + lc2.removefinal().getNome());
 						break;
-
 					case 6:
-						pos = Integer.parseInt(JOptionPane.showInputDialog("Digite uma posição para remoção"));
+						pos = Integer.parseInt(JOptionPane.showInputDialog("Digite uma posição para remoção: "));
 						JOptionPane.showMessageDialog(null,
 								"O elemento removido foi: " + lc2.removePosicao(pos).getNome());
 						break;
-
 					case 7:
 						lt.percorrer();
 						break;
-
 					case 0:
 						break;
-
 					}
 				} while (opc != 0);
-
 			}
 
 			if (menuopc == 9) {
@@ -134,13 +114,12 @@ public class MainMenu {
 			}
 
 		} while (menuopc != 9);
-
 	}
 
 	public static Tema setarTema() {
 
-		String NomeTema = (JOptionPane.showInputDialog("Digite o nome :"));
-		int IdTema = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do tema : "));
+		String NomeTema = (JOptionPane.showInputDialog("Digite o nome: "));
+		int IdTema = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do tema: "));
 		double ValorDiaria = Double.parseDouble(JOptionPane.showInputDialog("Digite o valor da diária: "));
 
 		Tema tema = new Tema(IdTema, NomeTema, ValorDiaria);
@@ -163,5 +142,4 @@ public class MainMenu {
 
 		return cliente;
 	}
-
 }

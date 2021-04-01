@@ -20,7 +20,7 @@ public class ListaCliente {
 		NoCliente c = new NoCliente(n);
 		c.prox = inicio;
 		inicio = c;
-		GerarNotaFiscal(n);
+		criaListaCliente(n);
 	}
 
 	public void adicionaFinal(Cliente n) throws IOException {
@@ -37,7 +37,7 @@ public class ListaCliente {
 			aux.prox = c;
 			c.prox = null;
 		}
-		GerarNotaFiscal(n);
+		criaListaCliente(n);
 	}
 
 	public void adicionaPosicao(Cliente n, int pos) throws IOException {
@@ -57,7 +57,7 @@ public class ListaCliente {
 			if (cont == pos - 1) {
 				c.prox = aux.prox;
 				aux.prox = c;
-				GerarNotaFiscal(n);
+				criaListaCliente(n);
 			} else {
 				JOptionPane.showMessageDialog(null, "ERRO, Posição Inválida!");
 			}
@@ -166,10 +166,10 @@ public class ListaCliente {
 
 	}
 
-	private void GerarNotaFiscal(Cliente c) throws IOException {
-		// Cria nota fiscal em um arquivo que abre no bloco de notas no diretorio
-		// C:\\TEMP\\NotaFiscal se não ouver uma pasta dessas ele vai criar
-		// automaticamente
+	private void criaListaCliente(Cliente c) throws IOException {
+		// Cria  um arquivo que abre no bloco de notas 
+		// se não houver uma pasta dessas ele vai criar  automaticamente
+		
 		File dir = new File("C:\\Users\\Usuario\\Documents\\GitHub\\Projeto-ED-ESW2");
 		File arq = new File(dir, "ListaCliente.txt");
 		int i = -1;
@@ -181,7 +181,7 @@ public class ListaCliente {
 			JOptionPane.showMessageDialog(null, "Lista Criada");
 		}
 
-		String conteudo = preencheNota(c);
+		String conteudo = preencheListaCliente(c);
 		FileWriter fileWriter = new FileWriter(arq);
 		PrintWriter print = new PrintWriter(fileWriter);
 		print.write(conteudo);
@@ -191,7 +191,7 @@ public class ListaCliente {
 
 	}
 
-	private String preencheNota(Cliente c) throws IOException {
+	private String preencheListaCliente(Cliente c) throws IOException {
 
 		StringBuffer buffer = new StringBuffer();
 		String fileName = "ListaCliente.txt";
