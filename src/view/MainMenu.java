@@ -16,11 +16,7 @@ public class MainMenu {
 
 	public static void main(String[] args) throws IOException {
 
-<<<<<<< Updated upstream
 		int opc = 0, pos, menuopc;
-=======
-		public static void main(String[] args) throws IOException {
->>>>>>> Stashed changes
 
 		ListaTemas lt = new ListaTemas();
 		ListaCliente lc2 = new ListaCliente();

@@ -20,11 +20,7 @@ public class ListaCliente {
 		NoCliente c = new NoCliente(n);
 		c.prox = inicio;
 		inicio = c;
-<<<<<<< Updated upstream
 		GerarNotaFiscal(n);
-=======
-		 GerarListaCliente(n);
->>>>>>> Stashed changes
 	}
 
 	public void adicionaFinal(Cliente n) throws IOException {
@@ -41,11 +37,7 @@ public class ListaCliente {
 			aux.prox = c;
 			c.prox = null;
 		}
-<<<<<<< Updated upstream
 		GerarNotaFiscal(n);
-=======
-		 GerarListaCliente(n);
->>>>>>> Stashed changes
 	}
 
 	public void adicionaPosicao(Cliente n, int pos) throws IOException {
@@ -65,16 +57,11 @@ public class ListaCliente {
 			if (cont == pos - 1) {
 				c.prox = aux.prox;
 				aux.prox = c;
-<<<<<<< Updated upstream
 				GerarNotaFiscal(n);
-=======
-				 GerarListaCliente(n);
->>>>>>> Stashed changes
 			} else {
 				JOptionPane.showMessageDialog(null, "ERRO, Posição Inválida!");
 			}
 		}
-		
 	}
 
 	public Cliente removeInicio() {
@@ -178,56 +165,6 @@ public class ListaCliente {
 		}
 
 	}
-	
-	private void GerarListaCliente(Cliente c) throws IOException {
-		// Cria uma lista de clientes em um arquivo que abre no bloco de notas no diretorio
-		// C:\\TEMP\\NotaFiscal se não ouver uma pasta dessas ele vai criar
-		// automaticamente
-		File dir = new File("C:\\TEMP\\ListaCliente");
-		File arq = new File(dir, "ListaCliente.txt");
-		int i = -1;
-		
-
-		if (dir.exists() && dir.isDirectory()) {
-			System.out.println("Lista Pronta");
-		} else {
-			dir.mkdirs(); // cria uma pastase não existir, alterei mkdir para mkdirs
-			System.out.println("Lista Pronta");
-		}
-
-		String conteudo = preencheNota(c);
-		FileWriter fileWriter = new FileWriter(arq);
-		PrintWriter print = new PrintWriter(fileWriter);
-		print.write(conteudo);
-		print.flush();
-		print.close();
-		fileWriter.close();
-
-	}
-
-	private String preencheNota(Cliente c)
-			throws IOException {
-
-		StringBuffer buffer = new StringBuffer();
-		String fileName = "ListaCliente.txt";
-		BufferedWriter gravar = new BufferedWriter(new FileWriter(fileName)); // para gravar em um arquivo que aparece a
-																				// direita da tela
-		String linha = "";
-		linha = ("Cliente");
-		buffer.append(linha + "\n\r"); // vai adicionar as informações no arquivo.txt
-		gravar.write(linha);
-		gravar.newLine();
-		linha = ("ID: "+ c.getIdCliente() + "Cliente: " + c.getNome() + "    Endereço: " +c.getEndereco() + 
-				"CPF: " + c.getCPF() + "Data Nascimento: " + c.getDataNasc() + "data Cadastro: " + c.getDataCadastro() +
-				"Numero de Locações: " + c.getNumLocacoes());
-		buffer.append(linha + "\n\r");
-		gravar.write(linha);
-		gravar.newLine();
-		gravar.close();
-
-		return buffer.toString();
-	}
-
 
 	private void GerarNotaFiscal(Cliente c) throws IOException {
 		// Cria nota fiscal em um arquivo que abre no bloco de notas no diretorio
