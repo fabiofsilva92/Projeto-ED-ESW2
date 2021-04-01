@@ -74,7 +74,8 @@ public class MainMenu {
 				do {
 					opc = Integer.parseInt(JOptionPane.showInputDialog("1 - Adiciona Inicio \n"
 							+ "2 - Adiciona Final \n" + "3 - Escolhe posição \n" + "4 - Remove Inicio \n"
-							+ "5 - Remove Final\n" + "6 - Ecsolhe posição para remover\n" + "7 - Exibir lista\n"
+							+ "5 - Remove Final\n" + "6 - Ecsolhe posição para remover\n" + "7 - Exibir lista\n" +
+							"8 - Remove lista\n"
 							+ "0 - Voltar Menu Anterior"));
 					switch (opc) {
 					case 1:
@@ -99,6 +100,7 @@ public class MainMenu {
 						pos = Integer.parseInt(JOptionPane.showInputDialog("Digite uma posição para remoção: "));
 						JOptionPane.showMessageDialog(null,
 								"O elemento removido foi: " + lc2.removePosicao(pos).getNome());
+//						lc2.removeClienteLista(lc2.removePosicao(pos).getNome());
 						break;
 					case 7:
 						lt.percorrer();

@@ -1,8 +1,3 @@
-<<<<<<< Updated upstream
 Clientes
-ID Cliente: 11, Cliente: 11, Endereço: 11, CPF: 11, Data de Nascimento: 11, Data de cadastro: 11, Numero de Locaçoes: 1
-
-=======
-Cliente
-ID: 11Cliente: aa    Endereço: CPF: Data Nascimento: data Cadastro:  Numero de Locações: 0
->>>>>>> Stashed changes
+ID Cliente: 22, Cliente: 22, Endereço: 22, CPF: 22, Data de Nascimento: 22, Data de cadastro: 22, Numero de Locaçoes: 1
+

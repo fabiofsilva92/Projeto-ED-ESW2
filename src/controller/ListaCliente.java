@@ -1,7 +1,10 @@
 package controller;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -144,32 +147,10 @@ public class ListaCliente {
 		return c;
 	}
 
-	public void percorrer() {
-
-		NoCliente aux = inicio;
-		StringBuilder s = new StringBuilder();
-		if (aux == null) {
-			JOptionPane.showMessageDialog(null, "ERRO, Lista Vázia");
-		} else {
-			while (aux != null) {
-
-				s.append("ID: " + aux.cliente.getIdCliente() + ", Nome: " + aux.cliente.getNome() + ", Endereço: "
-						+ aux.cliente.getEndereco() + ", CPF: " + aux.cliente.getCPF() + ", Data nascimento: "
-						+ aux.cliente.getDataNasc() + ", Data Cadastro: " + aux.cliente.getDataCadastro()
-						+ ", Numero locações: " + aux.cliente.getNumLocacoes() + "\n");
-
-				aux = aux.prox;
-			}
-
-			JOptionPane.showMessageDialog(null, s.toString());
-		}
-
-	}
-
 	private void criaListaCliente(Cliente c) throws IOException {
-		// Cria  um arquivo que abre no bloco de notas 
-		// se não houver uma pasta dessas ele vai criar  automaticamente
-		
+		// Cria um arquivo que abre no bloco de notas
+		// se não houver uma pasta dessas ele vai criar automaticamente
+
 		File dir = new File("C:\\Users\\Usuario\\Documents\\GitHub\\Projeto-ED-ESW2");
 		File arq = new File(dir, "ListaCliente.txt");
 		int i = -1;
@@ -212,5 +193,68 @@ public class ListaCliente {
 
 		return buffer.toString();
 	}
+
+	public void percorrer() {
+
+		NoCliente aux = inicio;
+		StringBuilder s = new StringBuilder();
+		if (aux == null) {
+			JOptionPane.showMessageDialog(null, "ERRO, Lista Vázia");
+		} else {
+			while (aux != null) {
+
+				s.append("ID: " + aux.cliente.getIdCliente() + ", Nome: " + aux.cliente.getNome() + ", Endereço: "
+						+ aux.cliente.getEndereco() + ", CPF: " + aux.cliente.getCPF() + ", Data nascimento: "
+						+ aux.cliente.getDataNasc() + ", Data Cadastro: " + aux.cliente.getDataCadastro()
+						+ ", Numero locações: " + aux.cliente.getNumLocacoes() + "\n");
+
+				aux = aux.prox;
+			}
+
+			JOptionPane.showMessageDialog(null, s.toString());
+		}
+
+	}
+
+//	public void removeClienteLista( String n) throws IOException {
+//
+//		String fileName = "ListaCliente.txt";
+//		BufferedReader ler = new BufferedReader(new FileReader(fileName));
+//		StringBuilder s = new StringBuilder();
+//
+//		String linha = ler.readLine();
+//		NoCliente aux = inicio;
+//		
+//		
+//		
+//		while (linha != null) {
+//
+//			if (linha.equals()== false) {
+//				s.append("ID: " + aux.cliente.getIdCliente() + ", Nome: " + aux.cliente.getNome() + ", Endereço: "
+//						+ aux.cliente.getEndereco() + ", CPF: " + aux.cliente.getCPF() + ", Data nascimento: "
+//						+ aux.cliente.getDataNasc() + ", Data Cadastro: " + aux.cliente.getDataCadastro()
+//						+ ", Numero locações: " + aux.cliente.getNumLocacoes() + "\n");
+//
+//			}
+//			aux = aux.prox;
+//			linha = ler.readLine();
+//		}
+//				
+//		ler.close();
+//		FileWriter writer = new FileWriter(fileName, true);
+//		writer.close();
+//		
+//		FileWriter writer2 = new FileWriter(fileName, true);
+//		BufferedWriter bw = new BufferedWriter(writer2);
+//		
+//		while(s != null) {
+//			bw.write("ID: " + aux.cliente.getIdCliente() + ", Nome: " + aux.cliente.getNome() + ", Endereço: "
+//					+ aux.cliente.getEndereco() + ", CPF: " + aux.cliente.getCPF() + ", Data nascimento: "
+//					+ aux.cliente.getDataNasc() + ", Data Cadastro: " + aux.cliente.getDataCadastro()
+//					+ ", Numero locações: " + aux.cliente.getNumLocacoes() + "\n");
+//
+//		}
+//		
+//	}
 
 }
