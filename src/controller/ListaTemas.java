@@ -1,7 +1,9 @@
 package controller;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,6 +17,16 @@ public class ListaTemas {
 	public ListaTemas() {
 		this.inicio = null;
 	}
+	
+
+	//Tive que criar este metodo pois os outros metodos adiciona, envia para a lista csv, 
+	//podemos melhorar depois esse metodo. E apenas adicionar no final  
+	public void adicionaCarregamentoCSV(Tema n) throws IOException {
+		NoTema c = new NoTema(n);
+		c.prox = inicio;
+		inicio = c;
+	}
+	
 
 	public void adicionaInicio(Tema n) throws IOException {
 		NoTema c = new NoTema(n);
@@ -164,23 +176,21 @@ public class ListaTemas {
 		}
 	}
 	
-	private void criaListaTema(Tema t) throws IOException {
-		// Cria  um arquivo que abre no bloco de notas 
-		// se não houver uma pasta dessas ele vai criar  automaticamente
+	// Cria um arquivo que abre no excel
+	// se não houver uma diretorio  e arquivo ele vai criar automaticamente
+	private void criaListaTema(Tema c) throws IOException {
 		
-		File dir = new File("C:\\Users\\Usuario\\Documents\\GitHub\\Projeto-ED-ESW2");
-		File arq = new File(dir, "ListaCliente.txt");
-		int i = -1;
+		File dir = new File("C:\\Users\\Usuario\\Documents\\GitHub\\Projeto-ED-ESW2\\");
+		File arq = new File(dir, "ListaTema.csv");
 
 		if (dir.exists() && dir.isDirectory()) {
-			JOptionPane.showMessageDialog(null, "Lista Preenchida Criada");
+			JOptionPane.showMessageDialog(null, "Lista Tema Preenchida Criada");
 		} else {
-			dir.mkdirs(); // cria uma pastase não existir, alterei mkdir para mkdirs
-			JOptionPane.showMessageDialog(null, "Lista Criada");
+			dir.mkdirs(); // cria uma pasta se não existir, alterei mkdir para mkdirs
 		}
 
-		String conteudo = preencheListaTema(t);
-		FileWriter fileWriter = new FileWriter(arq);
+		String conteudo = preencheListaTema(c);
+		FileWriter fileWriter = new FileWriter(arq, true);
 		PrintWriter print = new PrintWriter(fileWriter);
 		print.write(conteudo);
 		print.flush();
@@ -188,25 +198,64 @@ public class ListaTemas {
 		fileWriter.close();
 
 	}
-
+	
+	//A cada adição  de temas, é chamado o metodo criaLista que chama este, e não sobrescreve o que já existe
 	private String preencheListaTema(Tema t) throws IOException {
 
 		StringBuffer buffer = new StringBuffer();
-		String fileName = "ListaCliente.txt";
-		BufferedWriter gravar = new BufferedWriter(new FileWriter(fileName)); // para gravar em um arquivo que aparece a
 																				// esquerda da tela
 		String linha = "";
-		linha = ("Clientes");
-		buffer.append(linha + "\n\r"); // vai adicionar as informações no arquivo.txt
-		gravar.write(linha);
-		gravar.newLine();
-		linha = ("ID Tema: " + t.getIdTema() + "Nome Tema: " + t.getNomeTema() + "Valor Diaria: " + t.getValorDiaria());
-		buffer.append(linha + "\n\r");
-		gravar.write(linha);
-		gravar.newLine();
-		gravar.close();
-
+		linha = ("ID Tema:" + t.getIdTema() + ";Nome Tema:" + t.getNomeTema() + ";Valor Diaria:" + t.getValorDiaria());
+		buffer.append(linha + "\r");
+		
 		return buffer.toString();
+	}
+	
+	public Tema carregarListaTema(ListaTemas lt) throws IOException {
+		
+		Tema tema= null;
+		File dir = new File("C:\\Users\\Usuario\\Documents\\GitHub\\Projeto-ED-ESW2");
+		File arq = new File(dir, "ListaTema.csv");
+
+		FileReader ler = new FileReader(arq);
+		BufferedReader buffer = new BufferedReader(ler);
+		String linha = "";
+
+		linha = buffer.readLine();
+
+		while (linha != null) {
+			lt.adicionaCarregamentoCSV(dividelinha(linha));			
+			linha = buffer.readLine();
+		}
+
+		ler.close();
+		buffer.close();
+		
+		return tema;
+
+	}
+
+	//Este metodo recebe uma linha de elementos, separa eles pelo ; deixando o nome e o atibuto
+	//depois separa o nome e deixa apenas o atributo
+	private static Tema dividelinha(String linha) throws IOException {
+		
+		String[] divideLinha = linha.split(";"); //Os itens das colunas vem todos na mesma linha separado pelo ;
+		String[] divideAtributo;				//Dessa maneira é dividido e criado um array de elementos
+		
+		divideAtributo = divideLinha[0].split(":");//Apos a separacão ele vira um array, com o nome do atributo e seu valor
+		int idTema = Integer.parseInt(divideAtributo[1]);//Esse segundo split deixa apenas o valor
+		
+		divideAtributo = divideLinha[1].split(":");
+		String nomeTema = (divideAtributo[1]);
+		
+		divideAtributo = divideLinha[2].split(":");
+		Double valorDiaria = Double.parseDouble(divideAtributo[1]);
+		
+
+		Tema tema = new Tema(idTema, nomeTema, valorDiaria);
+
+		return tema;
+
 	}
 
 }

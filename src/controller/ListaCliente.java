@@ -156,11 +156,35 @@ public class ListaCliente {
 		}
 		return c;
 	}
+	
+		
+	//Percorre a lista e exibe na tela 
+	public void percorrer() {
 
+		NoCliente aux = inicio;
+		StringBuilder s = new StringBuilder();
+		if (aux == null) {
+			JOptionPane.showMessageDialog(null, "ERRO, Lista Vázia");
+		} else {
+			while (aux != null) {
+
+				s.append("ID: " + aux.cliente.getIdCliente() + ", Nome: " + aux.cliente.getNome() + ", Endereço: "
+						+ aux.cliente.getEndereco() + ", CPF: " + aux.cliente.getCPF() + ", Data nascimento: "
+						+ aux.cliente.getDataNasc() + ", Data Cadastro: " + aux.cliente.getDataCadastro()
+						+ ", Numero locações: " + aux.cliente.getNumLocacoes() + "\n");
+
+				aux = aux.prox;
+			}
+
+			JOptionPane.showMessageDialog(null, s.toString());
+		}
+
+	}
+	
+	// Cria um arquivo que abre no excel
+	// se não houver uma diretorio  e arquivo ele vai criar automaticamente
 	private void criaListaCliente(Cliente c) throws IOException {
-		// Cria um arquivo que abre no bloco de notas
-		// se não houver uma pasta dessas ele vai criar automaticamente
-
+		
 		File dir = new File("C:\\Users\\Usuario\\Documents\\GitHub\\Projeto-ED-ESW2\\");
 		File arq = new File(dir, "ListaCliente.csv");
 
@@ -182,83 +206,24 @@ public class ListaCliente {
 
 	}
 
-	//preenche no arquivo csv, apenas os valores dos atributos
-	private String preencheListaCliente(Cliente c) throws IOException {
-
-		StringBuffer buffer = new StringBuffer();
-
-		String linha = "";
-		linha = (c.getIdCliente() + ";" + c.getNome() + ";" + c.getEndereco() + ";" + c.getCPF() + ";" + c.getDataNasc()
-				+ ";" + c.getDataCadastro() + ";" + c.getNumLocacoes());
-		buffer.append(linha + "\r");
-
-		return buffer.toString();
-	}
-
-	public void percorrer() {
-
-		NoCliente aux = inicio;
-		StringBuilder s = new StringBuilder();
-		if (aux == null) {
-			JOptionPane.showMessageDialog(null, "ERRO, Lista Vázia");
-		} else {
-			while (aux != null) {
-
-				s.append("ID: " + aux.cliente.getIdCliente() + "; Nome: " + aux.cliente.getNome() + "; Endereço: "
-						+ aux.cliente.getEndereco() + "; CPF: " + aux.cliente.getCPF() + ", Data nascimento: "
-						+ aux.cliente.getDataNasc() + "; Data Cadastro: " + aux.cliente.getDataCadastro()
-						+ "; Numero locações: " + aux.cliente.getNumLocacoes() + "\n");
-
-				aux = aux.prox;
-			}
-
-			JOptionPane.showMessageDialog(null, s.toString());
-		}
-
-	}
-
-	// ainda vou melhorar, nem esta sendo usado
-	public void removeClienteLista(int pos) throws IOException {
-		int cont = 0;
-		String fileName = "ListaCliente.csv";
-		BufferedReader ler = new BufferedReader(new FileReader(fileName));
-		StringBuilder s = new StringBuilder();
-
-		String linha = ler.readLine();
-		NoCliente aux = inicio;
-
-		while (linha != null) {
-
-			if (pos != cont) {
-				s.append("ID: " + aux.cliente.getIdCliente() + "; Nome: " + aux.cliente.getNome() + "; Endereço: "
-						+ aux.cliente.getEndereco() + "; CPF: " + aux.cliente.getCPF() + "; Data nascimento: "
-						+ aux.cliente.getDataNasc() + "; Data Cadastro: " + aux.cliente.getDataCadastro()
-						+ "; Numero locações: " + aux.cliente.getNumLocacoes());
-			}
-			linha = ler.readLine();
-			cont++;
-		}
-
-		ler.close();
-		FileWriter writer = new FileWriter(fileName, true);
-		writer.close();
-
-		FileWriter writer2 = new FileWriter(fileName, true);
-		BufferedWriter bw = new BufferedWriter(writer2);
-
-		while (s != null) {
-			bw.write("ID: " + aux.cliente.getIdCliente() + "; Nome: " + aux.cliente.getNome() + "; Endereço: "
-					+ aux.cliente.getEndereco() + "; CPF: " + aux.cliente.getCPF() + "; Data nascimento: "
-					+ aux.cliente.getDataNasc() + "; Data Cadastro: " + aux.cliente.getDataCadastro()
-					+ "; Numero locações: " + aux.cliente.getNumLocacoes());
-
-		}
-
-	}
-
 	
-	//Carrega a lista do arquivo .csv, mas ele vem como uma lista de elementos separados por ;
-	//com o metodo divide linha ele separa
+	
+	//A cada adição  de temas, é chamado o metodo criaLista que chama este, e não sobrescreve o que já existe
+		private String preencheListaCliente(Cliente c) throws IOException {
+
+			StringBuffer buffer = new StringBuffer();
+
+			String linha = "";
+			linha = ("ID:" + c.getIdCliente() + ";Nome:" + c.getNome() + ";Endereço:" + c.getEndereco() + ";CPF:" + c.getCPF() + ";Data nascimento:" + c.getDataNasc()
+					+ ";Data Cadastro:" + c.getDataCadastro() + ";Numero locações:" + c.getNumLocacoes());
+			buffer.append(linha + "\r");
+
+			return buffer.toString();
+		}
+
+
+	//Carrega o arquivo e vai lendo linha por linha
+	//A cada linha ele chama o metodo divideLinha para fazer o tratamento
 	public  Cliente carregarLista(ListaCliente lc2) throws IOException {
 		
 		Cliente cliente = null;
@@ -272,8 +237,7 @@ public class ListaCliente {
 		linha = buffer.readLine();
 
 		while (linha != null) {
-			lc2.adicionaInicio(dividelinha(linha));
-			
+			lc2.adicionaCarregamentoCSV(dividelinha(linha));			
 			linha = buffer.readLine();
 		}
 
@@ -284,22 +248,78 @@ public class ListaCliente {
 
 	}
 
-	//Este metodo recebe uma linha de elementos, separa eles pelo ; e insere nos atributos 
+	//Este metodo recebe uma linha de elementos, separa eles pelo ; deixando o nome e o atibuto
+	//depois separa o nome e deixa apenas o atributo
 	private static Cliente dividelinha(String linha) throws IOException {
 		
-		String[] divideLinha = linha.split(";"); //dividndo os elementos em um array
-		System.out.println((divideLinha[0]));
-		int IdCliente = Integer.parseInt(divideLinha[0]);
-		String Nome = (divideLinha[1]);
-		String Endereco = (divideLinha[2]);
-		String CPF = (divideLinha[3]);
-		String DataNasc = (divideLinha[4]);
-		String DataCadastro = (divideLinha[5]);
-		int NumLocacoes = Integer.parseInt(divideLinha[6]);
+		String[] divideLinha = linha.split(";"); //Os itens das colunas vem todos na mesma linha separado pelo ;
+		String[] divideAtributo;				//Dessa maneira é dividido e criado um array de elementos
+		
+		divideAtributo = divideLinha[0].split(":");//Apos a separacão ele vira um array, com o nome do atributo e seu valor
+		int IdCliente = Integer.parseInt(divideAtributo[1]);//Esse segundo split deixa apenas o valor
+		
+		divideAtributo = divideLinha[1].split(":");
+		String Nome = (divideAtributo[1]);
+		
+		divideAtributo = divideLinha[2].split(":");
+		String Endereco = (divideAtributo[1]);
+		
+		divideAtributo = divideLinha[3].split(":");
+		String CPF = (divideAtributo[1]);
+		
+		divideAtributo = divideLinha[4].split(":");
+		String DataNasc = (divideAtributo[1]);
+		
+		divideAtributo = divideLinha[5].split(":");
+		String DataCadastro = (divideAtributo[1]);
+		
+		divideAtributo = divideLinha[6].split(":");
+		int NumLocacoes = Integer.parseInt(divideAtributo[1]);
 
 		Cliente cliente = new Cliente(IdCliente, Nome, Endereco, CPF, DataNasc, DataCadastro, NumLocacoes);
 
 		return cliente;
 
 	}
+	
+	
+//	// ainda vou melhorar, não esta sendo usado
+//	public void removeClienteLista(int pos) throws IOException {
+//		int cont = 0;
+//		String fileName = "ListaCliente.csv";
+//		BufferedReader ler = new BufferedReader(new FileReader(fileName));
+//		StringBuilder s = new StringBuilder();
+//
+//		String linha = ler.readLine();
+//		NoCliente aux = inicio;
+//
+//		while (linha != null) {
+//
+//			if (pos != cont) {
+//				s.append("ID:" + aux.cliente.getIdCliente() + ";Nome:" + aux.cliente.getNome() + ";Endereço:"
+//						+ aux.cliente.getEndereco() + ";CPF:" + aux.cliente.getCPF() + ";Data nascimento:"
+//						+ aux.cliente.getDataNasc() + "; Data Cadastro: " + aux.cliente.getDataCadastro()
+//						+ ";Numero locações:" + aux.cliente.getNumLocacoes());
+//			}
+//			linha = ler.readLine();
+//			cont++;
+//		}
+//
+//		ler.close();
+//		FileWriter writer = new FileWriter(fileName, true);
+//		writer.close();
+//
+//		FileWriter writer2 = new FileWriter(fileName, true);
+//		BufferedWriter bw = new BufferedWriter(writer2);
+//
+//		while (s != null) {
+//			bw.write("ID:" + aux.cliente.getIdCliente() + ";Nome:" + aux.cliente.getNome() + ";Endereço:"
+//					+ aux.cliente.getEndereco() + ";CPF:" + aux.cliente.getCPF() + ";Data nascimento:"
+//					+ aux.cliente.getDataNasc() + ";Data Cadastro:" + aux.cliente.getDataCadastro()
+//					+ ";Numero locações:" + aux.cliente.getNumLocacoes());
+//
+//		}
+//
+//	}
+
 }
