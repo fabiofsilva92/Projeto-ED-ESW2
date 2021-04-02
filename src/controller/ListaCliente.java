@@ -19,6 +19,15 @@ public class ListaCliente {
 		this.inicio = null;
 	}
 
+	
+	//Tive que criar este metodo pois os outros metodos de adicionas, envia para a loista csv, 
+	//podemos melhorar depois esse metodo. E apenas adicionar os clientes  quando for percorrer  
+	public void adicionaCarregamentoCSV(Cliente n) throws IOException {
+		NoCliente c = new NoCliente(n);
+		c.prox = inicio;
+		inicio = c;
+	}
+	
 	public void adicionaInicio(Cliente n) throws IOException {
 		NoCliente c = new NoCliente(n);
 		c.prox = inicio;
@@ -140,6 +149,7 @@ public class ListaCliente {
 
 					c = aux.cliente;
 					aux2.prox = aux.prox;
+
 					return c;
 				}
 			}
@@ -151,19 +161,19 @@ public class ListaCliente {
 		// Cria um arquivo que abre no bloco de notas
 		// se não houver uma pasta dessas ele vai criar automaticamente
 
-		File dir = new File("C:\\Users\\Usuario\\Documents\\GitHub\\Projeto-ED-ESW2");
-		File arq = new File(dir, "ListaCliente.txt");
-		int i = -1;
+		File dir = new File("C:\\Users\\Usuario\\Documents\\GitHub\\Projeto-ED-ESW2\\");
+		File arq = new File(dir, "ListaCliente.csv");
 
 		if (dir.exists() && dir.isDirectory()) {
 			JOptionPane.showMessageDialog(null, "Lista Preenchida Criada");
+
 		} else {
-			dir.mkdirs(); // cria uma pastase não existir, alterei mkdir para mkdirs
-			JOptionPane.showMessageDialog(null, "Lista Criada");
+			dir.mkdirs(); // cria uma pasta se não existir, alterei mkdir para mkdirs
+
 		}
 
 		String conteudo = preencheListaCliente(c);
-		FileWriter fileWriter = new FileWriter(arq);
+		FileWriter fileWriter = new FileWriter(arq, true);
 		PrintWriter print = new PrintWriter(fileWriter);
 		print.write(conteudo);
 		print.flush();
@@ -172,24 +182,15 @@ public class ListaCliente {
 
 	}
 
+	//preenche no arquivo csv, apenas os valores dos atributos
 	private String preencheListaCliente(Cliente c) throws IOException {
 
 		StringBuffer buffer = new StringBuffer();
-		String fileName = "ListaCliente.txt";
-		BufferedWriter gravar = new BufferedWriter(new FileWriter(fileName)); // para gravar em um arquivo que aparece a
-																				// esquerda da tela
+
 		String linha = "";
-		linha = ("Clientes");
-		buffer.append(linha + "\n\r"); // vai adicionar as informações no arquivo.txt
-		gravar.write(linha);
-		gravar.newLine();
-		linha = ("ID Cliente: " + c.getIdCliente() + ", Cliente: " + c.getNome() + ", Endereço: " + c.getEndereco()
-				+ ", CPF: " + c.getCPF() + ", Data de Nascimento: " + c.getDataNasc() + ", Data de cadastro: "
-				+ c.getDataCadastro() + ", Numero de Locaçoes: " + c.getNumLocacoes());
-		buffer.append(linha + "\n\r");
-		gravar.write(linha);
-		gravar.newLine();
-		gravar.close();
+		linha = (c.getIdCliente() + ";" + c.getNome() + ";" + c.getEndereco() + ";" + c.getCPF() + ";" + c.getDataNasc()
+				+ ";" + c.getDataCadastro() + ";" + c.getNumLocacoes());
+		buffer.append(linha + "\r");
 
 		return buffer.toString();
 	}
@@ -203,10 +204,10 @@ public class ListaCliente {
 		} else {
 			while (aux != null) {
 
-				s.append("ID: " + aux.cliente.getIdCliente() + ", Nome: " + aux.cliente.getNome() + ", Endereço: "
-						+ aux.cliente.getEndereco() + ", CPF: " + aux.cliente.getCPF() + ", Data nascimento: "
-						+ aux.cliente.getDataNasc() + ", Data Cadastro: " + aux.cliente.getDataCadastro()
-						+ ", Numero locações: " + aux.cliente.getNumLocacoes() + "\n");
+				s.append("ID: " + aux.cliente.getIdCliente() + "; Nome: " + aux.cliente.getNome() + "; Endereço: "
+						+ aux.cliente.getEndereco() + "; CPF: " + aux.cliente.getCPF() + ", Data nascimento: "
+						+ aux.cliente.getDataNasc() + "; Data Cadastro: " + aux.cliente.getDataCadastro()
+						+ "; Numero locações: " + aux.cliente.getNumLocacoes() + "\n");
 
 				aux = aux.prox;
 			}
@@ -216,45 +217,89 @@ public class ListaCliente {
 
 	}
 
-//	public void removeClienteLista( String n) throws IOException {
-//
-//		String fileName = "ListaCliente.txt";
-//		BufferedReader ler = new BufferedReader(new FileReader(fileName));
-//		StringBuilder s = new StringBuilder();
-//
-//		String linha = ler.readLine();
-//		NoCliente aux = inicio;
-//		
-//		
-//		
-//		while (linha != null) {
-//
-//			if (linha.equals()== false) {
-//				s.append("ID: " + aux.cliente.getIdCliente() + ", Nome: " + aux.cliente.getNome() + ", Endereço: "
-//						+ aux.cliente.getEndereco() + ", CPF: " + aux.cliente.getCPF() + ", Data nascimento: "
-//						+ aux.cliente.getDataNasc() + ", Data Cadastro: " + aux.cliente.getDataCadastro()
-//						+ ", Numero locações: " + aux.cliente.getNumLocacoes() + "\n");
-//
-//			}
-//			aux = aux.prox;
-//			linha = ler.readLine();
-//		}
-//				
-//		ler.close();
-//		FileWriter writer = new FileWriter(fileName, true);
-//		writer.close();
-//		
-//		FileWriter writer2 = new FileWriter(fileName, true);
-//		BufferedWriter bw = new BufferedWriter(writer2);
-//		
-//		while(s != null) {
-//			bw.write("ID: " + aux.cliente.getIdCliente() + ", Nome: " + aux.cliente.getNome() + ", Endereço: "
-//					+ aux.cliente.getEndereco() + ", CPF: " + aux.cliente.getCPF() + ", Data nascimento: "
-//					+ aux.cliente.getDataNasc() + ", Data Cadastro: " + aux.cliente.getDataCadastro()
-//					+ ", Numero locações: " + aux.cliente.getNumLocacoes() + "\n");
-//
-//		}
-//		
-//	}
+	// ainda vou melhorar, nem esta sendo usado
+	public void removeClienteLista(int pos) throws IOException {
+		int cont = 0;
+		String fileName = "ListaCliente.csv";
+		BufferedReader ler = new BufferedReader(new FileReader(fileName));
+		StringBuilder s = new StringBuilder();
 
+		String linha = ler.readLine();
+		NoCliente aux = inicio;
+
+		while (linha != null) {
+
+			if (pos != cont) {
+				s.append("ID: " + aux.cliente.getIdCliente() + "; Nome: " + aux.cliente.getNome() + "; Endereço: "
+						+ aux.cliente.getEndereco() + "; CPF: " + aux.cliente.getCPF() + "; Data nascimento: "
+						+ aux.cliente.getDataNasc() + "; Data Cadastro: " + aux.cliente.getDataCadastro()
+						+ "; Numero locações: " + aux.cliente.getNumLocacoes());
+			}
+			linha = ler.readLine();
+			cont++;
+		}
+
+		ler.close();
+		FileWriter writer = new FileWriter(fileName, true);
+		writer.close();
+
+		FileWriter writer2 = new FileWriter(fileName, true);
+		BufferedWriter bw = new BufferedWriter(writer2);
+
+		while (s != null) {
+			bw.write("ID: " + aux.cliente.getIdCliente() + "; Nome: " + aux.cliente.getNome() + "; Endereço: "
+					+ aux.cliente.getEndereco() + "; CPF: " + aux.cliente.getCPF() + "; Data nascimento: "
+					+ aux.cliente.getDataNasc() + "; Data Cadastro: " + aux.cliente.getDataCadastro()
+					+ "; Numero locações: " + aux.cliente.getNumLocacoes());
+
+		}
+
+	}
+
+	
+	//Carrega a lista do arquivo .csv, mas ele vem como uma lista de elementos separados por ;
+	//com o metodo divide linha ele separa
+	public  Cliente carregarLista(ListaCliente lc2) throws IOException {
+		
+		Cliente cliente = null;
+		File dir = new File("C:\\Users\\Usuario\\Documents\\GitHub\\Projeto-ED-ESW2");
+		File arq = new File(dir, "ListaCliente.csv");
+
+		FileReader ler = new FileReader(arq);
+		BufferedReader buffer = new BufferedReader(ler);
+		String linha = "";
+
+		linha = buffer.readLine();
+
+		while (linha != null) {
+			lc2.adicionaInicio(dividelinha(linha));
+			
+			linha = buffer.readLine();
+		}
+
+		ler.close();
+		buffer.close();
+		
+		return cliente;
+
+	}
+
+	//Este metodo recebe uma linha de elementos, separa eles pelo ; e insere nos atributos 
+	private static Cliente dividelinha(String linha) throws IOException {
+		
+		String[] divideLinha = linha.split(";"); //dividndo os elementos em um array
+		System.out.println((divideLinha[0]));
+		int IdCliente = Integer.parseInt(divideLinha[0]);
+		String Nome = (divideLinha[1]);
+		String Endereco = (divideLinha[2]);
+		String CPF = (divideLinha[3]);
+		String DataNasc = (divideLinha[4]);
+		String DataCadastro = (divideLinha[5]);
+		int NumLocacoes = Integer.parseInt(divideLinha[6]);
+
+		Cliente cliente = new Cliente(IdCliente, Nome, Endereco, CPF, DataNasc, DataCadastro, NumLocacoes);
+
+		return cliente;
+
+	}
 }

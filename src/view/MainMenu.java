@@ -1,5 +1,8 @@
 package view;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 
 import javax.swing.JOptionPane;
@@ -74,8 +77,8 @@ public class MainMenu {
 				do {
 					opc = Integer.parseInt(JOptionPane.showInputDialog("1 - Adiciona Inicio \n"
 							+ "2 - Adiciona Final \n" + "3 - Escolhe posição \n" + "4 - Remove Inicio \n"
-							+ "5 - Remove Final\n" + "6 - Ecsolhe posição para remover\n" + "7 - Exibir lista\n" +
-							"8 - Remove lista\n"
+							+ "5 - Remove Final\n" + "6 - Escolhe posição para remover\n" + "7 - Exibir lista\n" +
+							"8 - Remove lista\n" + "9 - Carregar Lista\n"
 							+ "0 - Voltar Menu Anterior"));
 					switch (opc) {
 					case 1:
@@ -100,15 +103,21 @@ public class MainMenu {
 						pos = Integer.parseInt(JOptionPane.showInputDialog("Digite uma posição para remoção: "));
 						JOptionPane.showMessageDialog(null,
 								"O elemento removido foi: " + lc2.removePosicao(pos).getNome());
-//						lc2.removeClienteLista(lc2.removePosicao(pos).getNome());
+						lc2.removeClienteLista(pos);
 						break;
 					case 7:
-						lt.percorrer();
+						lc2.percorrer();
+						break;
+//					case 8: // tem que continuar este metodo, estava no menu 
+//						break;
+					case 9: //metodo carrega lista, envia um obejto para poder dar certo e carregar em um objeto dessa classe.
+						lc2.carregarLista(lc2);
 						break;
 					case 0:
 						break;
 					}
 				} while (opc != 0);
+				
 			}
 
 			if (menuopc == 9) {
@@ -144,4 +153,7 @@ public class MainMenu {
 
 		return cliente;
 	}
+
+	
+	
 }
