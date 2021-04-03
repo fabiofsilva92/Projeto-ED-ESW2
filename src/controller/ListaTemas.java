@@ -32,7 +32,7 @@ public class ListaTemas {
 		NoTema c = new NoTema(n);
 		c.prox = inicio;
 		inicio = c;
-		criaListaTema(n);
+		//criaListaTema(n);
 	}
 
 	public void adicionaFinal(Tema n) throws IOException {
@@ -40,7 +40,7 @@ public class ListaTemas {
 			NoTema c = new NoTema(n);
 			inicio = c;
 			c.prox = null;
-			criaListaTema(n);
+			//criaListaTema(n);
 		} else {
 			NoTema aux = inicio;
 			while (aux.prox != null) {
@@ -49,7 +49,7 @@ public class ListaTemas {
 			NoTema c = new NoTema(n);
 			aux.prox = c;
 			c.prox = null;
-			criaListaTema(n);
+			//criaListaTema(n);
 		}
 	}
 
@@ -70,7 +70,7 @@ public class ListaTemas {
 			if (cont == pos - 1) {
 				c.prox = aux.prox;
 				aux.prox = c;
-				criaListaTema(n);
+				//criaListaTema(n);
 			} else {
 				JOptionPane.showMessageDialog(null, "ERRO, Posição Inválida!");
 			}
@@ -158,7 +158,12 @@ public class ListaTemas {
 	}
 
 	public void percorrer() {
-
+		
+		//O arquivo será criado toda vez que percorrer, dessa forma a ordem se manterá conforme as inserções.
+		File arquivo = new File("ListaTema.csv");
+		boolean success = (arquivo).delete();
+		System.out.println(success);
+		
 		NoTema aux = inicio;
 		StringBuilder s = new StringBuilder();
 		if (aux == null) {
@@ -168,11 +173,15 @@ public class ListaTemas {
 
 				s.append("ID: " + aux.tema.getIdTema() + ", Nome: " + aux.tema.getNomeTema() + ", Valor da Diária: R$"
 						+ aux.tema.getValorDiaria()+" \n");
-
+				try {
+					criaListaTema(aux.tema);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				aux = aux.prox;
 			}
-
-			JOptionPane.showMessageDialog(null, s.toString());
+			JOptionPane.showMessageDialog(null, "Lista de temas já disponíveis : \n"+s.toString());
 		}
 	}
 	
@@ -180,12 +189,15 @@ public class ListaTemas {
 	// se não houver uma diretorio  e arquivo ele vai criar automaticamente
 	private void criaListaTema(Tema c) throws IOException {
 		
-		File dir = new File("C:\\Users\\Usuario\\Documents\\GitHub\\Projeto-ED-ESW2\\");
+		String userName = System.getProperty("user.name");
+		//System.out.println(userName);
+		String diretorio = System.getProperty("user.dir");
+		//System.out.println(diretorio);
+		
+		File dir = new File(diretorio);
 		File arq = new File(dir, "ListaTema.csv");
 
-		if (dir.exists() && dir.isDirectory()) {
-			JOptionPane.showMessageDialog(null, "Lista Tema Preenchida Criada");
-		} else {
+		if (!dir.exists() && !dir.isDirectory()) {
 			dir.mkdirs(); // cria uma pasta se não existir, alterei mkdir para mkdirs
 		}
 
@@ -213,8 +225,12 @@ public class ListaTemas {
 	
 	public Tema carregarListaTema(ListaTemas lt) throws IOException {
 		
+		//String userName = System.getProperty("user.name");
+		String diretorio = System.getProperty("user.dir");
+		
+		
 		Tema tema= null;
-		File dir = new File("C:\\Users\\Usuario\\Documents\\GitHub\\Projeto-ED-ESW2");
+		File dir = new File(diretorio);
 		File arq = new File(dir, "ListaTema.csv");
 
 		FileReader ler = new FileReader(arq);
