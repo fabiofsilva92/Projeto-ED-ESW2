@@ -13,96 +13,108 @@ import javax.swing.JOptionPane;
 
 public class Agendamento {
 
-	public void Agendamento(ListaTemas lt, int id, int dia, int mes, int ano) {
+	public void Agendamento(ListaTemas lt, String [] auxReserva) {
+		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 
-		boolean validoExiste = ValidandoDiaEMes(dia, mes,ano);//Metodo valida se o dia, mes e ano são validos, falta validação do ano.
+		boolean validoExiste = ValidandoDiaEMes(auxReserva);// Metodo valida se o dia, mes e ano são validos, falta
+																// validação do ano.
 		if (validoExiste) {
-			boolean validoRetro = validandoDataRetro(dia, mes, ano);
-		}else {
+			boolean validoRetro = validandoDataRetro(auxReserva);
+		} else {
 			JOptionPane.showMessageDialog(null, "ERRO, Data inserida esta incorreta ");
 		}
 
-
+		//Continuar chamando um metodo para adicionar a data em uma lista.
+		
 	}
 
-	private boolean validandoDataRetro(int dia, int mes, int ano) { //Validando se a data não é anterior a atual
+	private boolean validandoDataRetro(String[] auxReserva) { // Validando se a data não é anterior a atual
 		boolean valido = true;
 		Date hoje = new Date();
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");//Criando a mascara para a data
-		String data = String.valueOf(dia +"/"+ mes+"/" + ano);//Convertendo para sttring para depois converter para Date
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");// Criando a mascara para a data
+		String data = String.valueOf(auxReserva[0] + "/" + auxReserva[1] + "/" + auxReserva[2]);// Convertendo para sttring para depois converter para
+																	// Date
 		Date dataAgenda;
-		try {//Para converter para  o tipo date é necessario o try/catch
+		try {// Para converter para o tipo date é necessario o try/catch
 			dataAgenda = sdf.parse(data);
-			
-			if (dataAgenda.before(hoje)) {//Validando se a data é anterior a data atual
-				valido = false; //Sefor invalido retorna falso 
-				JOptionPane.showMessageDialog(null,
-						"ERRO, Data inserida esta incorreta " + data +" ,anterior a atual ");
+
+			if (dataAgenda.before(hoje)) {// Validando se a data é anterior a data atual
+				valido = false; // Sefor invalido retorna falso
+				JOptionPane.showMessageDialog(null,"ERRO, Data inserida esta incorreta " + data + " ,anterior a atual ");
 				valido = false;
-			} else {//Cso seja correta continua a aplicação
-				JOptionPane.showMessageDialog(null,
-						"Data correta");
+			} else {// Caso seja correta continua a aplicação
+				JOptionPane.showMessageDialog(null, "Data correta");
 			}
 		} catch (ParseException e) {
-			e.printStackTrace();//Erro se o formato da mascara vier errado
+			e.printStackTrace();// Erro se o formato da mascara vier errado
 			valido = false;
 		}
-					
 		return valido;
 	}
 
-	public boolean ValidandoDiaEMes(int dia, int mes, int ano) {
+	public boolean ValidandoDiaEMes(String [] auxReserva) {
 		boolean valido = true;
 		int diaMes = 31;
-		if(ano >= 2021) {//Valida o ano
-		if (1 < mes && mes < 13 && dia < 32 && dia > 1) { //Valida se o mes é menos que 12 ou maior que 0 
-														// e o dia é meno que 32 e maior que 0
-			switch (mes) { //valida se o mes tem a quantidade de dias informado.
-			case 2:
-				diaMes -= 3;
-				if (dia > diaMes) {
-					valido = false;
-					JOptionPane.showMessageDialog(null,
-							"ERRO, Data inserida esta incorreta, mes contem menos dias " + dia);
-				} else {
-					JOptionPane.showMessageDialog(null, "Data correta fevereiro " + dia);
+		int dia = Integer.parseInt(auxReserva[0]);
+		int mes = Integer.parseInt(auxReserva[1]);				
+		int ano = Integer.parseInt(auxReserva[2]);
+		if (ano >= 2021) {// Valida o ano
+			if ( mes > 0 && mes < 13 && dia < 32 && dia >= 1) { // Valida se o mes é menos que 12 ou maior que 0
+																// e o dia é meno que 32 e maior que 0
+				switch (mes) { // valida se o mes tem a quantidade de dias informado.
+				case 2:
+					diaMes -= 3;
+					if (dia > diaMes) {
+						valido = false;
+						JOptionPane.showMessageDialog(null,
+								"ERRO, Data inserida esta incorreta, mes contem menos dias " + dia);
+					} else {
+						JOptionPane.showMessageDialog(null, "Data correta fevereiro " + dia);
+					}
+					break;
+				case 1:
+				case 3:
+				case 5:
+				case 7:
+				case 8:
+				case 10:
+				case 12:
+					if (dia > diaMes) {
+						valido = false;
+						JOptionPane.showMessageDialog(null,
+								"ERRO, Data inserida esta incorreta, mes contem menos dias " + dia);
+					} else {			
+						JOptionPane.showMessageDialog(null, "Data correta " + dia);
+					}
+					break;
+				case 4:
+				case 6:
+				case 9:
+				case 11:
+					diaMes--;
+					if (dia > diaMes) {
+						JOptionPane.showMessageDialog(null,
+								"ERRO, Data inserida esta incorreta, mes contem menos dias " + dia);
+						valido = false;
+					} else {
+						JOptionPane.showMessageDialog(null, "Data correta " + dia);
+					}
+					break;
 				}
-				break;
-			case 1: case 3: case 5: case 7: case 8: case 10: case 12:
-				if (dia > diaMes) {
-					valido = false;
-					JOptionPane.showMessageDialog(null,
-							"ERRO, Data inserida esta incorreta, mes contem menos dias " + dia);
-				} else {
-					valido = false;
-					JOptionPane.showMessageDialog(null, "Data correta " + dia);
-				}
-				break;
-			case 4:	case 6:	case 9:	case 11:
-				diaMes--;
-				if (dia > diaMes) {
-					JOptionPane.showMessageDialog(null,
-							"ERRO, Data inserida esta incorreta, mes contem menos dias " + dia);
-					valido = false;
-				} else {
-					JOptionPane.showMessageDialog(null, "Data correta " + dia);
-				}
-				break;
-			}
 
+			} else {
+				valido = false;
+				JOptionPane.showMessageDialog(null,
+						"ERRO, Data inserida esta incorreta mês = " + mes + " ou dia = " + dia + " invalido");
+			}
 		} else {
 			valido = false;
-			JOptionPane.showMessageDialog(null,
-					"ERRO, Data inserida esta incorreta mês = " + mes + " ou dia = " + dia + " invalido");
+			JOptionPane.showMessageDialog(null, "ERRO, Ano anterior" + valido);
 		}
-	}else {
-		valido = false;
-		JOptionPane.showMessageDialog(null, "ERRO, Ano anterior" + valido);
-	}
 		JOptionPane.showMessageDialog(null, valido);
 		return valido;
-}
+	}
 
 //	public void criaListaMes(Cliente c, Tema t, int n) throws IOException {
 //

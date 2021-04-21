@@ -28,7 +28,7 @@ public class MainMenu {
 
 		do {
 			menuopc = Integer
-					.parseInt(JOptionPane.showInputDialog("1 - Menu temas \n2 - Menu Clientes \n9 - Finalizar"));
+					.parseInt(JOptionPane.showInputDialog("1 - Menu temas \n2 - Menu Clientes \n 9 - Finalizar"));
 			// Menu Tema
 			if (menuopc == 1) {
 				lt.carregarListaTema(lt); //Carrega a lista predefinida
@@ -37,12 +37,8 @@ public class MainMenu {
 					opc = Integer.parseInt(JOptionPane.showInputDialog("1 - Adiciona Inicio \n"
 							+ "2 - Adiciona Final \n" + "3 - Escolhe posição \n" + "4 - Remove Inicio \n"
 							+ "5 - Remove Final\n" + "6 - Escolhe posição para remover\n" + "7 - Exibir lista\n"
-<<<<<<< HEAD
 							+ "8 - Carregar lista\n" + "9 - Agendar Reserva\n"+ "0 - Voltar Menu Anterior"));
 
-=======
-							+ "0 - Voltar Menu Anterior"));
->>>>>>> b9ca8ddc43bdaa53db5fbed1571d7daf93272266
 					switch (opc) {
 					case 1:
 						// tema = setarTema(tema2);
@@ -75,29 +71,34 @@ public class MainMenu {
 					case 7:
 						lt.percorrer();
 						break;
-<<<<<<< HEAD
+
 					case 8: //metodo carrega lista, envia um obejto para poder dar certo e carregar em um objeto dessa classe.
 						lt.carregarListaTema(lt);
 						break;
 					case 9: //metodo Carrega a lista de datas disponiveis para o tema
 						
 						lt.carregarListaTema(lt);  
-						int dia = Integer.parseInt(JOptionPane.showInputDialog("Informe o dia: ")); 
-						int mes = Integer.parseInt(JOptionPane.showInputDialog("Informe o numero do mês: ")); 
-						int ano = Integer.parseInt(JOptionPane.showInputDialog("Informe o Ano: "));
-						int id = Integer.parseInt(JOptionPane.showInputDialog("Informe o ID do Tema: "));
-						lt.carregarListaTema(lt);  
-						ag.Agendamento(lt, id, dia, mes, ano);
+						
+						String dataReserva = JOptionPane.showInputDialog("Informa a data desejada (dd/MM/yyyy)");
+						String [] auxReserva = formatarData(dataReserva);
+						
+						
+			// int dia = Integer.parseInt(JOptionPane.showInputDialog("Informe o dia: ")); 
+			// int mes = Integer.parseInt(JOptionPane.showInputDialog("Informe o numero do mês: ")); 
+			// int ano = Integer.parseInt(JOptionPane.showInputDialog("Informe o Ano: "));
+			// int id = Integer.parseInt(JOptionPane.showInputDialog("Informe o ID do Tema: "));
+			//			lt.carregarListaTema(lt);  
+						ag.Agendamento(lt, auxReserva);
 						break;
-=======
+
 					// case 8: //metodo carrega lista, envia um obejto para poder dar certo e
 					// carregar em um objeto dessa classe.
 					// lt.carregarListaTema(lt);
 					// break;
->>>>>>> b9ca8ddc43bdaa53db5fbed1571d7daf93272266
+
 					case 0:
 						break;
-					}
+					};
 				} while (opc != 0);
 			}
 			// Menu Cliente
@@ -179,7 +180,7 @@ public class MainMenu {
 		String Nome = (JOptionPane.showInputDialog("Digite o nome do cliente: "));
 		String Endereco = (JOptionPane.showInputDialog("Digite o Endereço: "));
 		String CPF = (JOptionPane.showInputDialog("Digite o CPF: "));
-		String DataNasc = (JOptionPane.showInputDialog("Digite a Data de nascimento: ")); // criar metodo para calcular
+		String DataNasc = (JOptionPane.showInputDialog("Digite a Data de nascimento: (dd/MM/yyyy)")); // criar metodo para calcular
 																							// a diferença da data atual
 																							// com a de nascimento,
 																							// somente maiores de 18
@@ -197,6 +198,15 @@ public class MainMenu {
 		return cliente;
 	}
 
+	
+	public static String [] formatarData(String dataReserva) {
+		String[] auxReserva = dataReserva.split("/");
+		System.out.println(auxReserva[0] + auxReserva[1] + auxReserva[2]);
+		return auxReserva;
+	}
+	
+	//Calculo da idade
+	
 	public static void formatarData(String hojeStr, String DataNasc) {
 
 		String[] auxHoje = hojeStr.split("/");
