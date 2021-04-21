@@ -32,7 +32,7 @@ public class ListaCliente  {
 		NoCliente c = new NoCliente(n);
 		c.prox = inicio;
 		inicio = c;
-		criaListaCliente(n);
+		//criaListaCliente(n);
 	}
 
 	public void adicionaFinal(Cliente n) throws IOException {
@@ -49,7 +49,7 @@ public class ListaCliente  {
 			aux.prox = c;
 			c.prox = null;
 		}
-		criaListaCliente(n);
+		//criaListaCliente(n);
 	}
 
 	public void adicionaPosicao(Cliente n, int pos) throws IOException {
@@ -69,7 +69,7 @@ public class ListaCliente  {
 			if (cont == pos - 1) {
 				c.prox = aux.prox;
 				aux.prox = c;
-				criaListaCliente(n);
+				//criaListaCliente(n);
 			} else {
 				JOptionPane.showMessageDialog(null, "ERRO, Posição Inválida!");
 			}
@@ -161,6 +161,11 @@ public class ListaCliente  {
 	//Percorre a lista e exibe na tela 
 	public void percorrer() {
 
+		
+		File arquivo = new File("ListaCliente.csv");
+		boolean success = (arquivo).delete();
+		System.out.println(success);
+		
 		NoCliente aux = inicio;
 		StringBuilder s = new StringBuilder();
 		if (aux == null) {
@@ -172,26 +177,35 @@ public class ListaCliente  {
 						+ aux.cliente.getEndereco() + ", CPF: " + aux.cliente.getCPF() + ", Data nascimento: "
 						+ aux.cliente.getDataNasc() + ", Data Cadastro: " + aux.cliente.getDataCadastro()
 						+ ", Numero locações: " + aux.cliente.getNumLocacoes() + "\n");
-
+				
+				try {
+					criarListaCliente(aux.cliente);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
 				aux = aux.prox;
 			}
 
-			JOptionPane.showMessageDialog(null, s.toString());
+			JOptionPane.showMessageDialog(null, "Lista de clientes cadastrados no sistema: \n" +s.toString());
 		}
 
 	}
 	
 	// Cria um arquivo que abre no excel
 	// se não houver uma diretorio  e arquivo ele vai criar automaticamente
-	private void criaListaCliente(Cliente c) throws IOException {
+	private void criarListaCliente(Cliente c) throws IOException {
 		
-		File dir = new File("C:\\Users\\Usuario\\Documents\\GitHub\\Projeto-ED-ESW2\\");
+		String userName = System.getProperty("user.name");
+		//System.out.println(userName);
+		String diretorio = System.getProperty("user.dir");
+		//System.out.println(diretorio);
+		
+		File dir = new File(diretorio);
 		File arq = new File(dir, "ListaCliente.csv");
 
-		if (dir.exists() && dir.isDirectory()) {
-			JOptionPane.showMessageDialog(null, "Lista Preenchida Criada");
-
-		} else {
+		if (!dir.exists() && !dir.isDirectory()) {
 			dir.mkdirs(); // cria uma pasta se não existir, alterei mkdir para mkdirs
 
 		}
@@ -224,10 +238,12 @@ public class ListaCliente  {
 
 	//Carrega o arquivo e vai lendo linha por linha
 	//A cada linha ele chama o metodo divideLinha para fazer o tratamento
-	public  Cliente carregarLista(ListaCliente lc2) throws IOException {
+	public  Cliente carregarListaCliente(ListaCliente lc2) throws IOException {
+		
+		String diretorio = System.getProperty("user.dir");
 		
 		Cliente cliente = null;
-		File dir = new File("C:\\Users\\Usuario\\Documents\\GitHub\\Projeto-ED-ESW2");
+		File dir = new File(diretorio);
 		File arq = new File(dir, "ListaCliente.csv");
 
 		FileReader ler = new FileReader(arq);

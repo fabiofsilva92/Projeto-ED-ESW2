@@ -6,6 +6,7 @@ public class Tema {
 	private String nomeTema;
 	private double valorDiaria;
 	
+
 	//Construtor da lista dinamica de temas
 	public Tema(int idTema, String nomeTema, double valorDiaria) {
 		this.idTema = idTema;
@@ -32,4 +33,6 @@ public class Tema {
 	public void setValorDiaria(double valorDiaria) {
 		this.valorDiaria = valorDiaria;
 	}
+
+
 }
