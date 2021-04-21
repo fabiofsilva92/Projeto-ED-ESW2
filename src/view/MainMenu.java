@@ -1,12 +1,10 @@
 package view;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 
 import javax.swing.JOptionPane;
 
+import controller.Agendamento;
 import controller.Cliente;
 import controller.ListaCliente;
 import controller.ListaTemas;
@@ -23,6 +21,7 @@ public class MainMenu {
 
 		ListaTemas lt = new ListaTemas();
 		ListaCliente lc2 = new ListaCliente();
+		Agendamento ag = new Agendamento();
 
 		do {
 			menuopc = Integer
@@ -33,7 +32,7 @@ public class MainMenu {
 					opc = Integer.parseInt(JOptionPane.showInputDialog("1 - Adiciona Inicio \n"
 							+ "2 - Adiciona Final \n" + "3 - Escolhe posição \n" + "4 - Remove Inicio \n"
 							+ "5 - Remove Final\n" + "6 - Escolhe posição para remover\n" + "7 - Exibir lista\n"
-							+ "8 - Carregar lista\n" + "0 - Voltar Menu Anterior"));
+							+ "8 - Carregar lista\n" + "9 - Agendar Reserva\n"+ "0 - Voltar Menu Anterior"));
 
 					switch (opc) {
 					case 1:
@@ -69,6 +68,16 @@ public class MainMenu {
 						break;
 					case 8: //metodo carrega lista, envia um obejto para poder dar certo e carregar em um objeto dessa classe.
 						lt.carregarListaTema(lt);
+						break;
+					case 9: //metodo Carrega a lista de datas disponiveis para o tema
+						
+						lt.carregarListaTema(lt);  
+						int dia = Integer.parseInt(JOptionPane.showInputDialog("Informe o dia: ")); 
+						int mes = Integer.parseInt(JOptionPane.showInputDialog("Informe o numero do mês: ")); 
+						int ano = Integer.parseInt(JOptionPane.showInputDialog("Informe o Ano: "));
+						int id = Integer.parseInt(JOptionPane.showInputDialog("Informe o ID do Tema: "));
+						lt.carregarListaTema(lt);  
+						ag.Agendamento(lt, id, dia, mes, ano);
 						break;
 					case 0:
 						break;

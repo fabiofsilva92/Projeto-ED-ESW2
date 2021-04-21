@@ -11,7 +11,7 @@ import java.io.PrintWriter;
 
 import javax.swing.JOptionPane;
 
-public class ListaCliente {
+public class ListaCliente  {
 
 	private NoCliente inicio;
 
@@ -23,9 +23,9 @@ public class ListaCliente {
 	//Tive que criar este metodo pois os outros metodos de adicionas, envia para a loista csv, 
 	//podemos melhorar depois esse metodo. E apenas adicionar os clientes  quando for percorrer  
 	public void adicionaCarregamentoCSV(Cliente n) throws IOException {
-		NoCliente c = new NoCliente(n);
-		c.prox = inicio;
-		inicio = c;
+	NoCliente c = new NoCliente(n);
+	c.prox = inicio;
+	inicio = c;
 	}
 	
 	public void adicionaInicio(Cliente n) throws IOException {
@@ -281,8 +281,9 @@ public class ListaCliente {
 		return cliente;
 
 	}
-	
-	
+
+
+		
 //	// ainda vou melhorar, não esta sendo usado
 //	public void removeClienteLista(int pos) throws IOException {
 //		int cont = 0;
