@@ -3,6 +3,7 @@ package view;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.time.Period;
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.swing.JOptionPane;
@@ -88,7 +89,7 @@ public class MainMenu {
 			// int ano = Integer.parseInt(JOptionPane.showInputDialog("Informe o Ano: "));
 			// int id = Integer.parseInt(JOptionPane.showInputDialog("Informe o ID do Tema: "));
 			//			lt.carregarListaTema(lt);  
-						ag.Agendamento(lt, auxReserva);
+						ag.Agendamento(auxReserva);
 						break;
 
 					// case 8: //metodo carrega lista, envia um obejto para poder dar certo e
@@ -220,49 +221,60 @@ public class MainMenu {
 	}
 	
 	//um metodo só de testes para o calculo da idade, desconsiderar por enquanto.
-	public static int calcAnos (int diaAtual ,int mesAtual,int anoAtual,int diaNasc,int mesNasc,int anoNasc){    
+	//Conclui esta sendo dividido por 12 para vir o ano correto, se deixar em ano vem a idade errada antes de fazer o aniversario
+	public static int calcAnos (int diaAtual ,int mesAtual,int anoAtual,int diaNasc,int mesNasc,int anoNasc){
+		Calendar calendar = Calendar.getInstance();
+		Calendar b = Calendar.getInstance();
+		b.set(anoNasc, mesNasc, diaNasc);
+		
+		int meses = (calendar.get(Calendar.YEAR) * 12 + calendar.get(Calendar.MONTH))
+		        - (b.get(Calendar.YEAR) * 12 + b.get(Calendar.MONTH));
+		
+		int anos = (meses/12);
+		
+		return anos;    
 
-		int anos, mesCont, mesTemp, diaVida;
-		anos = anoAtual - anoNasc;
-
-
-	    if (mesAtual<mesNasc) //Caso ainda nao for completado a quantidade de anos
-	    {
-	        anos = anos - 1;
-	        mesCont = anos * 12;
-	        if(diaAtual > diaNasc)
-	        {
-	            mesTemp = (12 - (mesNasc - mesAtual));
-	            diaVida = diaAtual - diaNasc;
-	        }
-	        else
-	        {
-	            mesTemp = (12 - (mesNasc - mesAtual - 1));
-	            diaVida = diaAtual;
-	        }
-	        System.out.println(anos + " anos" + (mesAtual-mesNasc) + " meses" + diaVida +" dias");
-	        mesCont = mesCont + (mesTemp - 1);
-	        System.out.println(mesCont+" meses de vida \n ");
-	        return anos;
-
-	    }
-	    else
-	    {
-	        mesCont = anos * 12;
-	        if(diaAtual > diaNasc)
-	        {
-	            diaVida = diaAtual - diaNasc;
-	        }
-	        else
-	        {
-	            diaVida = diaAtual;
-	        }
-	        System.out.println(anos + " anos" + (mesAtual-mesNasc) + " meses" + diaVida +" dias");
-	        mesTemp = mesAtual - mesNasc;
-	        mesCont = mesCont +  mesTemp;
-	        System.out.println(mesCont+" meses de vida \n ");
-	        return anos;
-	    }
+//		int anos, mesCont, mesTemp, diaVida;
+//		anos = anoAtual - anoNasc;
+//
+//
+//	    if (mesAtual<mesNasc) //Caso ainda nao for completado a quantidade de anos
+//	    {
+//	        anos = anos - 1;
+//	        mesCont = anos * 12;
+//	        if(diaAtual > diaNasc)
+//	        {
+//	            mesTemp = (12 - (mesNasc - mesAtual));
+//	            diaVida = diaAtual - diaNasc;
+//	        }
+//	        else
+//	        {
+//	            mesTemp = (12 - (mesNasc - mesAtual - 1));
+//	            diaVida = diaAtual;
+//	        }
+//	        System.out.println(anos + " anos" + (mesAtual-mesNasc) + " meses" + diaVida +" dias");
+//	        mesCont = mesCont + (mesTemp - 1);
+//	        System.out.println(mesCont+" meses de vida \n ");
+//	        return anos;
+//
+//	    }
+//	    else
+//	    {
+//	        mesCont = anos * 12;
+//	        if(diaAtual > diaNasc)
+//	        {
+//	            diaVida = diaAtual - diaNasc;
+//	        }
+//	        else
+//	        {
+//	            diaVida = diaAtual;
+//	        }
+//	        System.out.println(anos + " anos" + (mesAtual-mesNasc) + " meses" + diaVida +" dias");
+//	        mesTemp = mesAtual - mesNasc;
+//	        mesCont = mesCont +  mesTemp;
+//	        System.out.println(mesCont+" meses de vida \n ");
+//	        return anos;
+//	    }
 
 
 	}

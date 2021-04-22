@@ -33,13 +33,58 @@ public class podeApagar {
 //		
 //		System.out.println(dia+"/"+mes+"/" + ano);
 		
-//		Calendar calendar = Calendar.getInstance();
-//		Calendar calendar2 = Calendar.getInstance();
-//		calendar.setTime( new java.util.Date() );
-//		System.out.println(calendar2.getTime());
-//		calendar.add( Calendar.MONTH , 10 );
-//		System.out.println( calendar.getTime() );
-//		
+		int dia = 20;
+		int mes = 8;
+		int ano= 1989;
+		Calendar calendar = Calendar.getInstance();
+		Calendar b = Calendar.getInstance();
+		b.set(ano, mes, dia);
+		System.out.println("convertendo b " +  b.getTime());
+		
+		
+		int anos = (calendar.get(Calendar.YEAR) * 12 + calendar.get(Calendar.MONTH))
+		        - (b.get(Calendar.YEAR) * 12 + b.get(Calendar.MONTH));
+		
+		System.out.println("anos " + (anos/12) );
+		
+		
+//		boolean valido = true;
+//		Date hoje = new Date();
+//		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+//		String data = String.valueOf(dia +"/"+ mes+"/" + ano);
+//		Date dataAgenda;
+//		try {
+//			dataAgenda = sdf.parse(data);
+//			System.out.println(dataAgenda);
+//			
+//			
+//			Calendar calendar3 = Calendar.getInstance();
+//			Calendar calendar2 = Calendar.getInstance();
+//			System.out.println(calendar2.getTime());
+//			calendar.add( Calendar.MONTH , 5 );
+//			calendar.add( Calendar.DAY_OF_MONTH , 60 );
+//			Date date2 = calendar3.getTime();
+//			System.out.println("calendar " + calendar3.getTime() );
+//			System.out.println("Convertido " + date2);
+//			
+//			
+			
+//			if (dataAgenda.before(hoje)) {
+//				valido = false;
+//				JOptionPane.showMessageDialog(null,
+//						"ERRO, Data inserida esta incorreta " + data +" ,anterior a atual ");
+//			} else {				
+//				JOptionPane.showMessageDialog(null,
+//						"Data correta");
+//			}
+//		} catch (ParseException e) {
+//			JOptionPane.showMessageDialog(null,
+//					"Modelo de data incorreto");
+//			e.printStackTrace();
+//		}
+		
+		
+		
 //		if(calendar2.before(calendar)) {
 //			System.out.println("AA Data correta");
 //		}else {
@@ -63,31 +108,7 @@ public class podeApagar {
 //		}
 		
 		
-		int dia = 30;
-		int mes = 3;
-		int ano= 2021;
-		boolean valido = true;
-		Date hoje = new Date();
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-		String data = String.valueOf(dia +"/"+ mes+"/" + ano);
-		Date dataAgenda;
-		try {
-			dataAgenda = sdf.parse(data);
-			System.out.println(dataAgenda);
-			
-			if (dataAgenda.before(hoje)) {
-				valido = false;
-				JOptionPane.showMessageDialog(null,
-						"ERRO, Data inserida esta incorreta " + data +" ,anterior a atual ");
-			} else {				
-				JOptionPane.showMessageDialog(null,
-						"Data correta");
-			}
-		} catch (ParseException e) {
-			JOptionPane.showMessageDialog(null,
-					"Modelo de data incorreto");
-			e.printStackTrace();
-		}
+//		
 				
 //		
 		

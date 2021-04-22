@@ -1,53 +1,73 @@
 package controller;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 import javax.swing.JOptionPane;
 
 public class Agendamento {
 
-	public void Agendamento(ListaTemas lt, String [] auxReserva) {
-		
-		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-
+	public void Agendamento(String [] auxReserva) {
+		boolean validoRetro, validoFuturo = false;
+		Date data = convertentoStringEmData(auxReserva);//converte o vetor no formato data
 		boolean validoExiste = ValidandoDiaEMes(auxReserva);// Metodo valida se o dia, mes e ano são validos, falta
 																// validação do ano.
 		if (validoExiste) {
-			boolean validoRetro = validandoDataRetro(auxReserva);
+				validoRetro = validandoDataRetro(data);
 		} else {
 			JOptionPane.showMessageDialog(null, "ERRO, Data inserida esta incorreta ");
 		}
-
+		
+		if(validoExiste) {
+			validoFuturo = ValidarDoisMesesFrente(data);
+		}
+		
 		//Continuar chamando um metodo para adicionar a data em uma lista.
 		
 	}
 
-	private boolean validandoDataRetro(String[] auxReserva) { // Validando se a data não é anterior a atual
-		boolean valido = true;
-		Date hoje = new Date();
+	private Date convertentoStringEmData(String[] auxReserva) {
+		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");// Criando a mascara para a data
 		String data = String.valueOf(auxReserva[0] + "/" + auxReserva[1] + "/" + auxReserva[2]);// Convertendo para sttring para depois converter para
 																	// Date
 		Date dataAgenda;
 		try {// Para converter para o tipo date é necessario o try/catch
 			dataAgenda = sdf.parse(data);
-
-			if (dataAgenda.before(hoje)) {// Validando se a data é anterior a data atual
-				valido = false; // Sefor invalido retorna falso
-				JOptionPane.showMessageDialog(null,"ERRO, Data inserida esta incorreta " + data + " ,anterior a atual ");
-				valido = false;
-			} else {// Caso seja correta continua a aplicação
-				JOptionPane.showMessageDialog(null, "Data correta");
-			}
+			return dataAgenda;
+			
 		} catch (ParseException e) {
+			JOptionPane.showMessageDialog(null, "ERRO,formato inserido não é o correto");
 			e.printStackTrace();// Erro se o formato da mascara vier errado
+		}
+		
+		return null;
+	}
+
+	private boolean ValidarDoisMesesFrente(Date data) {//Verifica se a data de reserva é maior do que 60 dias
+		Boolean valido = true;
+		Calendar calendar = Calendar.getInstance();
+		calendar.add( Calendar.DAY_OF_MONTH , 60 );
+		Date dataFutura = calendar.getTime();
+		
+		if(data.after(dataFutura)) {
+			JOptionPane.showMessageDialog(null, "ERRO,Não é possivel fazer reserva para mais de 60 dias");
+			valido = false;
+			return valido;
+		}
+		return valido;
+		
+	}
+
+	private boolean validandoDataRetro(Date dataAgenda) { // Validando se a data não é anterior a atual
+		boolean valido = true;
+		Date hoje = new Date();
+		
+		if (dataAgenda.before(hoje)) {// Validando se a data é anterior a data atual
+			valido = false; // Se for invalido retorna falso
+			JOptionPane.showMessageDialog(null,"ERRO, Data inserida esta incorreta " + dataAgenda + " ,anterior a atual ");
 			valido = false;
 		}
 		return valido;
@@ -68,10 +88,8 @@ public class Agendamento {
 					if (dia > diaMes) {
 						valido = false;
 						JOptionPane.showMessageDialog(null,
-								"ERRO, Data inserida esta incorreta, mes contem menos dias " + dia);
-					} else {
-						JOptionPane.showMessageDialog(null, "Data correta fevereiro " + dia);
-					}
+								"ERRO, Data inserida esta incorreta, o mes " + mes +" contem menos dias " + dia);
+					} 
 					break;
 				case 1:
 				case 3:
@@ -84,8 +102,6 @@ public class Agendamento {
 						valido = false;
 						JOptionPane.showMessageDialog(null,
 								"ERRO, Data inserida esta incorreta, mes contem menos dias " + dia);
-					} else {			
-						JOptionPane.showMessageDialog(null, "Data correta " + dia);
 					}
 					break;
 				case 4:
@@ -97,9 +113,7 @@ public class Agendamento {
 						JOptionPane.showMessageDialog(null,
 								"ERRO, Data inserida esta incorreta, mes contem menos dias " + dia);
 						valido = false;
-					} else {
-						JOptionPane.showMessageDialog(null, "Data correta " + dia);
-					}
+					} 
 					break;
 				}
 
@@ -110,9 +124,8 @@ public class Agendamento {
 			}
 		} else {
 			valido = false;
-			JOptionPane.showMessageDialog(null, "ERRO, Ano anterior" + valido);
+			JOptionPane.showMessageDialog(null, "ERRO, Ano anterior ao Atual");
 		}
-		JOptionPane.showMessageDialog(null, valido);
 		return valido;
 	}
 
