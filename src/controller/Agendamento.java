@@ -11,7 +11,7 @@ public class Agendamento {
 
 	public void Agendamento(String [] auxReserva) {
 		boolean validoRetro, validoFuturo = false;
-		Date data = convertentoStringEmData(auxReserva);//converte o vetor no formato data
+		Date data = convertendoStringEmData(auxReserva);//converte o vetor no formato data
 		boolean validoExiste = ValidandoDiaEMes(auxReserva);// Metodo valida se o dia, mes e ano são validos, falta
 																// validação do ano.
 		if (validoExiste) {
@@ -28,7 +28,7 @@ public class Agendamento {
 		
 	}
 
-	private Date convertentoStringEmData(String[] auxReserva) {
+	public Date convertendoStringEmData(String[] auxReserva) {
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");// Criando a mascara para a data
 		String data = String.valueOf(auxReserva[0] + "/" + auxReserva[1] + "/" + auxReserva[2]);// Convertendo para sttring para depois converter para
@@ -129,6 +129,7 @@ public class Agendamento {
 		return valido;
 	}
 
+	
 //	public void criaListaMes(Cliente c, Tema t, int n) throws IOException {
 //
 //		File dir = new File("C:\\Users\\Usuario\\Documents\\GitHub\\Projeto-ED-ESW2\\");

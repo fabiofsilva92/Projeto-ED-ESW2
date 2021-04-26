@@ -102,15 +102,37 @@ public class MainMenu {
 							+ "0 - Voltar Menu Anterior"));
 					switch (opc) {
 					case 1:
-						lc2.adicionaInicio(oa.setarCliente());
-						lc2.percorrer();
+						Cliente clienteSetado = oa.setarCliente();
+						if(clienteSetado != null) {
+							lc2.adicionaInicio(clienteSetado);
+							lc2.percorrer();
+						}
+						else {
+							lc2.percorrer();
+						}
+						
 						break;
 					case 2:
-						lc2.adicionaFinal(oa.setarCliente());
+						clienteSetado = oa.setarCliente();
+						if(clienteSetado !=null) {
+							lc2.adicionaFinal(oa.setarCliente());
+							lc2.percorrer();
+						}
+						else {
+							lc2.percorrer();
+						}
 						break;
 					case 3:
 						pos = Integer.parseInt(JOptionPane.showInputDialog("Informe uma posição para inserção: "));
-						lc2.adicionaPosicao(oa.setarCliente(), pos);
+						clienteSetado = oa.setarCliente();
+						if(clienteSetado != null) {
+							lc2.adicionaPosicao(oa.setarCliente(), pos);
+							lc2.percorrer();
+						}
+						else {
+							lc2.percorrer();
+						}
+						
 						break;
 					case 4:
 						JOptionPane.showMessageDialog(null,
