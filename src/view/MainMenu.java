@@ -223,6 +223,12 @@ public class MainMenu {
 
 		int anos = calcAnos(Integer.parseInt(auxHoje[0]), Integer.parseInt(auxHoje[1]), Integer.parseInt(auxHoje[2]),
 				Integer.parseInt(auxNasc[0]), Integer.parseInt(auxNasc[1]), Integer.parseInt(auxNasc[2]));
+		
+		if (anos > 18) {
+			System.out.println("Maior de 18");
+		}else {
+			System.out.println("menor");
+		}
 
 	}
 
