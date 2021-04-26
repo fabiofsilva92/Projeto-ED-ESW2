@@ -32,13 +32,13 @@ public class MainMenu {
 					.parseInt(JOptionPane.showInputDialog("1 - Menu temas \n2 - Menu Clientes \n 9 - Finalizar"));
 			// Menu Tema
 			if (menuopc == 1) {
-				lt.carregarListaTema(lt); //Carrega a lista predefinida
-				lt.percorrer(); //Mostra a lista
+				lt.carregarListaTema(lt); // Carrega a lista predefinida
+				lt.percorrer(); // Mostra a lista
 				do {
 					opc = Integer.parseInt(JOptionPane.showInputDialog("1 - Adiciona Inicio \n"
 							+ "2 - Adiciona Final \n" + "3 - Escolhe posição \n" + "4 - Remove Inicio \n"
 							+ "5 - Remove Final\n" + "6 - Escolhe posição para remover\n" + "7 - Exibir lista\n"
-							+ "8 - Carregar lista\n" + "9 - Agendar Reserva\n"+ "0 - Voltar Menu Anterior"));
+							+  "9 - Agendar Reserva\n" + "0 - Voltar Menu Anterior"));
 
 					switch (opc) {
 					case 1:
@@ -73,22 +73,26 @@ public class MainMenu {
 						lt.percorrer();
 						break;
 
-					case 8: //metodo carrega lista, envia um obejto para poder dar certo e carregar em um objeto dessa classe.
-						lt.carregarListaTema(lt);
-						break;
-					case 9: //metodo Carrega a lista de datas disponiveis para o tema
-						
-						lt.carregarListaTema(lt);  
-						
+					// case 8: // metodo carrega lista, envia um obejto para poder dar certo e
+					// carregar em um
+					// // objeto dessa classe.
+					// lt.carregarListaTema(lt);
+					// break;
+					case 9: // metodo Carrega a lista de datas disponiveis para o tema
+
+						// lt.carregarListaTema(lt); //Toda vez que esse menu é iniciado ele carrega a
+						// lista do CSV, não é necessário carregar ao solicitar agendamento
+
 						String dataReserva = JOptionPane.showInputDialog("Informa a data desejada (dd/MM/yyyy)");
-						String [] auxReserva = formatarData(dataReserva);
-						
-						
-			// int dia = Integer.parseInt(JOptionPane.showInputDialog("Informe o dia: ")); 
-			// int mes = Integer.parseInt(JOptionPane.showInputDialog("Informe o numero do mês: ")); 
-			// int ano = Integer.parseInt(JOptionPane.showInputDialog("Informe o Ano: "));
-			// int id = Integer.parseInt(JOptionPane.showInputDialog("Informe o ID do Tema: "));
-			//			lt.carregarListaTema(lt);  
+						String[] auxReserva = formatarData(dataReserva);
+
+						// int dia = Integer.parseInt(JOptionPane.showInputDialog("Informe o dia: "));
+						// int mes = Integer.parseInt(JOptionPane.showInputDialog("Informe o numero do
+						// mês: "));
+						// int ano = Integer.parseInt(JOptionPane.showInputDialog("Informe o Ano: "));
+						// int id = Integer.parseInt(JOptionPane.showInputDialog("Informe o ID do Tema:
+						// "));
+						// lt.carregarListaTema(lt);
 						ag.Agendamento(auxReserva);
 						break;
 
@@ -99,13 +103,14 @@ public class MainMenu {
 
 					case 0:
 						break;
-					};
+					}
+					;
 				} while (opc != 0);
 			}
 			// Menu Cliente
 			if (menuopc == 2) {
-				lc2.carregarListaCliente(lc2); //Carrega a lista pre definida
-				lc2.percorrer(); //Mostra a lista
+				lc2.carregarListaCliente(lc2); // Carrega a lista pre definida
+				lc2.percorrer(); // Mostra a lista
 				do {
 					opc = Integer.parseInt(JOptionPane.showInputDialog("1 - Adiciona Inicio \n"
 							+ "2 - Adiciona Final \n" + "3 - Escolhe posição \n" + "4 - Remove Inicio \n"
@@ -140,10 +145,11 @@ public class MainMenu {
 						break;
 //					case 8: // tem que continuar este metodo, estava no menu 
 //						break;
-					//case 9: // metodo carrega lista, envia um obejto para poder dar certo e carregar em um
-							// objeto dessa classe.
-						//lc2.carregarLista(lc2);
-						//break;
+					// case 9: // metodo carrega lista, envia um obejto para poder dar certo e
+					// carregar em um
+					// objeto dessa classe.
+					// lc2.carregarLista(lc2);
+					// break;
 					case 0:
 						break;
 					}
@@ -157,8 +163,8 @@ public class MainMenu {
 
 		} while (menuopc != 9);
 	}
-	
-	//VOU SEPARAR OS METODOS ABAIXO EM OUTRA CLASSE
+
+	// VOU SEPARAR OS METODOS ABAIXO EM OUTRA CLASSE
 
 	public static Tema setarTema() {
 
@@ -181,17 +187,18 @@ public class MainMenu {
 		String Nome = (JOptionPane.showInputDialog("Digite o nome do cliente: "));
 		String Endereco = (JOptionPane.showInputDialog("Digite o Endereço: "));
 		String CPF = (JOptionPane.showInputDialog("Digite o CPF: "));
-		String DataNasc = (JOptionPane.showInputDialog("Digite a Data de nascimento: (dd/MM/yyyy)")); // criar metodo para calcular
-																							// a diferença da data atual
-																							// com a de nascimento,
-																							// somente maiores de 18
-																							// poderão alugar.
-		
+		String DataNasc = (JOptionPane.showInputDialog("Digite a Data de nascimento: (dd/MM/yyyy)")); // criar metodo
+																										// para calcular
+		// a diferença da data atual
+		// com a de nascimento,
+		// somente maiores de 18
+		// poderão alugar.
+
 		String DataCadastro = hojeStr;// (JOptionPane.showInputDialog("Digite a Data de Cadastro: ")); //pegar a data
 										// automaticamente
 		NumLocacoes++; // Esse atributo deverá ser aumentado somente no menu de agendamento, o padrão
 						// deve ser 0;
-		
+
 		formatarData(hojeStr, DataNasc);
 
 		Cliente cliente = new Cliente(IdCliente, Nome, Endereco, CPF, DataNasc, DataCadastro, NumLocacoes);
@@ -199,15 +206,14 @@ public class MainMenu {
 		return cliente;
 	}
 
-	
-	public static String [] formatarData(String dataReserva) {
+	public static String[] formatarData(String dataReserva) {
 		String[] auxReserva = dataReserva.split("/");
 		System.out.println(auxReserva[0] + auxReserva[1] + auxReserva[2]);
 		return auxReserva;
 	}
-	
-	//Calculo da idade
-	
+
+	// Calculo da idade
+
 	public static void formatarData(String hojeStr, String DataNasc) {
 
 		String[] auxHoje = hojeStr.split("/");
@@ -215,24 +221,25 @@ public class MainMenu {
 		String[] auxNasc = DataNasc.split("/");
 		System.out.println((auxNasc[0] + auxNasc[1] + auxNasc[2]));
 
-		int anos = calcAnos(Integer.parseInt(auxHoje[0]),Integer.parseInt(auxHoje[1]),
-				Integer.parseInt(auxHoje[2]),Integer.parseInt(auxNasc[0]),Integer.parseInt(auxNasc[1]),Integer.parseInt(auxNasc[2]));
-				
+		int anos = calcAnos(Integer.parseInt(auxHoje[0]), Integer.parseInt(auxHoje[1]), Integer.parseInt(auxHoje[2]),
+				Integer.parseInt(auxNasc[0]), Integer.parseInt(auxNasc[1]), Integer.parseInt(auxNasc[2]));
+
 	}
-	
-	//um metodo só de testes para o calculo da idade, desconsiderar por enquanto.
-	//Conclui esta sendo dividido por 12 para vir o ano correto, se deixar em ano vem a idade errada antes de fazer o aniversario
-	public static int calcAnos (int diaAtual ,int mesAtual,int anoAtual,int diaNasc,int mesNasc,int anoNasc){
+
+	// um metodo só de testes para o calculo da idade, desconsiderar por enquanto.
+	// Conclui esta sendo dividido por 12 para vir o ano correto, se deixar em ano
+	// vem a idade errada antes de fazer o aniversario
+	public static int calcAnos(int diaAtual, int mesAtual, int anoAtual, int diaNasc, int mesNasc, int anoNasc) {
 		Calendar calendar = Calendar.getInstance();
 		Calendar b = Calendar.getInstance();
 		b.set(anoNasc, mesNasc, diaNasc);
-		
+
 		int meses = (calendar.get(Calendar.YEAR) * 12 + calendar.get(Calendar.MONTH))
-		        - (b.get(Calendar.YEAR) * 12 + b.get(Calendar.MONTH));
-		
-		int anos = (meses/12);
-		
-		return anos;    
+				- (b.get(Calendar.YEAR) * 12 + b.get(Calendar.MONTH));
+
+		int anos = (meses / 12);
+
+		return anos;
 
 //		int anos, mesCont, mesTemp, diaVida;
 //		anos = anoAtual - anoNasc;
@@ -275,7 +282,6 @@ public class MainMenu {
 //	        System.out.println(mesCont+" meses de vida \n ");
 //	        return anos;
 //	    }
-
 
 	}
 }
