@@ -1,4 +1,4 @@
-package controller;
+package controller.Listas;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -9,6 +9,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 import javax.swing.JOptionPane;
+
+import controller.Tema;
+import controller.Nos.NoTema;
 
 public class ListaTemas {
 	
@@ -160,7 +163,10 @@ public class ListaTemas {
 	public void percorrer() {
 		
 		//O arquivo será criado toda vez que percorrer, dessa forma a ordem se manterá conforme as inserções.
-		File arquivo = new File("ListaTema.csv");
+		String diretorio = System.getProperty("user.dir");
+		diretorio = diretorio + "\\src\\Arquivos";
+		File dir = new File(diretorio);
+		File arquivo = new File(dir, "ListaTema.csv");
 		boolean success = (arquivo).delete();
 		System.out.println(success);
 		
@@ -176,7 +182,6 @@ public class ListaTemas {
 				try {
 					criaListaTema(aux.tema);
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				aux = aux.prox;
@@ -192,6 +197,7 @@ public class ListaTemas {
 		String userName = System.getProperty("user.name");
 		//System.out.println(userName);
 		String diretorio = System.getProperty("user.dir");
+		diretorio = diretorio + "\\src\\Arquivos";
 		//System.out.println(diretorio);
 		
 		File dir = new File(diretorio);
@@ -227,7 +233,7 @@ public class ListaTemas {
 		
 		//String userName = System.getProperty("user.name");
 		String diretorio = System.getProperty("user.dir");
-		
+		diretorio = diretorio + "\\src\\Arquivos";
 		
 		Tema tema= null;
 		File dir = new File(diretorio);

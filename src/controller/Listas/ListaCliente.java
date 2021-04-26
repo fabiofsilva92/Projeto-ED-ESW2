@@ -1,4 +1,4 @@
-package controller;
+package controller.Listas;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -10,6 +10,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 import javax.swing.JOptionPane;
+
+import controller.Cliente;
+import controller.Nos.NoCliente;
 
 public class ListaCliente  {
 
@@ -161,8 +164,10 @@ public class ListaCliente  {
 	//Percorre a lista e exibe na tela 
 	public void percorrer() {
 
-		
-		File arquivo = new File("ListaCliente.csv");
+		String diretorio = System.getProperty("user.dir");
+		diretorio = diretorio + "\\src\\Arquivos";
+		File dir = new File(diretorio);
+		File arquivo = new File(dir, "ListaCliente.csv");
 		boolean success = (arquivo).delete();
 		System.out.println(success);
 		
@@ -181,7 +186,6 @@ public class ListaCliente  {
 				try {
 					criarListaCliente(aux.cliente);
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				
@@ -200,6 +204,7 @@ public class ListaCliente  {
 		String userName = System.getProperty("user.name");
 		//System.out.println(userName);
 		String diretorio = System.getProperty("user.dir");
+		diretorio = diretorio + "\\src\\Arquivos";
 		//System.out.println(diretorio);
 		
 		File dir = new File(diretorio);
@@ -241,6 +246,7 @@ public class ListaCliente  {
 	public  Cliente carregarListaCliente(ListaCliente lc2) throws IOException {
 		
 		String diretorio = System.getProperty("user.dir");
+		diretorio = diretorio + "\\src\\Arquivos";
 		
 		Cliente cliente = null;
 		File dir = new File(diretorio);

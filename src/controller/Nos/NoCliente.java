@@ -1,4 +1,6 @@
-package controller;
+package controller.Nos;
+
+import controller.Cliente;
 
 public class NoCliente {
 	

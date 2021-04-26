@@ -1,0 +1,14 @@
+ID Cliente: 11, Cliente: 11, Endereço: 11, CPF: 11, Data de Nascimento: 11, Data de cadastro: 11, Numero de Locaçoes: 1
+ID Cliente: 11, Cliente: 11, Endereço: 11, CPF: 11, Data de Nascimento: 11, Data de cadastro: 11, Numero de Locaçoes: 1
+
+ID Cliente: 55, Cliente: 55, Endereço: 55, CPF: 55, Data de Nascimento: 55, Data de cadastro: 55, Numero de Locaçoes: 1
+ID Cliente: 55, Cliente: 55, Endereço: 55, CPF: 55, Data de Nascimento: 55, Data de cadastro: 55, Numero de Locaçoes: 1
+
+ID Cliente: 88, Cliente: 88, Endereço: 88, CPF: 88, Data de Nascimento: 88, Data de cadastro: 88, Numero de Locaçoes: 1
+
+ID Cliente: 99, Cliente: 99, Endereço: 99, CPF: 99, Data de Nascimento: 99, Data de cadastro: 99, Numero de Locaçoes: 1
+
+ID Cliente: 0, Cliente: 00, Endereço: 00, CPF: 00, Data de Nascimento: 00, Data de cadastro: 00, Numero de Locaçoes: 1
+ID Cliente: 44, Cliente: 44, Endereço: 44, CPF: 44, Data de Nascimento: 44, Data de cadastro: 44, Numero de Locaçoes: 1
+ID Cliente: 11, Cliente: 11, Endereço: 11, CPF: 11, Data de Nascimento: 11, Data de cadastro: 11, Numero de Locaçoes: 1
+
