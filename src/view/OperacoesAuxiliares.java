@@ -3,6 +3,7 @@ package view;
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.JOptionPane;
 
@@ -38,6 +39,20 @@ public class OperacoesAuxiliares {
 		String DataNasc = (JOptionPane.showInputDialog("Digite a Data de nascimento: (dd/MM/yyyy)")); // criar metodo
 										
 		String [] auxNasc = formatarData(DataNasc);
+		
+		
+		Date Nascimento = agd.convertendoStringEmData(auxNasc);
+		
+		long diffEmMil = Math.abs(hoje.getTime() - Nascimento.getTime());
+		System.out.println(diffEmMil);
+		
+		long diff = TimeUnit.DAYS.convert(diffEmMil, TimeUnit.MILLISECONDS);
+		
+		int anos = Math.abs(((int)diff)/ 365);
+		
+		System.out.println("Diferença entre datas: " + diff + "dias e " + anos + "anos");
+		
+
 		boolean valido = ValidandoDiaEMes(auxNasc);
 		Cliente cliente;
 		String DataCadastro = hojeStr;// (JOptionPane.showInputDialog("Digite a Data de Cadastro: ")); //pegar a data
@@ -50,7 +65,9 @@ public class OperacoesAuxiliares {
 		//-----------------------------------------------------------------------//
 		//Vou continuar, o valido deverá considerar também se é maior que 18 anos
 		if(valido) {
-			Date Nascimento = agd.convertendoStringEmData(auxNasc);
+		//	Date Nascimento = agd.convertendoStringEmData(auxNasc);
+		//	int valor = hoje.compareTo(Nascimento);
+			
 			if(Nascimento.after(hoje)) {
 				System.out.println("Data Inválida");
 			}
