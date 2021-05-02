@@ -44,7 +44,7 @@ public class OperacoesAuxiliares {
 		
 		Date Nascimento = agd.convertendoStringEmData(auxNasc);
 		
-		int anos = verificaIdade(hoje, Nascimento);
+		int anos = verificaIdade(hoje, Nascimento); //Verificando se idade.
 		String DataCadastro = hojeStr;
 		
 		if(anos >= 18) {

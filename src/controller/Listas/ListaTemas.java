@@ -189,6 +189,28 @@ public class ListaTemas {
 			JOptionPane.showMessageDialog(null, "Lista de temas já disponíveis : \n"+s.toString());
 		}
 	}
+	public String percorrerVerifica() {
+		
+
+		NoTema aux = inicio;
+		StringBuilder s = new StringBuilder();
+		if (aux == null) {
+			JOptionPane.showMessageDialog(null, "ERRO, Lista Vázia");
+		} else {
+			while (aux != null) {
+
+				s.append("ID: " + aux.tema.getIdTema() + ", Nome: " + aux.tema.getNomeTema() + ", Valor da Diária: R$"
+						+ aux.tema.getValorDiaria()+" \n");
+				try {
+					criaListaTema(aux.tema);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				aux = aux.prox;
+			}
+		}
+		return s.toString();
+	}
 	
 	// Cria um arquivo que abre no excel
 	// se não houver uma diretorio  e arquivo ele vai criar automaticamente

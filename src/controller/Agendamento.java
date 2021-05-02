@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -7,21 +8,42 @@ import java.util.Date;
 
 import javax.swing.JOptionPane;
 
+import controller.Listas.ListaTemas;
+
 public class Agendamento {
 
 	public void Agendamento(String [] auxReserva) {
+		
+		ListaTemas lt = new ListaTemas();
+		try {
+			lt.carregarListaTema(lt);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		boolean validoRetro, validoFuturo = false;
 		Date data = convertendoStringEmData(auxReserva);//converte o vetor no formato data
 		boolean validoExiste = ValidandoDiaEMes(auxReserva);// Metodo valida se o dia, mes e ano são validos, falta
 																// validação do ano.
 		if (validoExiste) {
 				validoRetro = validandoDataRetro(data);
+				if(validoRetro) {
+					validoExiste = true;
+					validoFuturo = validarAnoAFrente(data);
+					if(validoFuturo) {
+						validoExiste = true;
+					}
+				}
 		} else {
 			JOptionPane.showMessageDialog(null, "ERRO, Data inserida esta incorreta ");
+			validoExiste = false;
 		}
 		
+		//se a data for valida para todos os requisitos, entraremos no metodo para agendar na lista duplamente encadeada Agenda.
 		if(validoExiste) {
-			validoFuturo = ValidarDoisMesesFrente(data);
+			
+			int temaId = Integer.parseInt(JOptionPane.showInputDialog("Digite o ID do tema em que deseja verificar a disponibilidade. \n" +lt.percorrerVerifica() ));
 		}
 		
 		//Continuar chamando um metodo para adicionar a data em uma lista.
@@ -46,14 +68,14 @@ public class Agendamento {
 		return null;
 	}
 
-	private boolean ValidarDoisMesesFrente(Date data) {//Verifica se a data de reserva é maior do que 60 dias
+	private boolean validarAnoAFrente(Date data) {//Verifica se a data de reserva é maior do que 60 dias
 		Boolean valido = true;
 		Calendar calendar = Calendar.getInstance();
-		calendar.add( Calendar.DAY_OF_MONTH , 60 );
+		calendar.add( Calendar.DAY_OF_MONTH , 365 );
 		Date dataFutura = calendar.getTime();
 		
 		if(data.after(dataFutura)) {
-			JOptionPane.showMessageDialog(null, "ERRO,Não é possivel fazer reserva para mais de 60 dias");
+			JOptionPane.showMessageDialog(null, "ERRO,Não é possivel fazer reserva para mais de 365 dias");
 			valido = false;
 			return valido;
 		}
@@ -68,7 +90,6 @@ public class Agendamento {
 		if (dataAgenda.before(hoje)) {// Validando se a data é anterior a data atual
 			valido = false; // Se for invalido retorna falso
 			JOptionPane.showMessageDialog(null,"ERRO, Data inserida esta incorreta " + dataAgenda + " ,anterior a atual ");
-			valido = false;
 		}
 		return valido;
 	}
