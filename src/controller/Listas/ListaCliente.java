@@ -21,7 +21,14 @@ public class ListaCliente  {
 	public ListaCliente() {
 		this.inicio = null;
 	}
-
+	public void organizarLista () {
+		NoCliente aux = inicio;
+		MergeListaCliente m = new MergeListaCliente();
+	
+		m.criaVetor(aux);
+		
+		
+	}
 	
 	//Tive que criar este metodo pois os outros metodos de adicionas, envia para a loista csv, 
 	//podemos melhorar depois esse metodo. E apenas adicionar os clientes  quando for percorrer  
@@ -37,7 +44,8 @@ public class ListaCliente  {
 		inicio = c;
 		//criaListaCliente(n);
 	}
-
+	
+	
 	public void adicionaFinal(Cliente n) throws IOException {
 		if (inicio == null) {
 			NoCliente c = new NoCliente(n);

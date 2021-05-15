@@ -13,6 +13,7 @@ import controller.Cliente;
 import controller.Tema;
 import controller.Listas.ListaCliente;
 import controller.Listas.ListaTemas;
+import controller.Listas.MergeListaCliente;
 import view.OperacoesAuxiliares;
 
 public class MainMenu {
@@ -22,30 +23,28 @@ public class MainMenu {
 
 	public static void main(String[] args) throws IOException {
 
-		
 		int opc = 0, pos, menuopc;
 
 		ListaTemas lt = new ListaTemas();
 		ListaCliente lc2 = new ListaCliente();
 		Agendamento ag = new Agendamento();
-		OperacoesAuxiliares oa = new OperacoesAuxiliares(); //Classe para não encher o MainMenu
-		
+		OperacoesAuxiliares oa = new OperacoesAuxiliares(); // Classe para não encher o MainMenu
+
 		lt.carregarListaTema(lt);// Carrega a lista predefinida
 		lc2.carregarListaCliente(lc2); // Carrega a lista pre definida
-		
 
 		do {
 			menuopc = Integer
 					.parseInt(JOptionPane.showInputDialog("1 - Menu temas \n2 - Menu Clientes \n 9 - Finalizar"));
 			// Menu Tema
 			if (menuopc == 1) {
-				 
+
 				lt.percorrer(); // Mostra a lista
 				do {
 					opc = Integer.parseInt(JOptionPane.showInputDialog("1 - Adiciona Inicio \n"
 							+ "2 - Adiciona Final \n" + "3 - Escolhe posição \n" + "4 - Remove Inicio \n"
 							+ "5 - Remove Final\n" + "6 - Escolhe posição para remover\n" + "7 - Exibir lista\n"
-							+  "8 - Agendar Reserva\n" + "0 - Voltar Menu Anterior"));
+							+ "8 - Agendar Reserva\n" + "0 - Voltar Menu Anterior"));
 
 					switch (opc) {
 					case 1:
@@ -84,7 +83,6 @@ public class MainMenu {
 						ag.Agendamento(auxReserva);
 						break;
 
-
 					case 0:
 						break;
 					}
@@ -98,41 +96,38 @@ public class MainMenu {
 				do {
 					opc = Integer.parseInt(JOptionPane.showInputDialog("1 - Adiciona Inicio \n"
 							+ "2 - Adiciona Final \n" + "3 - Escolhe posição \n" + "4 - Remove Inicio \n"
-							+ "5 - Remove Final\n" + "6 - Escolhe posição para remover\n" + "7 - Exibir lista\n" 
-							+ "0 - Voltar Menu Anterior"));
+							+ "5 - Remove Final\n" + "6 - Escolhe posição para remover\n" + "7 - Exibir lista\n"
+							+ "9 - TesteMerge\n" + "0 - Voltar Menu Anterior"));
 					switch (opc) {
 					case 1:
 						Cliente clienteSetado = oa.setarCliente();
-						if(clienteSetado != null) {
+						if (clienteSetado != null) {
 							lc2.adicionaInicio(clienteSetado);
 							lc2.percorrer();
-						}
-						else {
+						} else {
 							lc2.percorrer();
 						}
-						
+
 						break;
 					case 2:
 						clienteSetado = oa.setarCliente();
-						if(clienteSetado !=null) {
+						if (clienteSetado != null) {
 							lc2.adicionaFinal(oa.setarCliente());
 							lc2.percorrer();
-						}
-						else {
+						} else {
 							lc2.percorrer();
 						}
 						break;
 					case 3:
 						pos = Integer.parseInt(JOptionPane.showInputDialog("Informe uma posição para inserção: "));
 						clienteSetado = oa.setarCliente();
-						if(clienteSetado != null) {
+						if (clienteSetado != null) {
 							lc2.adicionaPosicao(oa.setarCliente(), pos);
 							lc2.percorrer();
-						}
-						else {
+						} else {
 							lc2.percorrer();
 						}
-						
+
 						break;
 					case 4:
 						JOptionPane.showMessageDialog(null,
@@ -157,6 +152,9 @@ public class MainMenu {
 					// objeto dessa classe.
 					// lc2.carregarLista(lc2);
 					// break;
+					case 9:
+						lc2.organizarLista();
+						break;
 					case 0:
 						break;
 					}
@@ -172,6 +170,5 @@ public class MainMenu {
 	}
 
 	// VOU SEPARAR OS METODOS ABAIXO EM OUTRA CLASSE
-
 
 }
