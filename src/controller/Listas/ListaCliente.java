@@ -21,13 +21,10 @@ public class ListaCliente  {
 	public ListaCliente() {
 		this.inicio = null;
 	}
-	public void organizarLista () {
+	public void organizarLista () { //envia a lista encadeada para a classe e faz a manipulação dessa lista
 		NoCliente aux = inicio;
 		MergeListaCliente m = new MergeListaCliente();
-	
 		m.criaVetor(aux);
-		
-		
 	}
 	
 	//Tive que criar este metodo pois os outros metodos de adicionas, envia para a loista csv, 

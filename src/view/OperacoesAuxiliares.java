@@ -81,7 +81,7 @@ public class OperacoesAuxiliares {
 		long diff = TimeUnit.DAYS.convert(diffEmMil, TimeUnit.MILLISECONDS);
 		int anos = Math.abs(((int)diff)/ 365);
 		
-		System.out.println("Diferença entre datas: " + diff + "dias e " + anos + "anos");
+		System.out.println("Diferença entre datas: " + diff + " dias e " + anos + " anos");
 		return anos;
 		
 	}

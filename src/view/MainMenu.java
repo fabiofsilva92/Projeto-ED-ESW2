@@ -35,7 +35,7 @@ public class MainMenu {
 
 		do {
 			menuopc = Integer
-					.parseInt(JOptionPane.showInputDialog("1 - Menu temas \n2 - Menu Clientes \n 9 - Finalizar"));
+					.parseInt(JOptionPane.showInputDialog("1 - Menu temas \n2 - Menu Clientes \n9 - Finalizar"));
 			// Menu Tema
 			if (menuopc == 1) {
 
