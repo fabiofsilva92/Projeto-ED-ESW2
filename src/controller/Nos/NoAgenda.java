@@ -2,13 +2,13 @@ package controller.Nos;
 
 import controller.Agenda;
 
-public class NoAgendamento {
+public class NoAgenda {
 	
 	public Agenda agendamento;
-	public NoAgendamento prox;
-	public NoAgendamento anterior;
+	public NoAgenda prox;
+	public NoAgenda anterior;
 	
-	public NoAgendamento(Agenda agendamento) {
+	public NoAgenda(Agenda agendamento) {
 		super();
 		this.agendamento = agendamento;
 		this.prox = null;

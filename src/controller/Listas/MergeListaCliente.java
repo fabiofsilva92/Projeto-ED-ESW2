@@ -2,69 +2,100 @@ package controller.Listas;
 
 import javax.swing.JOptionPane;
 
+import controller.Cliente;
 import controller.Nos.NoCliente;
 
 public class MergeListaCliente {
-
-	public void criaVetor(NoCliente aux) { //Faz a contagem do tamanho da lista encadeada, para gerar um vetor 
-		int ta = 0;
-		NoCliente aux2 = aux;
-
-		while (aux2 != null) {
-			ta++;
-			aux2 = aux2.prox;
-		}
-		System.out.println("O tamanho é " + ta);
-
-		Object[] vetor = new Object[ta];
-		//Após o vetor criado cria uma String dos dados do cliente e armazena no vetor.
-		for (int i = 0; i < ta; i++) {
-			vetor[i] = (aux.cliente.getNome() + ", " + aux.cliente.getIdCliente() + ", " + aux.cliente.getEndereco()
-					+ ", " + aux.cliente.getCPF() + ", " + aux.cliente.getDataNasc());
-			aux = aux.prox;
-		}
-// Teste de uso Split para pegar o id, estava dentro do merge,que não funcionou 		
-//		String[] id2 = lista[j].toString().split(",");
-//		int id22 = Integer.parseInt(id2[0]);
-		
-//		String[] id1 = lista[i].toString().split(",");
-//		int id11 = Integer.parseInt(id1[0]);
-
-		int ini = 0;
-		int fim = vetor.length - 1;
-
-		mergeSort(vetor, ini, fim);
-
-		StringBuilder s = new StringBuilder();
-		//Após o merge organizar o vetor e ele retorna e armazena no StringBuilder para uma melhor apresentação.
-		for (int i = 0; i <= fim; i++) {
-			s.append(vetor[i].toString()+"\n");
-			System.out.println(vetor[i].toString());
-		}
-		JOptionPane.showMessageDialog(null, "Lista de clientes cadastrados no sistema: \n" + s.toString());
+	
+	private NoCliente inicio;
+	
+	public MergeListaCliente() {
+		this.inicio = null;
 	}
 
-	void mergeSort(Object[] lista, int ini, int fim) { //Faz a chamada recursiva até organizar todo o vetor.
+	public NoCliente criaVetor(NoCliente aux) { // Faz a contagem do tamanho da lista encadeada, para gerar um vetor
+		int listaLength = 0;
+		NoCliente aux2 = aux;
+		NoCliente inicio = aux2;
+
+		while (aux2 != null) {
+			listaLength++;
+			aux2 = aux2.prox;
+		}
+		aux2 = aux;
+		System.out.println("O tamanho é " + listaLength);
+
+		Cliente[] vetorClientes = new Cliente[listaLength];
+		Cliente auxCliente = null;
+
+		for (int i = 0; i < listaLength; i++) {
+			auxCliente = new Cliente(aux.cliente.getIdCliente(), aux.cliente.getNome(), aux.cliente.getEndereco(), aux.cliente.getCPF(), aux.cliente.getDataNasc(), aux.cliente.getDataCadastro(), aux.cliente.getNumLocacoes());
+		//vetorClientes[i].setIdCliente(aux.cliente.getIdCliente());
+		//vetorClientes[i].setNome(aux.cliente.getNome());
+		//vetorClientes[i].setEndereco(aux.cliente.getEndereco());
+		//vetorClientes[i].setCPF(aux.cliente.getCPF());
+		//vetorClientes[i].setDataCadastro(aux.cliente.getDataNasc());
+		//vetorClientes[i].setDataCadastro(aux.cliente.getDataCadastro());
+		//vetorClientes[i].setNumLocacoes(aux.cliente.getNumLocacoes());
+			vetorClientes[i] = auxCliente;
+			aux = aux.prox;
+		}
+
+		int ini = 0;
+		int fim = vetorClientes.length - 1;
+
+		mergeSort(vetorClientes, ini, fim);
+
+		for (int i = 0 ; i<listaLength; i++) {
+			aux2.cliente.setIdCliente(vetorClientes[i].getIdCliente());
+			aux2.cliente.setNome(vetorClientes[i].getNome());
+			aux2.cliente.setEndereco(vetorClientes[i].getEndereco());
+			aux2.cliente.setCPF(vetorClientes[i].getCPF());
+			aux2.cliente.setDataNasc(vetorClientes[i].getDataNasc());
+			aux2.cliente.setDataCadastro(vetorClientes[i].getDataCadastro());
+			aux2.cliente.setNumLocacoes(vetorClientes[i].getNumLocacoes());
+			adicionaFinal(aux2.cliente);
+			aux2 = aux2.prox;
+		}
+		
+		return inicio;
+	}
+	
+	public void adicionaFinal(Cliente n){
+		if (inicio == null) {
+			NoCliente c = new NoCliente(n);
+			inicio = c;
+			c.prox = null;
+		} else {
+			NoCliente aux = inicio;
+			while (aux.prox != null) {
+				aux = aux.prox;
+			}
+			NoCliente c = new NoCliente(n);
+			aux.prox = c;
+			c.prox = null;
+		}
+		//criaListaCliente(n);
+	}
+
+	void mergeSort(Cliente[] lista, int ini, int fim) { // Faz a chamada recursiva até organizar todo o vetor.
 
 		int pos = (ini + fim) / 2, i = ini, j = pos + 1, k = 0;
-		Object[] lista_aux = new Object[fim - ini + 1];
+		Cliente[] lista_aux = new Cliente[fim - ini + 1];
 
 		if (ini < fim) {
 			mergeSort(lista, ini, pos);
 			mergeSort(lista, pos + 1, fim);
 
 			while (i <= pos || j <= fim) {
-		
-				
+
 				if (i > pos) {
 					lista_aux[k] = lista[j];
 					j++;
 				} else if (j > fim) {
 					lista_aux[k] = lista[i];
-					i++;							//Vai fazer a comparação usando o compareTo  se o valor de a segunda String
-													//se for menor vai retornar um numero positivo e vai adicionar na lista  o nome na posição i
-													//for maior, vai retornar um numero negativo, e vai adicionar o nome na posição j
-				} else if (lista[i].toString().toLowerCase().compareTo( lista[j].toString().toLowerCase()) < 0) {
+					i++;
+				} else if (lista[i].getIdCliente() < lista[j].getIdCliente()) {
 					lista_aux[k] = lista[i];
 					i++;
 				} else {
@@ -75,9 +106,9 @@ public class MergeListaCliente {
 				k++;
 			}
 			k = 0;
-			for (i = ini; i <= fim; i++) {
+			for (int z = ini; z <= fim; z++) {
 
-				lista[i] = lista_aux[k];
+				lista[z] = lista_aux[k];
 				k++;
 			}
 

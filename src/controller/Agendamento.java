@@ -24,6 +24,7 @@ public class Agendamento {
 		
 		boolean validoRetro, validoFuturo = false;
 		Date data = convertendoStringEmData(auxReserva);//converte o vetor no formato data
+		
 		boolean validoExiste = ValidandoDiaEMes(auxReserva);// Metodo valida se o dia, mes e ano são validos, falta
 																// validação do ano.
 		if (validoExiste) {

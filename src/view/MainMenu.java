@@ -112,7 +112,7 @@ public class MainMenu {
 					case 2:
 						clienteSetado = oa.setarCliente();
 						if (clienteSetado != null) {
-							lc2.adicionaFinal(oa.setarCliente());
+							lc2.adicionaFinal(clienteSetado);
 							lc2.percorrer();
 						} else {
 							lc2.percorrer();
@@ -122,7 +122,7 @@ public class MainMenu {
 						pos = Integer.parseInt(JOptionPane.showInputDialog("Informe uma posição para inserção: "));
 						clienteSetado = oa.setarCliente();
 						if (clienteSetado != null) {
-							lc2.adicionaPosicao(oa.setarCliente(), pos);
+							lc2.adicionaPosicao(clienteSetado, pos);
 							lc2.percorrer();
 						} else {
 							lc2.percorrer();
@@ -144,6 +144,9 @@ public class MainMenu {
 						break;
 					case 7:
 						lc2.percorrer();
+						break;
+					case 8: 
+						lc2.organizarLista();
 						break;
 //					case 8: // tem que continuar este metodo, estava no menu 
 //						break;

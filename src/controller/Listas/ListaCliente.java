@@ -21,21 +21,41 @@ public class ListaCliente  {
 	public ListaCliente() {
 		this.inicio = null;
 	}
+	
+	
 	public void organizarLista () { //envia a lista encadeada para a classe e faz a manipulação dessa lista
-		NoCliente aux = inicio;
-		MergeListaCliente m = new MergeListaCliente();
-		m.criaVetor(aux);
+		
+		if (inicio == null) {
+			System.out.println("Lista vazia");
+			return;
+		}
+		else {
+			NoCliente aux = inicio;
+			MergeListaCliente m = new MergeListaCliente();
+			aux = m.criaVetor(aux);
+			StringBuilder s = new StringBuilder();
+			while (aux != null) {
+
+				s.append("ID: " + aux.cliente.getIdCliente() + ", Nome: " + aux.cliente.getNome() + ", Endereço: "
+						+ aux.cliente.getEndereco() + ", CPF: " + aux.cliente.getCPF() + ", Data nascimento: "
+						+ aux.cliente.getDataNasc() + ", Data Cadastro: " + aux.cliente.getDataCadastro()
+						+ ", Numero locações: " + aux.cliente.getNumLocacoes() + "\n");
+				aux = aux.prox;
+			}
+			System.out.println("Lista de clientes após o merge: \n" +s.toString());
+		}
+
 	}
 	
 	//Tive que criar este metodo pois os outros metodos de adicionas, envia para a loista csv, 
 	//podemos melhorar depois esse metodo. E apenas adicionar os clientes  quando for percorrer  
-	public void adicionaCarregamentoCSV(Cliente n) throws IOException {
+	public void adicionaCarregamentoCSV(Cliente n){
 	NoCliente c = new NoCliente(n);
 	c.prox = inicio;
 	inicio = c;
 	}
 	
-	public void adicionaInicio(Cliente n) throws IOException {
+	public void adicionaInicio(Cliente n){
 		NoCliente c = new NoCliente(n);
 		c.prox = inicio;
 		inicio = c;
@@ -43,7 +63,7 @@ public class ListaCliente  {
 	}
 	
 	
-	public void adicionaFinal(Cliente n) throws IOException {
+	public void adicionaFinal(Cliente n){
 		if (inicio == null) {
 			NoCliente c = new NoCliente(n);
 			inicio = c;
@@ -60,7 +80,7 @@ public class ListaCliente  {
 		//criaListaCliente(n);
 	}
 
-	public void adicionaPosicao(Cliente n, int pos) throws IOException {
+	public void adicionaPosicao(Cliente n, int pos){
 
 		NoCliente c = new NoCliente(n);
 

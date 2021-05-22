@@ -2,6 +2,9 @@ package controller;
 
 public class Agenda {
 
+	private int idAgendamento;
+
+
 	private String dataAgendamento;
 	private int temaId;
 	private String endereco;
@@ -10,9 +13,9 @@ public class Agenda {
 	private String horaFinal;
 	private String formaPagamento;
 
-	public Agenda(String dataAgendamento, int temaId, String endereco, String dataFesta, String horaInicio,
+	public Agenda(int idAgendamento, String dataAgendamento, int temaId, String endereco, String dataFesta, String horaInicio,
 			String horaFinal, String formaPagamento) {
-		super();
+		this.idAgendamento = idAgendamento;
 		this.dataAgendamento = dataAgendamento;
 		this.temaId = temaId;
 		this.endereco = endereco;
@@ -68,5 +71,20 @@ public class Agenda {
 
 	public void setHoraFinal(String horaFinal) {
 		this.horaFinal = horaFinal;
+	}
+	public int getIdAgendamento() {
+		return idAgendamento;
+	}
+
+	public void setIdAgendamento(int idAgendamento) {
+		this.idAgendamento = idAgendamento;
+	}
+
+	public String getFormaPagamento() {
+		return formaPagamento;
+	}
+
+	public void setFormaPagamento(String formaPagamento) {
+		this.formaPagamento = formaPagamento;
 	}
 }
