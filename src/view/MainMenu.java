@@ -1,21 +1,14 @@
 package view;
 
 import java.io.IOException;
-import java.text.DateFormat;
-import java.time.Period;
-import java.util.Calendar;
-import java.util.Date;
 
 import javax.swing.JOptionPane;
 
 import controller.Agendamento;
 import controller.Cliente;
-import controller.Tema;
 import controller.Listas.ListaAgenda;
 import controller.Listas.ListaCliente;
 import controller.Listas.ListaTemas;
-import controller.Listas.MergeListaCliente;
-import view.OperacoesAuxiliares;
 
 public class MainMenu {
 

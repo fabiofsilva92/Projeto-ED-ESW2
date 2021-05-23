@@ -1,7 +1,5 @@
 package controller.Listas;
 
-import javax.swing.JOptionPane;
-
 import controller.Cliente;
 import controller.Nos.NoCliente;
 
