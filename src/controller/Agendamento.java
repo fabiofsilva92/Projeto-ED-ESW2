@@ -56,6 +56,7 @@ public class Agendamento {
 
 	}
 	
+	//Realiza agendamento
 	public void realizarAgendamento(String [] auxReserva) {
 		int idAgendamento = Integer.parseInt(JOptionPane.showInputDialog("Digite o id de representação do agendamento: "));
 		String dataAgendamento = auxReserva[0]+"/"+auxReserva[1]+"/"+auxReserva[2];

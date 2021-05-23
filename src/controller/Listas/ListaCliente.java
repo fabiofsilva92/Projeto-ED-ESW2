@@ -219,6 +219,61 @@ public class ListaCliente {
 		}
 
 	}
+	public String percorrer(int id) {
+
+		String diretorio = System.getProperty("user.dir");
+		diretorio = diretorio + "\\src\\Arquivos";
+		File dir = new File(diretorio);
+		File arquivo = new File(dir, "ListaCliente.csv");
+		boolean success = (arquivo).delete();
+		System.out.println(success);
+
+		NoCliente aux = inicio;
+		StringBuilder s = new StringBuilder();
+		if (aux == null) {
+			//JOptionPane.showMessageDialog(null, "ERRO, Lista Vázia");
+		} else {
+			while (aux != null) {
+
+				s.append("ID: " + aux.cliente.getIdCliente() + ", Nome: " + aux.cliente.getNome() + ", Endereço: "
+						+ aux.cliente.getEndereco() + ", CPF: " + aux.cliente.getCPF() + ", Data nascimento: "
+						+ aux.cliente.getDataNasc() + ", Data Cadastro: " + aux.cliente.getDataCadastro()
+						+ ", Numero locações: " + aux.cliente.getNumLocacoes() + "\n");
+
+				try {
+					criarListaCliente(aux.cliente);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+
+				aux = aux.prox;
+				
+			}
+			return s.toString();
+		}
+		return s.toString();
+
+	}
+	
+	public Cliente percorrerVerifica(int id) {
+
+		NoCliente aux = inicio;
+		if (aux == null) {
+			JOptionPane.showMessageDialog(null, "ERRO, Lista Vázia");
+			return aux.cliente;
+		} else {
+			while (aux != null) {
+				if(aux.cliente.getIdCliente() == id) {
+					return aux.cliente;
+				}
+				else {
+					aux = aux.prox;
+				}
+			}
+			return null;
+		}
+
+	}
 
 	// Cria um arquivo que abre no excel
 	// se não houver uma diretorio e arquivo ele vai criar automaticamente

@@ -83,9 +83,17 @@ public class MainMenu {
 						String dataReserva = JOptionPane.showInputDialog("Datas já agendadas : \n" + la.percorrer() + "\n Informe a data desejada (dd/MM/yyyy)");
 						String[] auxReserva = oa.formatarData(dataReserva);
 						if(ag.Agendamento(auxReserva)) {
-							
+							int idCliente = Integer.parseInt(JOptionPane.showInputDialog("Clientes disponíveis: \n"+lc2.percorrer(0)+
+									"Digite o ID do cliente que deseja realizar o agendamento: " ));
+							Cliente cliente = lc2.percorrerVerifica(idCliente);
+							if(cliente!= null) {
+								
+							}
+							else {
+								
+							}
 						}else{
-							
+							JOptionPane.showMessageDialog(null, "Data inválida");
 						};
 						break;
 
