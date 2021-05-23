@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import controller.Agendamento;
 import controller.Cliente;
 import controller.Tema;
+import controller.Listas.ListaAgenda;
 import controller.Listas.ListaCliente;
 import controller.Listas.ListaTemas;
 import controller.Listas.MergeListaCliente;
@@ -28,6 +29,7 @@ public class MainMenu {
 		ListaTemas lt = new ListaTemas();
 		ListaCliente lc2 = new ListaCliente();
 		Agendamento ag = new Agendamento();
+		ListaAgenda la = new ListaAgenda();
 		OperacoesAuxiliares oa = new OperacoesAuxiliares(); // Classe para não encher o MainMenu
 
 		lt.carregarListaTema(lt);// Carrega a lista predefinida
@@ -78,7 +80,7 @@ public class MainMenu {
 
 					case 8: // metodo Carrega a lista de datas disponiveis para o tema
 
-						String dataReserva = JOptionPane.showInputDialog("Informa a data desejada (dd/MM/yyyy)");
+						String dataReserva = JOptionPane.showInputDialog("Datas já agendadas : \n" + la.percorrer() + "\n Informe a data desejada (dd/MM/yyyy)");
 						String[] auxReserva = oa.formatarData(dataReserva);
 						ag.Agendamento(auxReserva);
 						break;

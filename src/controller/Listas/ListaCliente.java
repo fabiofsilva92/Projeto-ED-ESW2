@@ -14,22 +14,20 @@ import javax.swing.JOptionPane;
 import controller.Cliente;
 import controller.Nos.NoCliente;
 
-public class ListaCliente  {
+public class ListaCliente {
 
 	private NoCliente inicio;
 
 	public ListaCliente() {
 		this.inicio = null;
 	}
-	
-	
-	public void organizarLista () { //envia a lista encadeada para a classe e faz a manipulação dessa lista
-		
+
+	public void organizarLista() { // envia a lista encadeada para a classe e faz a manipulação dessa lista
+
 		if (inicio == null) {
 			System.out.println("Lista vazia");
 			return;
-		}
-		else {
+		} else {
 			NoCliente aux = inicio;
 			MergeListaCliente m = new MergeListaCliente();
 			aux = m.criaVetor(aux);
@@ -42,28 +40,29 @@ public class ListaCliente  {
 						+ ", Numero locações: " + aux.cliente.getNumLocacoes() + "\n");
 				aux = aux.prox;
 			}
-			System.out.println("Lista de clientes após o merge: \n" +s.toString());
+			System.out.println("Lista de clientes após o merge: \n" + s.toString());
 		}
 
 	}
-	
-	//Tive que criar este metodo pois os outros metodos de adicionas, envia para a loista csv, 
-	//podemos melhorar depois esse metodo. E apenas adicionar os clientes  quando for percorrer  
-	public void adicionaCarregamentoCSV(Cliente n){
-	NoCliente c = new NoCliente(n);
-	c.prox = inicio;
-	inicio = c;
-	}
-	
-	public void adicionaInicio(Cliente n){
+
+	// Tive que criar este metodo pois os outros metodos de adicionas, envia para a
+	// loista csv,
+	// podemos melhorar depois esse metodo. E apenas adicionar os clientes quando
+	// for percorrer
+	public void adicionaCarregamentoCSV(Cliente n) {
 		NoCliente c = new NoCliente(n);
 		c.prox = inicio;
 		inicio = c;
-		//criaListaCliente(n);
 	}
-	
-	
-	public void adicionaFinal(Cliente n){
+
+	public void adicionaInicio(Cliente n) {
+		NoCliente c = new NoCliente(n);
+		c.prox = inicio;
+		inicio = c;
+		// criaListaCliente(n);
+	}
+
+	public void adicionaFinal(Cliente n) {
 		if (inicio == null) {
 			NoCliente c = new NoCliente(n);
 			inicio = c;
@@ -77,10 +76,10 @@ public class ListaCliente  {
 			aux.prox = c;
 			c.prox = null;
 		}
-		//criaListaCliente(n);
+		// criaListaCliente(n);
 	}
 
-	public void adicionaPosicao(Cliente n, int pos){
+	public void adicionaPosicao(Cliente n, int pos) {
 
 		NoCliente c = new NoCliente(n);
 
@@ -97,7 +96,7 @@ public class ListaCliente  {
 			if (cont == pos - 1) {
 				c.prox = aux.prox;
 				aux.prox = c;
-				//criaListaCliente(n);
+				// criaListaCliente(n);
 			} else {
 				JOptionPane.showMessageDialog(null, "ERRO, Posição Inválida!");
 			}
@@ -184,9 +183,8 @@ public class ListaCliente  {
 		}
 		return c;
 	}
-	
-		
-	//Percorre a lista e exibe na tela 
+
+	// Percorre a lista e exibe na tela
 	public void percorrer() {
 
 		String diretorio = System.getProperty("user.dir");
@@ -195,7 +193,7 @@ public class ListaCliente  {
 		File arquivo = new File(dir, "ListaCliente.csv");
 		boolean success = (arquivo).delete();
 		System.out.println(success);
-		
+
 		NoCliente aux = inicio;
 		StringBuilder s = new StringBuilder();
 		if (aux == null) {
@@ -207,31 +205,31 @@ public class ListaCliente  {
 						+ aux.cliente.getEndereco() + ", CPF: " + aux.cliente.getCPF() + ", Data nascimento: "
 						+ aux.cliente.getDataNasc() + ", Data Cadastro: " + aux.cliente.getDataCadastro()
 						+ ", Numero locações: " + aux.cliente.getNumLocacoes() + "\n");
-				
+
 				try {
 					criarListaCliente(aux.cliente);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-				
+
 				aux = aux.prox;
 			}
 
-			JOptionPane.showMessageDialog(null, "Lista de clientes cadastrados no sistema: \n" +s.toString());
+			JOptionPane.showMessageDialog(null, "Lista de clientes cadastrados no sistema: \n" + s.toString());
 		}
 
 	}
-	
+
 	// Cria um arquivo que abre no excel
-	// se não houver uma diretorio  e arquivo ele vai criar automaticamente
+	// se não houver uma diretorio e arquivo ele vai criar automaticamente
 	private void criarListaCliente(Cliente c) throws IOException {
-		
+
 		String userName = System.getProperty("user.name");
-		//System.out.println(userName);
+		// System.out.println(userName);
 		String diretorio = System.getProperty("user.dir");
 		diretorio = diretorio + "\\src\\Arquivos";
-		//System.out.println(diretorio);
-		
+		// System.out.println(diretorio);
+
 		File dir = new File(diretorio);
 		File arq = new File(dir, "ListaCliente.csv");
 
@@ -250,29 +248,28 @@ public class ListaCliente  {
 
 	}
 
-	
-	
-	//A cada adição  de temas, é chamado o metodo criaLista que chama este, e não sobrescreve o que já existe
-		private String preencheListaCliente(Cliente c) throws IOException {
+	// A cada adição de temas, é chamado o metodo criaLista que chama este, e não
+	// sobrescreve o que já existe
+	private String preencheListaCliente(Cliente c) throws IOException {
 
-			StringBuffer buffer = new StringBuffer();
+		StringBuffer buffer = new StringBuffer();
 
-			String linha = "";
-			linha = ("ID:" + c.getIdCliente() + ";Nome:" + c.getNome() + ";Endereço:" + c.getEndereco() + ";CPF:" + c.getCPF() + ";Data nascimento:" + c.getDataNasc()
-					+ ";Data Cadastro:" + c.getDataCadastro() + ";Numero locações:" + c.getNumLocacoes());
-			buffer.append(linha + "\r");
+		String linha = "";
+		linha = ("ID:" + c.getIdCliente() + ";Nome:" + c.getNome() + ";Endereço:" + c.getEndereco() + ";CPF:"
+				+ c.getCPF() + ";Data nascimento:" + c.getDataNasc() + ";Data Cadastro:" + c.getDataCadastro()
+				+ ";Numero locações:" + c.getNumLocacoes());
+		buffer.append(linha + "\r");
 
-			return buffer.toString();
-		}
+		return buffer.toString();
+	}
 
+	// Carrega o arquivo e vai lendo linha por linha
+	// A cada linha ele chama o metodo divideLinha para fazer o tratamento
+	public Cliente carregarListaCliente(ListaCliente lc2) throws IOException {
 
-	//Carrega o arquivo e vai lendo linha por linha
-	//A cada linha ele chama o metodo divideLinha para fazer o tratamento
-	public  Cliente carregarListaCliente(ListaCliente lc2) throws IOException {
-		
 		String diretorio = System.getProperty("user.dir");
 		diretorio = diretorio + "\\src\\Arquivos";
-		
+
 		Cliente cliente = null;
 		File dir = new File(diretorio);
 		File arq = new File(dir, "ListaCliente.csv");
@@ -284,42 +281,44 @@ public class ListaCliente  {
 		linha = buffer.readLine();
 
 		while (linha != null) {
-			lc2.adicionaCarregamentoCSV(dividelinha(linha));			
+			lc2.adicionaFinal(dividelinha(linha));
 			linha = buffer.readLine();
 		}
 
 		ler.close();
 		buffer.close();
-		
+
 		return cliente;
 
 	}
 
-	//Este metodo recebe uma linha de elementos, separa eles pelo ; deixando o nome e o atibuto
-	//depois separa o nome e deixa apenas o atributo
+	// Este metodo recebe uma linha de elementos, separa eles pelo ; deixando o nome
+	// e o atibuto
+	// depois separa o nome e deixa apenas o atributo
 	private static Cliente dividelinha(String linha) throws IOException {
-		
-		String[] divideLinha = linha.split(";"); //Os itens das colunas vem todos na mesma linha separado pelo ;
-		String[] divideAtributo;				//Dessa maneira é dividido e criado um array de elementos
-		
-		divideAtributo = divideLinha[0].split(":");//Apos a separacão ele vira um array, com o nome do atributo e seu valor
-		int IdCliente = Integer.parseInt(divideAtributo[1]);//Esse segundo split deixa apenas o valor
-		
+
+		String[] divideLinha = linha.split(";"); // Os itens das colunas vem todos na mesma linha separado pelo ;
+		String[] divideAtributo; // Dessa maneira é dividido e criado um array de elementos
+
+		divideAtributo = divideLinha[0].split(":");// Apos a separacão ele vira um array, com o nome do atributo e seu
+													// valor
+		int IdCliente = Integer.parseInt(divideAtributo[1]);// Esse segundo split deixa apenas o valor
+
 		divideAtributo = divideLinha[1].split(":");
 		String Nome = (divideAtributo[1]);
-		
+
 		divideAtributo = divideLinha[2].split(":");
 		String Endereco = (divideAtributo[1]);
-		
+
 		divideAtributo = divideLinha[3].split(":");
 		String CPF = (divideAtributo[1]);
-		
+
 		divideAtributo = divideLinha[4].split(":");
 		String DataNasc = (divideAtributo[1]);
-		
+
 		divideAtributo = divideLinha[5].split(":");
 		String DataCadastro = (divideAtributo[1]);
-		
+
 		divideAtributo = divideLinha[6].split(":");
 		int NumLocacoes = Integer.parseInt(divideAtributo[1]);
 
@@ -329,8 +328,6 @@ public class ListaCliente  {
 
 	}
 
-
-		
 //	// ainda vou melhorar, não esta sendo usado
 //	public void removeClienteLista(int pos) throws IOException {
 //		int cont = 0;

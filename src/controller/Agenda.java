@@ -4,25 +4,32 @@ public class Agenda {
 
 	private int idAgendamento;
 
-
 	private String dataAgendamento;
-	private int temaId;
+	private String tema;
+	private int clienteId;
 	private String endereco;
-	private String dataFesta;
 	private String horaInicio;
 	private String horaFinal;
 	private String formaPagamento;
 
-	public Agenda(int idAgendamento, String dataAgendamento, int temaId, String endereco, String dataFesta, String horaInicio,
-			String horaFinal, String formaPagamento) {
+	public Agenda(int idAgendamento, String dataAgendamento, String tema, int clienteId, String endereco,
+			String horaInicio, String horaFinal, String formaPagamento) {
 		this.idAgendamento = idAgendamento;
 		this.dataAgendamento = dataAgendamento;
-		this.temaId = temaId;
+		this.tema = tema;
+		this.clienteId = clienteId;
 		this.endereco = endereco;
-		this.dataFesta = dataFesta;
 		this.horaInicio = horaInicio;
 		this.horaFinal = horaFinal;
 		this.formaPagamento = formaPagamento;
+	}
+
+	public int getClienteId() {
+		return clienteId;
+	}
+
+	public void setClienteId(int clienteId) {
+		this.clienteId = clienteId;
 	}
 
 	public String getDataAgendamento() {
@@ -33,12 +40,12 @@ public class Agenda {
 		this.dataAgendamento = dataAgendamento;
 	}
 
-	public int getTemaId() {
-		return temaId;
+	public String getTema() {
+		return tema;
 	}
 
-	public void setTemaId(int temaId) {
-		this.temaId = temaId;
+	public void setTemaId(String tema) {
+		this.tema = tema;
 	}
 
 	public String getEndereco() {
@@ -49,13 +56,6 @@ public class Agenda {
 		this.endereco = endereco;
 	}
 
-	public String getDataFesta() {
-		return dataFesta;
-	}
-
-	public void setDataFesta(String dataFesta) {
-		this.dataFesta = dataFesta;
-	}
 
 	public String getHoraInicio() {
 		return horaInicio;
@@ -72,6 +72,7 @@ public class Agenda {
 	public void setHoraFinal(String horaFinal) {
 		this.horaFinal = horaFinal;
 	}
+
 	public int getIdAgendamento() {
 		return idAgendamento;
 	}

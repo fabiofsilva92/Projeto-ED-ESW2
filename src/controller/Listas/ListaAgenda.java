@@ -12,6 +12,8 @@ import javax.swing.JOptionPane;
 import controller.Agenda;
 import controller.Nos.NoAgenda;
 
+//TRANSFORMAR PARA DUPLAMENTE ENCADEADA.
+
 public class ListaAgenda {
 
 	private NoAgenda inicio;
@@ -149,35 +151,41 @@ public class ListaAgenda {
 		return c;
 	}
 
-	public void percorrer() {
+	public String percorrer() {
 
 		// O arquivo será criado toda vez que percorrer, dessa forma a ordem se manterá
 		// conforme as inserções.
 		String diretorio = System.getProperty("user.dir");
 		diretorio = diretorio + "\\src\\Arquivos";
 		File dir = new File(diretorio);
-		File arquivo = new File(dir, "ListaTema.csv");
+		File arquivo = new File(dir, "ListaAgenda.csv");
 		boolean success = (arquivo).delete();
 		System.out.println(success);
 
 		NoAgenda aux = inicio;
 		StringBuilder s = new StringBuilder();
 		if (aux == null) {
-			JOptionPane.showMessageDialog(null, "ERRO, Lista Vázia");
+			// JOptionPane.showMessageDialog(null, "ERRO, Lista Vázia");
 		} else {
 			while (aux != null) {
 
 				s.append("ID: " + aux.agendamento.getIdAgendamento() + ", Data: " + aux.agendamento.getDataAgendamento()
-					+ ", Tema: " + aux.agendamento.getTemaId() + " \n");
-			//try {
-			//	criaListaAgenda(aux.agendamento);
-			//} catch (IOException e) {
-			//	e.printStackTrace();
-			//}
+						+ ", Tema: " + aux.agendamento.getTema() + ", Cliente: " + aux.agendamento.getClienteId()
+						+ ", Endereço: " + aux.agendamento.getEndereco() + ", Hora de início: "
+						+ aux.agendamento.getHoraInicio() + ", Hora de término: " + aux.agendamento.getHoraFinal()
+						+ ", Forma de pagamento: " + aux.agendamento.getFormaPagamento() + "\n");
+				try {
+					criaListaAgenda(aux.agendamento);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 				aux = aux.prox;
 			}
-			JOptionPane.showMessageDialog(null, "Lista de temas já disponíveis : \n" + s.toString());
+			return s.toString();
+			// JOptionPane.showMessageDialog(null, "Lista de temas já disponíveis : \n" +
+			// s.toString());
 		}
+		return s.toString();
 	}
 
 	public String percorrerVerifica() {
@@ -190,108 +198,128 @@ public class ListaAgenda {
 			while (aux != null) {
 
 				s.append("ID: " + aux.agendamento.getIdAgendamento() + ", Data: " + aux.agendamento.getDataAgendamento()
-						+ ", Tema: " + aux.agendamento.getTemaId() + " \n");
-			//try {
-			//	criaListaAgenda(aux.agendamento);
-			//} catch (IOException e) {
-			//	e.printStackTrace();
-			//}
+						+ ", Tema: " + aux.agendamento.getTema() + " \n");
+				// try {
+				// criaListaAgenda(aux.agendamento);
+				// } catch (IOException e) {
+				// e.printStackTrace();
+				// }
 				aux = aux.prox;
 			}
 		}
 		return s.toString();
 	}
 
-	// Cria um arquivo que abre no excel
+	// Cria um arquivo que abre no exceláááÁ
 	// se não houver uma diretorio e arquivo ele vai criar automaticamente
-//	private void criaListaAgenda(Agenda c) throws IOException {
-//
-//		String userName = System.getProperty("user.name");
-//		// System.out.println(userName);
-//		String diretorio = System.getProperty("user.dir");
-//		diretorio = diretorio + "\\src\\Arquivos";
-//		// System.out.println(diretorio);
-//
-//		File dir = new File(diretorio);
-//		File arq = new File(dir, "ListaAgenda.csv");
-//
-//		if (!dir.exists() && !dir.isDirectory()) {
-//			dir.mkdirs(); // cria uma pasta se não existir, alterei mkdir para mkdirs
-//		}
-//
-//		String conteudo = preencheListaAgenda(c);
-//		FileWriter fileWriter = new FileWriter(arq, true);
-//		PrintWriter print = new PrintWriter(fileWriter);
-//		print.write(conteudo);
-//		print.flush();
-//		print.close();
-//		fileWriter.close();
-//
-//	}
-//
+	private void criaListaAgenda(Agenda c) throws IOException {
+
+		String userName = System.getProperty("user.name");
+		// System.out.println(userName);
+		String diretorio = System.getProperty("user.dir");
+		diretorio = diretorio + "\\src\\Arquivos";
+		// System.out.println(diretorio);
+
+		File dir = new File(diretorio);
+		File arq = new File(dir, "ListaAgenda.csv");
+
+		if (!dir.exists() && !dir.isDirectory()) {
+			dir.mkdirs(); // cria uma pasta se não existir, alterei mkdir para mkdirs
+		}
+
+		String conteudo = preencheListaAgenda(c);
+		FileWriter fileWriter = new FileWriter(arq, true);
+		PrintWriter print = new PrintWriter(fileWriter);
+		print.write(conteudo);
+		print.flush();
+		print.close();
+		fileWriter.close();
+
+	}
+
 	// A cada adição de temas, é chamado o metodo criaLista que chama este, e não
 	// sobrescreve o que já existe
-//	private String preencheListaAgenda(Agenda t) throws IOException {
+	private String preencheListaAgenda(Agenda t) throws IOException {
+
+		StringBuffer buffer = new StringBuffer();
+		// esquerda da tela
+		String linha = "";
+		linha = ("ID:" + t.getIdAgendamento() + "; Data:" + t.getDataAgendamento() + "; Tema:" + t.getTema()
+				+ "; Cliente:" + t.getClienteId() + "; Endereço:" + t.getEndereco() + "; Hora de início:"
+				+ t.getHoraInicio() + "; Hora de término:" + t.getHoraFinal() + "; Forma de pagamento:"
+				+ t.getFormaPagamento() + "\n");
+		buffer.append(linha + "\r");
+
+		return buffer.toString();
+	}
+
 //
-//		StringBuffer buffer = new StringBuffer();
-//		// esquerda da tela
-//		String linha = "";
-//		linha = ("ID Tema:" + t.getIdTema() + ";Nome Tema:" + t.getNomeTema() + ";Valor Diaria:" + t.getValorDiaria());
-//		buffer.append(linha + "\r");
-//
-//		return buffer.toString();
-//	}
-//
-//public Agenda carregarListaTema(ListaTemas lt) throws IOException {
-//
-//	// String userName = System.getProperty("user.name");
-//	String diretorio = System.getProperty("user.dir");
-//	diretorio = diretorio + "\\src\\Arquivos";
-//
-//	Agenda agenda = null;
-//	File dir = new File(diretorio);
-//	File arq = new File(dir, "ListaTema.csv");
-//
-//	FileReader ler = new FileReader(arq);
-//	BufferedReader buffer = new BufferedReader(ler);
-//	String linha = "";
-//
-//	linha = buffer.readLine();
-//
-//	while (linha != null) {
-//		lt.adicionaCarregamentoCSV(dividelinha(linha));
-//		linha = buffer.readLine();
-//	}
-//
-//	ler.close();
-//	buffer.close();
-//
-//	return agenda;
-//
-//}
+	public Agenda carregarListaAgenda(ListaAgenda lt) throws IOException {
+
+		// String userName = System.getProperty("user.name");
+		String diretorio = System.getProperty("user.dir");
+		diretorio = diretorio + "\\src\\Arquivos";
+
+		Agenda agenda = null;
+		File dir = new File(diretorio);
+		File arq = new File(dir, "ListaAgenda.csv");
+
+		FileReader ler = new FileReader(arq);
+		BufferedReader buffer = new BufferedReader(ler);
+		String linha = "";
+
+		linha = buffer.readLine();
+
+		while (linha != null) {
+			lt.adicionaFinal(dividelinha(linha));
+			linha = buffer.readLine();
+		}
+
+		ler.close();
+		buffer.close();
+
+		return agenda;
+
+	}
 
 	// Este metodo recebe uma linha de elementos, separa eles pelo ; deixando o nome
 	// e o atibuto
 	// depois separa o nome e deixa apenas o atributo
-//private static Agenda dividelinha(String linha) throws IOException {
-//
-//	String[] divideLinha = linha.split(";"); // Os itens das colunas vem todos na mesma linha separado pelo ;
-//	String[] divideAtributo; // Dessa maneira é dividido e criado um array de elementos
-//
-//	divideAtributo = divideLinha[0].split(":");// Apos a separacão ele vira um array, com o nome do atributo e seu
-//												// valor
-//	int idTema = Integer.parseInt(divideAtributo[1]);// Esse segundo split deixa apenas o valor
-//
-//	divideAtributo = divideLinha[1].split(":");
-//	String nomeTema = (divideAtributo[1]);
-//
-//	divideAtributo = divideLinha[2].split(":");
-//	Double valorDiaria = Double.parseDouble(divideAtributo[1]);
-//
-//	Agenda tema = new Agenda(idTema, nomeTema, valorDiaria);
-//
-//	return tema;
-//
-//}
+	private static Agenda dividelinha(String linha) throws IOException {
+
+		String[] divideLinha = linha.split(";"); // Os itens das colunas vem todos na mesma linha separado pelo ;
+		String[] divideAtributo; // Dessa maneira é dividido e criado um array de elementos
+
+		divideAtributo = divideLinha[0].split(":");// Apos a separacão ele vira um array, com o nome do atributo e seu
+													// valor
+		int idAgendamento = Integer.parseInt(divideAtributo[1]);// Esse segundo split deixa apenas o valor
+
+		divideAtributo = divideLinha[1].split(":");
+		String dataAgendamento = (divideAtributo[1]);
+
+		divideAtributo = divideLinha[2].split(":");
+		String temaId = (divideAtributo[1]);
+
+		divideAtributo = divideLinha[3].split(":");
+		int clienteId = Integer.parseInt(divideAtributo[1]);
+
+		divideAtributo = divideLinha[4].split(":");
+		String endereco = (divideAtributo[1]);
+
+		divideAtributo = divideLinha[5].split(":");
+		String horaInicio = (divideAtributo[1]);
+
+		divideAtributo = divideLinha[6].split(":");
+		String horaFinal = (divideAtributo[1]);
+
+		divideAtributo = divideLinha[7].split(":");
+		String formaPagamento = (divideAtributo[1]);
+
+		Agenda agendamento = new Agenda(idAgendamento, dataAgendamento, temaId, clienteId, endereco, horaInicio,
+				horaFinal, formaPagamento);
+
+		return agendamento;
+
+	}
 
 }

@@ -268,7 +268,7 @@ public class ListaTemas {
 		linha = buffer.readLine();
 
 		while (linha != null) {
-			lt.adicionaCarregamentoCSV(dividelinha(linha));			
+			lt.adicionaFinal(dividelinha(linha));			
 			linha = buffer.readLine();
 		}
 
