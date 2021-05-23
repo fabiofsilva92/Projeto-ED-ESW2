@@ -9,7 +9,6 @@ public class NoAgenda {
 	public NoAgenda anterior;
 	
 	public NoAgenda(Agenda agendamento) {
-		super();
 		this.agendamento = agendamento;
 		this.prox = null;
 		this.anterior = null;

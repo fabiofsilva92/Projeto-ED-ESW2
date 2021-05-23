@@ -82,7 +82,11 @@ public class MainMenu {
 
 						String dataReserva = JOptionPane.showInputDialog("Datas já agendadas : \n" + la.percorrer() + "\n Informe a data desejada (dd/MM/yyyy)");
 						String[] auxReserva = oa.formatarData(dataReserva);
-						ag.Agendamento(auxReserva);
+						if(ag.Agendamento(auxReserva)) {
+							
+						}else{
+							
+						};
 						break;
 
 					case 0:

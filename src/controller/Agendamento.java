@@ -12,7 +12,7 @@ import controller.Listas.ListaTemas;
 
 public class Agendamento {
 
-	public void Agendamento(String[] auxReserva) {
+	public boolean Agendamento(String[] auxReserva) {
 
 		ListaTemas lt = new ListaTemas();
 		try {
@@ -46,10 +46,21 @@ public class Agendamento {
 		if (validoExiste) {
 
 			// Continuar chamando um metodo para adicionar a data em uma lista.
-			int temaId = Integer.parseInt(JOptionPane.showInputDialog(
-					"Digite o ID do tema em que deseja verificar a disponibilidade. \n" + lt.percorrerVerifica()));
+			return true;
+
+		}
+		else
+		{
+			return false;
 		}
 
+	}
+	
+	public void realizarAgendamento(String [] auxReserva) {
+		int idAgendamento = Integer.parseInt(JOptionPane.showInputDialog("Digite o id de representação do agendamento: "));
+		String dataAgendamento = auxReserva[0]+"/"+auxReserva[1]+"/"+auxReserva[2];
+		System.out.println(dataAgendamento);
+		int clienteId = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do cliente: "));
 	}
 
 	public Date convertendoStringEmData(String[] auxReserva) {
