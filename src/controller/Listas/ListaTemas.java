@@ -190,7 +190,9 @@ public class ListaTemas {
 			JOptionPane.showMessageDialog(null, "Lista de temas já disponíveis : \n"+s.toString());
 		}
 	}
-	public String percorrerVerifica() {
+	
+	
+	public String percorrer(int id) {
 		
 
 		NoTema aux = inicio;
@@ -312,8 +314,12 @@ public class ListaTemas {
 			return null;
 		} else {
 			while (aux != null) {
-				if(aux.tema.getIdTema() == id) {return aux.tema;}
-				else {aux = aux.prox;}
+				if(aux.tema.getIdTema() == id) {
+					return aux.tema;
+				}
+				else {
+					aux = aux.prox;
+				}
 			}
 		}
 		

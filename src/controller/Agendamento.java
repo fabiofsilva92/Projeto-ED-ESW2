@@ -8,9 +8,13 @@ import java.util.Date;
 
 import javax.swing.JOptionPane;
 
+import controller.Listas.ListaAgenda;
 import controller.Listas.ListaTemas;
 
 public class Agendamento {
+
+	public int idAgendamento = 0;
+	ListaAgenda ag = new ListaAgenda();
 
 	public boolean Agendamento(String[] auxReserva) {
 
@@ -48,20 +52,42 @@ public class Agendamento {
 			// Continuar chamando um metodo para adicionar a data em uma lista.
 			return true;
 
-		}
-		else
-		{
+		} else {
 			return false;
 		}
 
 	}
-	
-	//Realiza agendamento
-	public void realizarAgendamento(String [] auxReserva) {
-		int idAgendamento = Integer.parseInt(JOptionPane.showInputDialog("Digite o id de representação do agendamento: "));
-		String dataAgendamento = auxReserva[0]+"/"+auxReserva[1]+"/"+auxReserva[2];
-		System.out.println(dataAgendamento);
-		int clienteId = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do cliente: "));
+
+	// Realiza agendamento
+	public Agenda realizarAgendamento(String[] auxReserva, Cliente cliente, Tema tema) {
+		idAgendamento = idAgendamento + 1;
+		String dataAgendamento = auxReserva[0] + "/" + auxReserva[1] + "/" + auxReserva[2];
+		String nomeTema = tema.getNomeTema();
+		int idCliente = cliente.getIdCliente();
+		String endereco = cliente.getEndereco();
+		String horaInicio = JOptionPane.showInputDialog("Digite a hora de início (HH:mm): ");
+		String horaFinal = JOptionPane.showInputDialog("Digite a hora de término (HH:mm): ");
+		String formaPagamento = null;
+		int opc = 0;
+		do {
+			opc = Integer
+					.parseInt(JOptionPane.showInputDialog("Digite a opção correspondente a forma de pagamento desejada:"
+							+ "\n 1 - Dinheiro" + "\n 2 - Cartão Débito/Crédito"));
+			switch (opc) {
+			case 1:
+				formaPagamento = "Dinheiro";
+				break;
+			case 2:
+				formaPagamento = "Cartão";
+				break;
+
+			}
+		} while (opc != 1 && opc != 2);
+
+		Agenda locacao = new Agenda(idAgendamento, dataAgendamento, nomeTema, idCliente, endereco, horaInicio,
+				horaFinal, formaPagamento);
+		return locacao;
+		
 	}
 
 	public Date convertendoStringEmData(String[] auxReserva) {

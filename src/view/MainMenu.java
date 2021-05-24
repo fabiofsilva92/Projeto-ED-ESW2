@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.swing.JOptionPane;
 
+import controller.Agenda;
 import controller.Agendamento;
 import controller.Cliente;
 import controller.Tema;
@@ -31,6 +32,7 @@ public class MainMenu {
 
 		lt.carregarListaTema(lt);// Carrega a lista predefinida
 		lc2.carregarListaCliente(lc2); // Carrega a lista pre definida
+		la.carregarListaAgenda(la);
 
 		do {
 			menuopc = Integer
@@ -40,6 +42,8 @@ public class MainMenu {
 
 				lt.percorrer(); // Mostra a lista
 				do {
+
+					
 					opc = Integer.parseInt(JOptionPane.showInputDialog("1 - Adiciona Inicio \n"
 							+ "2 - Adiciona Final \n" + "3 - Escolhe posição \n" + "4 - Remove Inicio \n"
 							+ "5 - Remove Final \n" + "6 - Escolhe posição para remover \n" + "7 - Exibir lista \n"
@@ -78,16 +82,32 @@ public class MainMenu {
 					case 8: // metodo Carrega a lista de datas disponiveis para o tema
 
 						String dataReserva = JOptionPane.showInputDialog("Datas já agendadas : \n" + la.percorrer() + "\n Informe a data desejada (dd/MM/yyyy)");
+						if(la.percorrer().contains(dataReserva)){
+							JOptionPane.showMessageDialog(null, "Data indisponível");
+							break;
+						}
 						String[] auxReserva = oa.formatarData(dataReserva);
 						if(ag.Agendamento(auxReserva)) {
 							int idCliente = Integer.parseInt(JOptionPane.showInputDialog("Clientes disponíveis: \n"+lc2.percorrer(0)+
 									"Digite o ID do cliente que deseja realizar o agendamento: " ));
-							Cliente cliente = lc2.percorrerVerifica(idCliente);
+							Cliente cliente = lc2.conferir(idCliente);
+							System.out.println("Cliente selecionado: "+idCliente+ " Nome: "+cliente.getNome());
 							if(cliente!= null) {
-								
+								int idTema = Integer.parseInt(JOptionPane.showInputDialog("Temas disponíveis: \n" 
+									+lt.percorrer(0)+"\n Informe o ID do tema desejado: "));
+								Tema tema = lt.conferir(idTema);
+								if(tema != null) {
+									Agenda agenda;
+									agenda = ag.realizarAgendamento(auxReserva, cliente, tema);
+									la.adicionaFinal(agenda);
+									la.percorrer();
+								}
+								else {
+									JOptionPane.showMessageDialog(null, "Tema inválido");
+								}
 							}
 							else {
-								
+								JOptionPane.showMessageDialog(null, "Cliente inválido");
 							}
 						}else{
 							JOptionPane.showMessageDialog(null, "Data inválida");

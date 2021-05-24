@@ -15,6 +15,8 @@ import controller.Nos.NoAgenda;
 //TRANSFORMAR PARA DUPLAMENTE ENCADEADA.
 
 public class ListaAgenda {
+	
+	ListaAgenda la;
 
 	private NoAgenda inicio;
 
@@ -182,33 +184,11 @@ public class ListaAgenda {
 				aux = aux.prox;
 			}
 			return s.toString();
-			// JOptionPane.showMessageDialog(null, "Lista de temas já disponíveis : \n" +
-			// s.toString());
 		}
 		return s.toString();
 	}
 
-	public String percorrerVerifica() {
 
-		NoAgenda aux = inicio;
-		StringBuilder s = new StringBuilder();
-		if (aux == null) {
-			JOptionPane.showMessageDialog(null, "ERRO, Lista Vázia");
-		} else {
-			while (aux != null) {
-
-				s.append("ID: " + aux.agendamento.getIdAgendamento() + ", Data: " + aux.agendamento.getDataAgendamento()
-						+ ", Tema: " + aux.agendamento.getTema() + " \n");
-				// try {
-				// criaListaAgenda(aux.agendamento);
-				// } catch (IOException e) {
-				// e.printStackTrace();
-				// }
-				aux = aux.prox;
-			}
-		}
-		return s.toString();
-	}
 
 	// Cria um arquivo que abre no exceláááÁ
 	// se não houver uma diretorio e arquivo ele vai criar automaticamente
@@ -247,7 +227,7 @@ public class ListaAgenda {
 		linha = ("ID:" + t.getIdAgendamento() + "; Data:" + t.getDataAgendamento() + "; Tema:" + t.getTema()
 				+ "; Cliente:" + t.getClienteId() + "; Endereço:" + t.getEndereco() + "; Hora de início:"
 				+ t.getHoraInicio() + "; Hora de término:" + t.getHoraFinal() + "; Forma de pagamento:"
-				+ t.getFormaPagamento() + "\n");
+				+ t.getFormaPagamento());
 		buffer.append(linha + "\r");
 
 		return buffer.toString();
