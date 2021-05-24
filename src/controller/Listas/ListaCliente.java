@@ -22,7 +22,7 @@ public class ListaCliente {
 		this.inicio = null;
 	}
 
-	public void organizarLista() { // envia a lista encadeada para a classe e faz a manipulação dessa lista
+	public void organizarListaMerge() { // envia a lista encadeada para a classe e faz a manipulação dessa lista
 
 		if (inicio == null) {
 			System.out.println("Lista vazia");
@@ -381,6 +381,25 @@ public class ListaCliente {
 
 		return cliente;
 
+	}
+
+	public Cliente conferir(int id) {
+		
+		NoCliente aux = inicio;
+		if (aux == null) {
+			JOptionPane.showMessageDialog(null, "ERRO, Lista Vázia");
+			return null;
+		} else {
+			while (aux != null) {
+				if(aux.cliente.getIdCliente() == id) {
+					return aux.cliente;
+				}
+				else {
+					aux = aux.prox;
+				}
+			}
+			return null;
+		}
 	}
 
 //	// ainda vou melhorar, não esta sendo usado

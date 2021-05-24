@@ -10,6 +10,8 @@ import javax.swing.JOptionPane;
 import controller.Agendamento;
 import controller.Cliente;
 import controller.Tema;
+import controller.Listas.ListaCliente;
+import controller.Listas.ListaTemas;
 
 public class OperacoesAuxiliares {
 	
@@ -146,5 +148,7 @@ public class OperacoesAuxiliares {
 		}
 		return valido;
 	}
+	
+	
 }
 

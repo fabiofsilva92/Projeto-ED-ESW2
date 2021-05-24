@@ -11,6 +11,7 @@ import java.io.PrintWriter;
 import javax.swing.JOptionPane;
 
 import controller.Tema;
+import controller.Nos.NoCliente;
 import controller.Nos.NoTema;
 
 public class ListaTemas {
@@ -300,6 +301,23 @@ public class ListaTemas {
 
 		return tema;
 
+	}
+
+
+	public Tema conferir(int id) {
+
+		NoTema aux = inicio;
+		if (aux == null) {
+			JOptionPane.showMessageDialog(null, "ERRO, Lista Tema Vázia");
+			return null;
+		} else {
+			while (aux != null) {
+				if(aux.tema.getIdTema() == id) {return aux.tema;}
+				else {aux = aux.prox;}
+			}
+		}
+		
+		return null;
 	}
 
 }

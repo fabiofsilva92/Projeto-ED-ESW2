@@ -6,9 +6,12 @@ import javax.swing.JOptionPane;
 
 import controller.Agendamento;
 import controller.Cliente;
+import controller.Tema;
 import controller.Listas.ListaAgenda;
 import controller.Listas.ListaCliente;
 import controller.Listas.ListaTemas;
+import controller.Nos.NoCliente;
+import controller.Nos.NoTema;
 
 public class MainMenu {
 
@@ -18,7 +21,8 @@ public class MainMenu {
 	public static void main(String[] args) throws IOException {
 
 		int opc = 0, pos, menuopc;
-
+		
+		Pagamento pg = new Pagamento();
 		ListaTemas lt = new ListaTemas();
 		ListaCliente lc2 = new ListaCliente();
 		Agendamento ag = new Agendamento();
@@ -30,7 +34,7 @@ public class MainMenu {
 
 		do {
 			menuopc = Integer
-					.parseInt(JOptionPane.showInputDialog("1 - Menu temas \n2 - Menu Clientes \n9 - Finalizar"));
+					.parseInt(JOptionPane.showInputDialog("1 - Menu temas \n2 - Menu Clientes \n3 - Concluir Agendamento  \n9 - Finalizar"));
 			// Menu Tema
 			if (menuopc == 1) {
 
@@ -38,8 +42,8 @@ public class MainMenu {
 				do {
 					opc = Integer.parseInt(JOptionPane.showInputDialog("1 - Adiciona Inicio \n"
 							+ "2 - Adiciona Final \n" + "3 - Escolhe posição \n" + "4 - Remove Inicio \n"
-							+ "5 - Remove Final\n" + "6 - Escolhe posição para remover\n" + "7 - Exibir lista\n"
-							+ "8 - Agendar Reserva\n" + "0 - Voltar Menu Anterior"));
+							+ "5 - Remove Final \n" + "6 - Escolhe posição para remover \n" + "7 - Exibir lista \n"
+							+ "8 - Agendar Reserva \n" + "0 - Voltar Menu Anterior"));
 
 					switch (opc) {
 					case 1:
@@ -152,9 +156,9 @@ public class MainMenu {
 					case 7:
 						lc2.percorrer();
 						break;
-					case 8: 
-						lc2.organizarLista();
-						break;
+//					case 8: 
+//						lc2.organizarListaMerge();
+//						break;
 //					case 8: // tem que continuar este metodo, estava no menu 
 //						break;
 					// case 9: // metodo carrega lista, envia um obejto para poder dar certo e
@@ -163,13 +167,45 @@ public class MainMenu {
 					// lc2.carregarLista(lc2);
 					// break;
 					case 9:
-						lc2.organizarLista();
+						lc2.organizarListaMerge();
 						break;
 					case 0:
 						break;
 					}
 				} while (opc != 0);
 
+			}
+			
+			if (menuopc == 3) { //Efetua o Pagamento antes faz a validação se o cliente e o tem existem
+				Cliente listaCliente = null;
+				Tema listaTema = null;
+				
+				//Confere se o Cliente existe se existir retorna a lista de clientes atuais
+				int idCliente = Integer.parseInt(JOptionPane.showInputDialog("Digite o ID do cliente: ")); 
+				 listaCliente = lc2.conferir(idCliente);
+				if(listaCliente == null) {
+					JOptionPane.showMessageDialog(null,"Cliente não existe " );
+					break;
+				}
+				
+				//Confere se o Tema existe se existir retorna a lista de Temas atuais
+				int idTema = Integer.parseInt(JOptionPane.showInputDialog("Digite o ID do Tema: ")); 
+				listaTema = lt.conferir(idTema);
+				if(listaTema == null) {
+					JOptionPane.showMessageDialog(null,"Tema não existe " );
+					break;
+				}
+				
+				boolean concluir = pg.pagamento(idCliente, idTema, listaCliente, listaTema); 
+				
+//				if(concluir) {
+//					JOptionPane.showMessageDialog(null,
+//							"Pagamento Concluido para o cliente com o ID " + idCliente);
+//					break;
+//				}else {
+//					JOptionPane.showMessageDialog(null,"Erro ao concluir o pagamento");
+//					break;
+//				}
 			}
 
 			if (menuopc == 9) {
