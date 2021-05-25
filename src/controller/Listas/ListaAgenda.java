@@ -15,7 +15,7 @@ import controller.Nos.NoAgenda;
 //TRANSFORMAR PARA DUPLAMENTE ENCADEADA.
 
 public class ListaAgenda {
-	
+
 	ListaAgenda la;
 
 	private NoAgenda inicio;
@@ -26,26 +26,27 @@ public class ListaAgenda {
 
 	public void adicionaInicio(Agenda n) throws IOException {
 		NoAgenda c = new NoAgenda(n);
-		c.prox = inicio;
+		if (inicio != null) {
+			c.prox = inicio;
+			inicio.anterior = c;
+		}
 		inicio = c;
-		// criaListaTema(n);
 	}
 
 	public void adicionaFinal(Agenda n) throws IOException {
+		NoAgenda c = new NoAgenda(n);
 		if (inicio == null) {
-			NoAgenda c = new NoAgenda(n);
 			inicio = c;
+			c.anterior = null;
 			c.prox = null;
-			// criaListaTema(n);
 		} else {
 			NoAgenda aux = inicio;
 			while (aux.prox != null) {
 				aux = aux.prox;
 			}
-			NoAgenda c = new NoAgenda(n);
 			aux.prox = c;
+			c.anterior = aux;
 			c.prox = null;
-			// criaListaTema(n);
 		}
 	}
 
@@ -66,6 +67,7 @@ public class ListaAgenda {
 			if (cont == pos - 1) {
 				c.prox = aux.prox;
 				aux.prox = c;
+				c.anterior = aux;
 				// criaListaTema(n);
 			} else {
 				JOptionPane.showMessageDialog(null, "ERRO, PosiÁ„o Inv·lida!");
@@ -81,6 +83,9 @@ public class ListaAgenda {
 		} else {
 			c = inicio.agendamento;
 			inicio = inicio.prox;
+			if (inicio != null) {
+				inicio.anterior = null;
+			}
 		}
 
 		return c;
@@ -104,6 +109,7 @@ public class ListaAgenda {
 					aux1 = aux1.prox;
 				}
 				c = aux1.agendamento;
+				aux2.prox.anterior = null;
 				aux2.prox = null;
 			}
 		}
@@ -145,6 +151,9 @@ public class ListaAgenda {
 					}
 
 					c = aux.agendamento;
+					if(aux.prox.prox !=null) {
+						aux.prox.anterior = aux2;
+					}
 					aux2.prox = aux.prox;
 					return c;
 				}
@@ -187,8 +196,6 @@ public class ListaAgenda {
 		}
 		return s.toString();
 	}
-
-
 
 	// Cria um arquivo que abre no excel···¡
 	// se n„o houver uma diretorio e arquivo ele vai criar automaticamente

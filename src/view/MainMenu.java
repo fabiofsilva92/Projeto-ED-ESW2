@@ -199,7 +199,7 @@ public class MainMenu {
 			if (menuopc == 3) { //Efetua o Pagamento antes faz a validação se o cliente e o tem existem
 				Cliente listaCliente = null;
 				Tema listaTema = null;
-				
+				System.out.println(la.percorrer());
 				//Confere se o Cliente existe se existir retorna a lista de clientes atuais
 				int idCliente = Integer.parseInt(JOptionPane.showInputDialog("Digite o ID do cliente: ")); 
 				 listaCliente = lc2.conferir(idCliente);
