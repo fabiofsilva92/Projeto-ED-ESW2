@@ -15,28 +15,27 @@ import controller.Nos.NoCliente;
 import controller.Nos.NoTema;
 
 public class ListaTemas {
-	
+
 	private NoTema inicio;
 
 	public ListaTemas() {
 		this.inicio = null;
 	}
-	
 
-	//Tive que criar este metodo pois os outros metodos adiciona, envia para a lista csv, 
-	//podemos melhorar depois esse metodo. E apenas adicionar no final  
+	// Tive que criar este metodo pois os outros metodos adiciona, envia para a
+	// lista csv,
+	// podemos melhorar depois esse metodo. E apenas adicionar no final
 	public void adicionaCarregamentoCSV(Tema n) throws IOException {
 		NoTema c = new NoTema(n);
 		c.prox = inicio;
 		inicio = c;
 	}
-	
 
 	public void adicionaInicio(Tema n) throws IOException {
 		NoTema c = new NoTema(n);
 		c.prox = inicio;
 		inicio = c;
-		//criaListaTema(n);
+		// criaListaTema(n);
 	}
 
 	public void adicionaFinal(Tema n) throws IOException {
@@ -44,7 +43,7 @@ public class ListaTemas {
 			NoTema c = new NoTema(n);
 			inicio = c;
 			c.prox = null;
-			//criaListaTema(n);
+			// criaListaTema(n);
 		} else {
 			NoTema aux = inicio;
 			while (aux.prox != null) {
@@ -53,7 +52,7 @@ public class ListaTemas {
 			NoTema c = new NoTema(n);
 			aux.prox = c;
 			c.prox = null;
-			//criaListaTema(n);
+			// criaListaTema(n);
 		}
 	}
 
@@ -74,7 +73,7 @@ public class ListaTemas {
 			if (cont == pos - 1) {
 				c.prox = aux.prox;
 				aux.prox = c;
-				//criaListaTema(n);
+				// criaListaTema(n);
 			} else {
 				JOptionPane.showMessageDialog(null, "ERRO, Posição Inválida!");
 			}
@@ -162,15 +161,16 @@ public class ListaTemas {
 	}
 
 	public void percorrer() {
-		
-		//O arquivo será criado toda vez que percorrer, dessa forma a ordem se manterá conforme as inserções.
+
+		// O arquivo será criado toda vez que percorrer, dessa forma a ordem se manterá
+		// conforme as inserções.
 		String diretorio = System.getProperty("user.dir");
 		diretorio = diretorio + "\\src\\Arquivos";
 		File dir = new File(diretorio);
 		File arquivo = new File(dir, "ListaTema.csv");
 		boolean success = (arquivo).delete();
 		System.out.println(success);
-		
+
 		NoTema aux = inicio;
 		StringBuilder s = new StringBuilder();
 		if (aux == null) {
@@ -179,7 +179,7 @@ public class ListaTemas {
 			while (aux != null) {
 
 				s.append("ID: " + aux.tema.getIdTema() + ", Nome: " + aux.tema.getNomeTema() + ", Valor da Diária: R$"
-						+ aux.tema.getValorDiaria()+" \n");
+						+ aux.tema.getValorDiaria() + " \n");
 				try {
 					criaListaTema(aux.tema);
 				} catch (IOException e) {
@@ -187,13 +187,11 @@ public class ListaTemas {
 				}
 				aux = aux.prox;
 			}
-			JOptionPane.showMessageDialog(null, "Lista de temas já disponíveis : \n"+s.toString());
+			JOptionPane.showMessageDialog(null, "Lista de temas já disponíveis : \n" + s.toString());
 		}
 	}
-	
-	
+
 	public String percorrer(int id) {
-		
 
 		NoTema aux = inicio;
 		StringBuilder s = new StringBuilder();
@@ -203,7 +201,7 @@ public class ListaTemas {
 			while (aux != null) {
 
 				s.append("ID: " + aux.tema.getIdTema() + ", Nome: " + aux.tema.getNomeTema() + ", Valor da Diária: R$"
-						+ aux.tema.getValorDiaria()+" \n");
+						+ aux.tema.getValorDiaria() + " \n");
 				try {
 					criaListaTema(aux.tema);
 				} catch (IOException e) {
@@ -214,17 +212,17 @@ public class ListaTemas {
 		}
 		return s.toString();
 	}
-	
+
 	// Cria um arquivo que abre no excel
-	// se não houver uma diretorio  e arquivo ele vai criar automaticamente
+	// se não houver uma diretorio e arquivo ele vai criar automaticamente
 	private void criaListaTema(Tema c) throws IOException {
-		
+
 		String userName = System.getProperty("user.name");
-		//System.out.println(userName);
+		// System.out.println(userName);
 		String diretorio = System.getProperty("user.dir");
 		diretorio = diretorio + "\\src\\Arquivos";
-		//System.out.println(diretorio);
-		
+		// System.out.println(diretorio);
+
 		File dir = new File(diretorio);
 		File arq = new File(dir, "ListaTema.csv");
 
@@ -241,26 +239,27 @@ public class ListaTemas {
 		fileWriter.close();
 
 	}
-	
-	//A cada adição  de temas, é chamado o metodo criaLista que chama este, e não sobrescreve o que já existe
+
+	// A cada adição de temas, é chamado o metodo criaLista que chama este, e não
+	// sobrescreve o que já existe
 	private String preencheListaTema(Tema t) throws IOException {
 
 		StringBuffer buffer = new StringBuffer();
-																				// esquerda da tela
+		// esquerda da tela
 		String linha = "";
 		linha = ("ID Tema:" + t.getIdTema() + ";Nome Tema:" + t.getNomeTema() + ";Valor Diaria:" + t.getValorDiaria());
 		buffer.append(linha + "\r");
-		
+
 		return buffer.toString();
 	}
-	
+
 	public Tema carregarListaTema(ListaTemas lt) throws IOException {
-		
-		//String userName = System.getProperty("user.name");
+
+		// String userName = System.getProperty("user.name");
 		String diretorio = System.getProperty("user.dir");
 		diretorio = diretorio + "\\src\\Arquivos";
-		
-		Tema tema= null;
+
+		Tema tema = null;
 		File dir = new File(diretorio);
 		File arq = new File(dir, "ListaTema.csv");
 
@@ -271,40 +270,40 @@ public class ListaTemas {
 		linha = buffer.readLine();
 
 		while (linha != null) {
-			lt.adicionaFinal(dividelinha(linha));			
+			lt.adicionaFinal(dividelinha(linha));
 			linha = buffer.readLine();
 		}
 
 		ler.close();
 		buffer.close();
-		
+
 		return tema;
 
 	}
 
-	//Este metodo recebe uma linha de elementos, separa eles pelo ; deixando o nome e o atibuto
-	//depois separa o nome e deixa apenas o atributo
+	// Este metodo recebe uma linha de elementos, separa eles pelo ; deixando o nome
+	// e o atibuto
+	// depois separa o nome e deixa apenas o atributo
 	private static Tema dividelinha(String linha) throws IOException {
-		
-		String[] divideLinha = linha.split(";"); //Os itens das colunas vem todos na mesma linha separado pelo ;
-		String[] divideAtributo;				//Dessa maneira é dividido e criado um array de elementos
-		
-		divideAtributo = divideLinha[0].split(":");//Apos a separacão ele vira um array, com o nome do atributo e seu valor
-		int idTema = Integer.parseInt(divideAtributo[1]);//Esse segundo split deixa apenas o valor
-		
+
+		String[] divideLinha = linha.split(";"); // Os itens das colunas vem todos na mesma linha separado pelo ;
+		String[] divideAtributo; // Dessa maneira é dividido e criado um array de elementos
+
+		divideAtributo = divideLinha[0].split(":");// Apos a separacão ele vira um array, com o nome do atributo e seu
+													// valor
+		int idTema = Integer.parseInt(divideAtributo[1]);// Esse segundo split deixa apenas o valor
+
 		divideAtributo = divideLinha[1].split(":");
 		String nomeTema = (divideAtributo[1]);
-		
+
 		divideAtributo = divideLinha[2].split(":");
 		Double valorDiaria = Double.parseDouble(divideAtributo[1]);
-		
 
 		Tema tema = new Tema(idTema, nomeTema, valorDiaria);
 
 		return tema;
 
 	}
-
 
 	public Tema conferir(int id) {
 
@@ -314,16 +313,33 @@ public class ListaTemas {
 			return null;
 		} else {
 			while (aux != null) {
-				if(aux.tema.getIdTema() == id) {
+				if (aux.tema.getIdTema() == id) {
 					return aux.tema;
-				}
-				else {
+				} else {
 					aux = aux.prox;
 				}
 			}
 		}
-		
+
 		return null;
 	}
 
+	public Tema conferir(String id) {
+
+		NoTema aux = inicio;
+		if (aux == null) {
+			JOptionPane.showMessageDialog(null, "ERRO, Lista Tema Vázia");
+			return null;
+		} else {
+			while (aux != null) {
+				if (aux.tema.getNomeTema().contains(id)) {
+					return aux.tema;
+				} else {
+					aux = aux.prox;
+				}
+			}
+		}
+
+		return null;
+	}
 }

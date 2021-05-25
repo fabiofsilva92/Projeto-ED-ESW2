@@ -10,7 +10,9 @@ import java.io.PrintWriter;
 import javax.swing.JOptionPane;
 
 import controller.Agenda;
+import controller.Tema;
 import controller.Nos.NoAgenda;
+import controller.Nos.NoTema;
 
 //TRANSFORMAR PARA DUPLAMENTE ENCADEADA.
 
@@ -196,6 +198,24 @@ public class ListaAgenda {
 		}
 		return s.toString();
 	}
+	
+	public int percorrerPegarId() {
+		
+		NoAgenda aux = inicio;
+		StringBuilder s = new StringBuilder();
+		NoAgenda aux2 = aux;
+		if (aux == null) {
+			// JOptionPane.showMessageDialog(null, "ERRO, Lista V·zia");
+			return 0;
+		} else {
+			while (aux != null) {
+				aux2 = aux;
+				aux = aux.prox;
+			}
+			System.out.println(aux2.agendamento.getIdAgendamento());
+			return aux2.agendamento.getIdAgendamento();
+		}		
+	}
 
 	// Cria um arquivo que abre no excel···¡
 	// se n„o houver uma diretorio e arquivo ele vai criar automaticamente
@@ -309,4 +329,23 @@ public class ListaAgenda {
 
 	}
 
+	public Agenda conferir(int id) {
+
+		NoAgenda aux = inicio;
+		if (aux == null) {
+			JOptionPane.showMessageDialog(null, "ERRO, Lista Tema V·zia");
+			return null;
+		} else {
+			while (aux != null) {
+				if (aux.agendamento.getIdAgendamento() == id) {
+					return aux.agendamento;
+				} else {
+					aux = aux.prox;
+				}
+			}
+		}
+
+		return null;
+	}
+	
 }

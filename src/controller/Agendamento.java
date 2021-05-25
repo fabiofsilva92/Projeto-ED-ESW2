@@ -13,8 +13,9 @@ import controller.Listas.ListaTemas;
 
 public class Agendamento {
 
-	public int idAgendamento = 0;
+	
 	ListaAgenda ag = new ListaAgenda();
+	
 
 	public boolean Agendamento(String[] auxReserva) {
 
@@ -59,7 +60,9 @@ public class Agendamento {
 	}
 
 	// Realiza agendamento
-	public Agenda realizarAgendamento(String[] auxReserva, Cliente cliente, Tema tema) {
+	public Agenda realizarAgendamento(String[] auxReserva, Cliente cliente, Tema tema, int agId) {
+		int idAgendamento = agId;
+		
 		idAgendamento = idAgendamento + 1;
 		String dataAgendamento = auxReserva[0] + "/" + auxReserva[1] + "/" + auxReserva[2];
 		String nomeTema = tema.getNomeTema();
