@@ -11,11 +11,11 @@ import javax.swing.JOptionPane;
 import controller.Listas.ListaAgenda;
 import controller.Listas.ListaTemas;
 
+//Classe de operações auxiliares para a classe Agenda.
+
 public class Agendamento {
 
-	
 	ListaAgenda ag = new ListaAgenda();
-	
 
 	public boolean Agendamento(String[] auxReserva) {
 
@@ -23,15 +23,14 @@ public class Agendamento {
 		try {
 			lt.carregarListaTema(lt);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 		boolean validoRetro, validoFuturo = false;
 		Date data = convertendoStringEmData(auxReserva);// converte o vetor no formato data
 
-		boolean validoExiste = ValidandoDiaEMes(auxReserva);// Metodo valida se o dia, mes e ano são validos, falta
-															// validação do ano.
+		boolean validoExiste = ValidandoDiaEMes(auxReserva);// Metodo valida se o dia, mes e ano são validos.
+
 		if (validoExiste) {
 			validoRetro = validandoDataRetro(data);
 			if (validoRetro) {
@@ -45,12 +44,7 @@ public class Agendamento {
 			JOptionPane.showMessageDialog(null, "ERRO, Data inserida esta incorreta ");
 			validoExiste = false;
 		}
-
-		// se a data for valida para todos os requisitos, entraremos no metodo para
-		// agendar na lista duplamente encadeada Agenda.
 		if (validoExiste) {
-
-			// Continuar chamando um metodo para adicionar a data em uma lista.
 			return true;
 
 		} else {
@@ -62,7 +56,7 @@ public class Agendamento {
 	// Realiza agendamento
 	public Agenda realizarAgendamento(String[] auxReserva, Cliente cliente, Tema tema, int agId) {
 		int idAgendamento = agId;
-		
+
 		idAgendamento = idAgendamento + 1;
 		String dataAgendamento = auxReserva[0] + "/" + auxReserva[1] + "/" + auxReserva[2];
 		String nomeTema = tema.getNomeTema();
@@ -71,6 +65,7 @@ public class Agendamento {
 		String horaInicio = JOptionPane.showInputDialog("Digite a hora de início (HH:mm): ");
 		String horaFinal = JOptionPane.showInputDialog("Digite a hora de término (HH:mm): ");
 		String formaPagamento = null;
+		String status = null;
 		int opc = 0;
 		do {
 			opc = Integer
@@ -88,20 +83,19 @@ public class Agendamento {
 		} while (opc != 1 && opc != 2);
 
 		Agenda locacao = new Agenda(idAgendamento, dataAgendamento, nomeTema, idCliente, endereco, horaInicio,
-				horaFinal, formaPagamento);
+				horaFinal, formaPagamento, status);
 		return locacao;
-		
+
 	}
 
 	public Date convertendoStringEmData(String[] auxReserva) {
 
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");// Criando a mascara para a data
-		String data = String.valueOf(auxReserva[0] + "/" + auxReserva[1] + "/" + auxReserva[2]);// Convertendo para
-																								// sttring para depois
-																								// converter para
-		// Date
+
+		String data = String.valueOf(auxReserva[0] + "/" + auxReserva[1] + "/" + auxReserva[2]);
+
 		Date dataAgenda;
-		try {// Para converter para o tipo date é necessario o try/catch
+		try {
 			dataAgenda = sdf.parse(data);
 			return dataAgenda;
 
@@ -113,7 +107,9 @@ public class Agendamento {
 		return null;
 	}
 
-	private boolean validarAnoAFrente(Date data) {// Verifica se a data de reserva é maior do que 60 dias
+	// Verifica se a data de reserva é maior do que 1 ano, conforme o requisito não
+	// é possível agendar para mais de que 365 dias
+	private boolean validarAnoAFrente(Date data) {
 		Boolean valido = true;
 		Calendar calendar = Calendar.getInstance();
 		calendar.add(Calendar.DAY_OF_MONTH, 365);
@@ -128,18 +124,20 @@ public class Agendamento {
 
 	}
 
-	private boolean validandoDataRetro(Date dataAgenda) { // Validando se a data não é anterior a atual
+	// Validando se a data não é anterior a atual
+	private boolean validandoDataRetro(Date dataAgenda) {
 		boolean valido = true;
 		Date hoje = new Date();
 
-		if (dataAgenda.before(hoje)) {// Validando se a data é anterior a data atual
-			valido = false; // Se for invalido retorna falso
+		if (dataAgenda.before(hoje)) {
+			valido = false;
 			JOptionPane.showMessageDialog(null,
 					"ERRO, Data inserida esta incorreta " + dataAgenda + " ,anterior a atual ");
 		}
 		return valido;
 	}
 
+	// Valida se mês é menor que 12 e maior que 0, e dias de acordo com o mês
 	public boolean ValidandoDiaEMes(String[] auxReserva) {
 		boolean valido = true;
 		int diaMes = 31;
@@ -147,9 +145,9 @@ public class Agendamento {
 		int mes = Integer.parseInt(auxReserva[1]);
 		int ano = Integer.parseInt(auxReserva[2]);
 		if (ano >= 2021) {// Valida o ano
-			if (mes > 0 && mes < 13 && dia < 32 && dia >= 1) { // Valida se o mes é menos que 12 ou maior que 0
-																// e o dia é meno que 32 e maior que 0
-				switch (mes) { // valida se o mes tem a quantidade de dias informado.
+			if (mes > 0 && mes < 13 && dia < 32 && dia >= 1) {
+
+				switch (mes) {
 				case 2:
 					diaMes -= 3;
 					if (dia > diaMes) {
@@ -195,42 +193,5 @@ public class Agendamento {
 		}
 		return valido;
 	}
-
-//	public void criaListaMes(Cliente c, Tema t, int n) throws IOException {
-//
-//		File dir = new File("C:\\Users\\Usuario\\Documents\\GitHub\\Projeto-ED-ESW2\\");
-//		File arq = new File(dir, t.getNomeTema() + "_2021.csv");
-//
-//		if (dir.exists() && dir.isDirectory()) {
-//			JOptionPane.showMessageDialog(null, "Lista do mes " + t.getNomeTema() + " Criada");
-//		} else {
-//			dir.mkdirs(); // cria uma pasta se não existir, alterei mkdir para mkdirs
-//		}
-//
-//		String conteudo = preencheListaAgendamento(c, t, n);
-//		FileWriter fileWriter = new FileWriter(arq, true);
-//		PrintWriter print = new PrintWriter(fileWriter);
-//		print.write(conteudo);
-//		print.flush();
-//		print.close();
-//		fileWriter.close();
-//	}
-//
-//	private String preencheListaAgendamento(Cliente c, Tema t, int n) throws IOException {
-//
-//		Date hoje = new Date();
-//		SimpleDateFormat sdf = new SimpleDateFormat("MM_yyyy");
-//		sdf.format(hoje);
-//
-//		StringBuffer buffer = new StringBuffer();
-//		// esquerda da tela
-//		String linha = "";
-//		linha = ("Status: Alugado" + ";ID:" + c.getIdCliente() + ";Nome:" + c.getNome() + ";Endereço:" + c.getEndereco()
-//				+ ";CPF:" + c.getCPF() + ";Data nascimento:" + c.getDataNasc() + "ID Tema:" + t.getIdTema()
-//				+ ";Nome Tema:" + t.getNomeTema());
-//		buffer.append(linha + "\r");
-//
-//		return buffer.toString();
-//	}
 
 }

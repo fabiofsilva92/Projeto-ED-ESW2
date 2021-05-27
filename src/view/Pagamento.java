@@ -12,17 +12,19 @@ public class Pagamento {
 		Cliente c = cliente;
 		Tema t = tema;
 		System.out.println("Cheguei");
-		if(cliente.getNumLocacoes() > 40) {
-			JOptionPane.showMessageDialog(null, "O Pagamento de " + (tema.getValorDiaria()*0.90) + " foi efetuado pelo cliente "
-					+ cliente.getNome() + " #ID :" + cliente.getIdCliente() + ", com "+agendamento.getFormaPagamento()+" foi concluido com sucesso \n --Obteve desconto");
-		}
-		else {
-			JOptionPane.showMessageDialog(null, "O Pagamento de " + tema.getValorDiaria() + " foi efetuado pelo cliente "
-					+ cliente.getNome() + " #ID : " + cliente.getIdCliente() + ", com "+agendamento.getFormaPagamento()+" foi concluido com sucesso ");
+		if (cliente.getNumLocacoes() > 4) {
+			JOptionPane.showMessageDialog(null,
+					"O Pagamento de " + (tema.getValorDiaria() * 0.90) + " foi efetuado pelo cliente "
+							+ cliente.getNome() + " #ID :" + cliente.getIdCliente() + ", com "
+							+ agendamento.getFormaPagamento() + " foi concluido com sucesso \n --Obteve desconto");
+		} else {
+			JOptionPane.showMessageDialog(null,
+					"O Pagamento de " + tema.getValorDiaria() + " foi efetuado pelo cliente " + cliente.getNome()
+							+ " #ID : " + cliente.getIdCliente() + ", com " + agendamento.getFormaPagamento()
+							+ " foi concluido com sucesso ");
 		}
 
-
-		return false;
+		return true;
 	}
 
 }

@@ -25,10 +25,11 @@ public class MainMenu {
 		ListaCliente lc2 = new ListaCliente();
 		Agendamento ag = new Agendamento();
 		ListaAgenda la = new ListaAgenda();
-		OperacoesAuxiliares oa = new OperacoesAuxiliares(); // Classe para não encher o MainMenu
-		lt.carregarListaTema(lt);// Carrega a lista predefinida
-		lc2.carregarListaCliente(lc2); // Carrega a lista pre definida
-		la.carregarListaAgenda(la);
+		OperacoesAuxiliares oa = new OperacoesAuxiliares();
+
+		lt.carregarListaTema(lt);// Carrega a lista predefinida de temas
+		lc2.carregarListaCliente(lc2); // Carrega a lista predefinida de clientes
+		la.carregarListaAgenda(la); // Carrega a lista predefinida de agendamentos
 
 		do {
 
@@ -75,7 +76,7 @@ public class MainMenu {
 						lt.percorrer();
 						break;
 
-					case 8: // metodo Carrega a lista de datas disponiveis para o tema
+					case 8: // Carrega a lista de datas já agendadas e realiza novos agendamentos.
 
 						String dataReserva = JOptionPane.showInputDialog(
 								"Datas já agendadas : \n" + la.percorrer() + "\n Informe a data desejada (dd/MM/yyyy)");
@@ -88,8 +89,9 @@ public class MainMenu {
 							int idCliente = Integer.parseInt(JOptionPane.showInputDialog("Clientes disponíveis: \n"
 									+ lc2.percorrer(0) + "Digite o ID do cliente que deseja realizar o agendamento: "));
 							Cliente cliente = lc2.conferir(idCliente);
-							System.out.println("Cliente selecionado: " + idCliente + " Nome: " + cliente.getNome());
+
 							if (cliente != null) {
+								System.out.println("Cliente selecionado: " + idCliente + " Nome: " + cliente.getNome());
 								int idTema = Integer.parseInt(JOptionPane.showInputDialog("Temas disponíveis: \n"
 										+ lt.percorrer(0) + "\n Informe o ID do tema desejado: "));
 								Tema tema = lt.conferir(idTema);
@@ -124,7 +126,7 @@ public class MainMenu {
 					opc = Integer.parseInt(JOptionPane.showInputDialog("1 - Adiciona Inicio \n"
 							+ "2 - Adiciona Final \n" + "3 - Escolhe posição \n" + "4 - Remove Inicio \n"
 							+ "5 - Remove Final\n" + "6 - Escolhe posição para remover\n" + "7 - Exibir lista\n"
-							+ "9 - TesteMerge\n" + "0 - Voltar Menu Anterior"));
+							+ "8 - TesteMerge\n" + "0 - Voltar Menu Anterior"));
 					switch (opc) {
 					case 1:
 						Cliente clienteSetado = oa.setarCliente();
@@ -167,22 +169,11 @@ public class MainMenu {
 						pos = Integer.parseInt(JOptionPane.showInputDialog("Digite uma posição para remoção: "));
 						JOptionPane.showMessageDialog(null,
 								"O elemento removido foi: " + lc2.removePosicao(pos).getNome());
-//						lc2.removeClienteLista(pos);
 						break;
 					case 7:
 						lc2.percorrer();
 						break;
-//					case 8: 
-//						lc2.organizarListaMerge();
-//						break;
-//					case 8: // tem que continuar este metodo, estava no menu 
-//						break;
-					// case 9: // metodo carrega lista, envia um obejto para poder dar certo e
-					// carregar em um
-					// objeto dessa classe.
-					// lc2.carregarLista(lc2);
-					// break;
-					case 9:
+					case 8:
 						lc2.organizarListaMerge();
 						break;
 					case 0:
@@ -192,17 +183,35 @@ public class MainMenu {
 
 			}
 
-			if (menuopc == 3) { // Efetua o Pagamento antes faz a validação se o cliente e o tem existem
-				do {	
+			if (menuopc == 3) { // Efetua o pagamento do agendamento previamente realizado nos menus de temas.
+				do {
 					Cliente listaCliente = null;
 					Tema listaTema = null;
 					System.out.println(la.percorrer());
-					
-					int idAgendamento = Integer.parseInt(JOptionPane.showInputDialog("Agendamentos : \n"+la.percorrer()+"\n Digite o id do agendamento para realizar o pagamento: "));
+
+					int idAgendamento;
+
+					String id = JOptionPane.showInputDialog("Agendamentos : \n" + la.percorrer()
+							+ "\n Digite o id do agendamento para realizar o pagamento: ");
+					if (id == null) {
+						JOptionPane.showMessageDialog(null, "Id Inválido");
+						break;
+					}
+					try {
+						idAgendamento = Integer.parseInt(id);
+					} catch (NumberFormatException e) {
+						JOptionPane.showMessageDialog(null, "Id Inválido2");
+						break;
+					}
+
 					System.out.println(idAgendamento);
 					Agenda agendamento = la.conferir(idAgendamento);
-					if(agendamento == null) {
-						JOptionPane.showMessageDialog(null,"Agendamento não existe " );
+					if (agendamento == null) {
+						JOptionPane.showMessageDialog(null, "Agendamento não existe ");
+						break;
+					}
+					if (agendamento.getStatus().contains("Pago")) {
+						JOptionPane.showMessageDialog(null, "Agendamento já foi pago");
 						break;
 					}
 					// Confere se o Cliente existe se existir retorna a lista de clientes atuais
@@ -224,27 +233,19 @@ public class MainMenu {
 
 					boolean concluir = pg.pagamento(listaCliente, listaTema, agendamento);
 
-//					if(concluir) {
-//						JOptionPane.showMessageDialog(null,
-//								"Pagamento Concluido para o cliente com o ID " + idCliente);
-//						break;
-//					}else {
-//						JOptionPane.showMessageDialog(null,"Erro ao concluir o pagamento");
-//						break;
-//					}
-					
+					if (concluir) {
+						agendamento.setStatus("Pago");
+						System.out.println(la.percorrer());
+					}
+
 					opc = Integer.parseInt(JOptionPane.showInputDialog("1 - Continuar \n 0 - Voltar"));
-				}while(opc!=0);
+				} while (opc != 0);
 			}
 
-			
 			if (menuopc == 9) {
 				JOptionPane.showMessageDialog(null, "Finalizando");
 			}
 
 		} while (menuopc != 9);
 	}
-
-	// VOU SEPARAR OS METODOS ABAIXO EM OUTRA CLASSE
-
 }

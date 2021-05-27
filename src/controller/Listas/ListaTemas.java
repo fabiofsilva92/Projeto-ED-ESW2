@@ -22,9 +22,6 @@ public class ListaTemas {
 		this.inicio = null;
 	}
 
-	// Tive que criar este metodo pois os outros metodos adiciona, envia para a
-	// lista csv,
-	// podemos melhorar depois esse metodo. E apenas adicionar no final
 	public void adicionaCarregamentoCSV(Tema n) throws IOException {
 		NoTema c = new NoTema(n);
 		c.prox = inicio;
@@ -35,7 +32,6 @@ public class ListaTemas {
 		NoTema c = new NoTema(n);
 		c.prox = inicio;
 		inicio = c;
-		// criaListaTema(n);
 	}
 
 	public void adicionaFinal(Tema n) throws IOException {
@@ -43,7 +39,6 @@ public class ListaTemas {
 			NoTema c = new NoTema(n);
 			inicio = c;
 			c.prox = null;
-			// criaListaTema(n);
 		} else {
 			NoTema aux = inicio;
 			while (aux.prox != null) {
@@ -52,7 +47,6 @@ public class ListaTemas {
 			NoTema c = new NoTema(n);
 			aux.prox = c;
 			c.prox = null;
-			// criaListaTema(n);
 		}
 	}
 
@@ -73,7 +67,6 @@ public class ListaTemas {
 			if (cont == pos - 1) {
 				c.prox = aux.prox;
 				aux.prox = c;
-				// criaListaTema(n);
 			} else {
 				JOptionPane.showMessageDialog(null, "ERRO, Posição Inválida!");
 			}
@@ -89,7 +82,6 @@ public class ListaTemas {
 			c = inicio.tema;
 			inicio = inicio.prox;
 		}
-
 		return c;
 	}
 
@@ -105,7 +97,6 @@ public class ListaTemas {
 			} else {
 				NoTema aux1 = inicio;
 				NoTema aux2 = null;
-
 				while (aux1.prox != null) {
 					aux2 = aux1;
 					aux1 = aux1.prox;
@@ -114,7 +105,6 @@ public class ListaTemas {
 				aux2.prox = null;
 			}
 		}
-
 		return c;
 	}
 
@@ -214,7 +204,7 @@ public class ListaTemas {
 	}
 
 	// Cria um arquivo que abre no excel
-	// se não houver uma diretorio e arquivo ele vai criar automaticamente
+	// Se não houver um diretorio e arquivo vai ser criado automaticamente
 	private void criaListaTema(Tema c) throws IOException {
 
 		String userName = System.getProperty("user.name");
@@ -240,8 +230,6 @@ public class ListaTemas {
 
 	}
 
-	// A cada adição de temas, é chamado o metodo criaLista que chama este, e não
-	// sobrescreve o que já existe
 	private String preencheListaTema(Tema t) throws IOException {
 
 		StringBuffer buffer = new StringBuffer();
@@ -281,9 +269,6 @@ public class ListaTemas {
 
 	}
 
-	// Este metodo recebe uma linha de elementos, separa eles pelo ; deixando o nome
-	// e o atibuto
-	// depois separa o nome e deixa apenas o atributo
 	private static Tema dividelinha(String linha) throws IOException {
 
 		String[] divideLinha = linha.split(";"); // Os itens das colunas vem todos na mesma linha separado pelo ;
