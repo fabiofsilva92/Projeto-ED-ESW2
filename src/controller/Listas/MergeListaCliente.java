@@ -21,20 +21,14 @@ public class MergeListaCliente {
 			aux2 = aux2.prox;
 		}
 		aux2 = aux;
-		System.out.println("O tamanho é " + listaLength);
+		//System.out.println("O tamanho é " + listaLength);
 
 		Cliente[] vetorClientes = new Cliente[listaLength];
 		Cliente auxCliente = null;
 
 		for (int i = 0; i < listaLength; i++) {
-			auxCliente = new Cliente(aux.cliente.getIdCliente(), aux.cliente.getNome(), aux.cliente.getEndereco(), aux.cliente.getCPF(), aux.cliente.getDataNasc(), aux.cliente.getDataCadastro(), aux.cliente.getNumLocacoes());
-		//vetorClientes[i].setIdCliente(aux.cliente.getIdCliente());
-		//vetorClientes[i].setNome(aux.cliente.getNome());
-		//vetorClientes[i].setEndereco(aux.cliente.getEndereco());
-		//vetorClientes[i].setCPF(aux.cliente.getCPF());
-		//vetorClientes[i].setDataCadastro(aux.cliente.getDataNasc());
-		//vetorClientes[i].setDataCadastro(aux.cliente.getDataCadastro());
-		//vetorClientes[i].setNumLocacoes(aux.cliente.getNumLocacoes());
+			auxCliente = new Cliente(aux.cliente.getIdCliente(), aux.cliente.getNome(), aux.cliente.getEndereco(),
+					aux.cliente.getCPF(), aux.cliente.getDataNasc(), aux.cliente.getDataCadastro(), aux.cliente.getNumLocacoes());
 			vetorClientes[i] = auxCliente;
 			aux = aux.prox;
 		}
@@ -44,6 +38,7 @@ public class MergeListaCliente {
 
 		mergeSort(vetorClientes, ini, fim);
 
+		//Reorganiza a lista apos o merge.
 		for (int i = 0 ; i<listaLength; i++) {
 			aux2.cliente.setIdCliente(vetorClientes[i].getIdCliente());
 			aux2.cliente.setNome(vetorClientes[i].getNome());
@@ -73,7 +68,6 @@ public class MergeListaCliente {
 			aux.prox = c;
 			c.prox = null;
 		}
-		//criaListaCliente(n);
 	}
 
 	void mergeSort(Cliente[] lista, int ini, int fim) { // Faz a chamada recursiva até organizar todo o vetor.

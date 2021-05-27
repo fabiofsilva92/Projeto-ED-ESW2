@@ -40,26 +40,15 @@ public class ListaCliente {
 						+ ", Numero locações: " + aux.cliente.getNumLocacoes() + "\n");
 				aux = aux.prox;
 			}
-			System.out.println("Lista de clientes após o merge: \n" + s.toString());
+			JOptionPane.showMessageDialog(null,"Lista de clientes após o merge: \n" + s.toString());
 		}
 
-	}
-
-	// Tive que criar este metodo pois os outros metodos de adicionas, envia para a
-	// loista csv,
-	// podemos melhorar depois esse metodo. E apenas adicionar os clientes quando
-	// for percorrer
-	public void adicionaCarregamentoCSV(Cliente n) {
-		NoCliente c = new NoCliente(n);
-		c.prox = inicio;
-		inicio = c;
 	}
 
 	public void adicionaInicio(Cliente n) {
 		NoCliente c = new NoCliente(n);
 		c.prox = inicio;
 		inicio = c;
-		// criaListaCliente(n);
 	}
 
 	public void adicionaFinal(Cliente n) {
@@ -76,7 +65,6 @@ public class ListaCliente {
 			aux.prox = c;
 			c.prox = null;
 		}
-		// criaListaCliente(n);
 	}
 
 	public void adicionaPosicao(Cliente n, int pos) {
@@ -96,7 +84,6 @@ public class ListaCliente {
 			if (cont == pos - 1) {
 				c.prox = aux.prox;
 				aux.prox = c;
-				// criaListaCliente(n);
 			} else {
 				JOptionPane.showMessageDialog(null, "ERRO, Posição Inválida!");
 			}
@@ -303,8 +290,6 @@ public class ListaCliente {
 
 	}
 
-	// A cada adição de temas, é chamado o metodo criaLista que chama este, e não
-	// sobrescreve o que já existe
 	private String preencheListaCliente(Cliente c) throws IOException {
 
 		StringBuffer buffer = new StringBuffer();
@@ -347,9 +332,6 @@ public class ListaCliente {
 
 	}
 
-	// Este metodo recebe uma linha de elementos, separa eles pelo ; deixando o nome
-	// e o atibuto
-	// depois separa o nome e deixa apenas o atributo
 	private static Cliente dividelinha(String linha) throws IOException {
 
 		String[] divideLinha = linha.split(";"); // Os itens das colunas vem todos na mesma linha separado pelo ;
@@ -401,44 +383,4 @@ public class ListaCliente {
 			return null;
 		}
 	}
-
-//	// ainda vou melhorar, não esta sendo usado
-//	public void removeClienteLista(int pos) throws IOException {
-//		int cont = 0;
-//		String fileName = "ListaCliente.csv";
-//		BufferedReader ler = new BufferedReader(new FileReader(fileName));
-//		StringBuilder s = new StringBuilder();
-//
-//		String linha = ler.readLine();
-//		NoCliente aux = inicio;
-//
-//		while (linha != null) {
-//
-//			if (pos != cont) {
-//				s.append("ID:" + aux.cliente.getIdCliente() + ";Nome:" + aux.cliente.getNome() + ";Endereço:"
-//						+ aux.cliente.getEndereco() + ";CPF:" + aux.cliente.getCPF() + ";Data nascimento:"
-//						+ aux.cliente.getDataNasc() + "; Data Cadastro: " + aux.cliente.getDataCadastro()
-//						+ ";Numero locações:" + aux.cliente.getNumLocacoes());
-//			}
-//			linha = ler.readLine();
-//			cont++;
-//		}
-//
-//		ler.close();
-//		FileWriter writer = new FileWriter(fileName, true);
-//		writer.close();
-//
-//		FileWriter writer2 = new FileWriter(fileName, true);
-//		BufferedWriter bw = new BufferedWriter(writer2);
-//
-//		while (s != null) {
-//			bw.write("ID:" + aux.cliente.getIdCliente() + ";Nome:" + aux.cliente.getNome() + ";Endereço:"
-//					+ aux.cliente.getEndereco() + ";CPF:" + aux.cliente.getCPF() + ";Data nascimento:"
-//					+ aux.cliente.getDataNasc() + ";Data Cadastro:" + aux.cliente.getDataCadastro()
-//					+ ";Numero locações:" + aux.cliente.getNumLocacoes());
-//
-//		}
-//
-//	}
-
 }

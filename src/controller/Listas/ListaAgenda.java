@@ -10,11 +10,14 @@ import java.io.PrintWriter;
 import javax.swing.JOptionPane;
 
 import controller.Agenda;
+import controller.Tema;
 import controller.Nos.NoAgenda;
+import controller.Nos.NoTema;
 
-//TRANSFORMAR PARA DUPLAMENTE ENCADEADA.
-
+//LISTA DUPLAMENTE ENCADEADA
 public class ListaAgenda {
+
+	ListaAgenda la;
 
 	private NoAgenda inicio;
 
@@ -24,26 +27,27 @@ public class ListaAgenda {
 
 	public void adicionaInicio(Agenda n) throws IOException {
 		NoAgenda c = new NoAgenda(n);
-		c.prox = inicio;
+		if (inicio != null) {
+			c.prox = inicio;
+			inicio.anterior = c;
+		}
 		inicio = c;
-		// criaListaTema(n);
 	}
 
 	public void adicionaFinal(Agenda n) throws IOException {
+		NoAgenda c = new NoAgenda(n);
 		if (inicio == null) {
-			NoAgenda c = new NoAgenda(n);
 			inicio = c;
+			c.anterior = null;
 			c.prox = null;
-			// criaListaTema(n);
 		} else {
 			NoAgenda aux = inicio;
 			while (aux.prox != null) {
 				aux = aux.prox;
 			}
-			NoAgenda c = new NoAgenda(n);
 			aux.prox = c;
+			c.anterior = aux;
 			c.prox = null;
-			// criaListaTema(n);
 		}
 	}
 
@@ -64,7 +68,7 @@ public class ListaAgenda {
 			if (cont == pos - 1) {
 				c.prox = aux.prox;
 				aux.prox = c;
-				// criaListaTema(n);
+				c.anterior = aux;
 			} else {
 				JOptionPane.showMessageDialog(null, "ERRO, Posição Inválida!");
 			}
@@ -79,6 +83,9 @@ public class ListaAgenda {
 		} else {
 			c = inicio.agendamento;
 			inicio = inicio.prox;
+			if (inicio != null) {
+				inicio.anterior = null;
+			}
 		}
 
 		return c;
@@ -102,6 +109,7 @@ public class ListaAgenda {
 					aux1 = aux1.prox;
 				}
 				c = aux1.agendamento;
+				aux2.prox.anterior = null;
 				aux2.prox = null;
 			}
 		}
@@ -143,6 +151,9 @@ public class ListaAgenda {
 					}
 
 					c = aux.agendamento;
+					if (aux.prox.prox != null) {
+						aux.prox.anterior = aux2;
+					}
 					aux2.prox = aux.prox;
 					return c;
 				}
@@ -173,7 +184,8 @@ public class ListaAgenda {
 						+ ", Tema: " + aux.agendamento.getTema() + ", Cliente: " + aux.agendamento.getClienteId()
 						+ ", Endereço: " + aux.agendamento.getEndereco() + ", Hora de início: "
 						+ aux.agendamento.getHoraInicio() + ", Hora de término: " + aux.agendamento.getHoraFinal()
-						+ ", Forma de pagamento: " + aux.agendamento.getFormaPagamento() + "\n");
+						+ ", Forma de pagamento: " + aux.agendamento.getFormaPagamento() + ", Status:"
+						+ aux.agendamento.getStatus() + "\n");
 				try {
 					criaListaAgenda(aux.agendamento);
 				} catch (IOException e) {
@@ -182,36 +194,30 @@ public class ListaAgenda {
 				aux = aux.prox;
 			}
 			return s.toString();
-			// JOptionPane.showMessageDialog(null, "Lista de temas já disponíveis : \n" +
-			// s.toString());
 		}
 		return s.toString();
 	}
 
-	public String percorrerVerifica() {
+	public int percorrerPegarId() {
 
 		NoAgenda aux = inicio;
 		StringBuilder s = new StringBuilder();
+		NoAgenda aux2 = aux;
 		if (aux == null) {
-			JOptionPane.showMessageDialog(null, "ERRO, Lista Vázia");
+			// JOptionPane.showMessageDialog(null, "ERRO, Lista Vázia");
+			return 0;
 		} else {
 			while (aux != null) {
-
-				s.append("ID: " + aux.agendamento.getIdAgendamento() + ", Data: " + aux.agendamento.getDataAgendamento()
-						+ ", Tema: " + aux.agendamento.getTema() + " \n");
-				// try {
-				// criaListaAgenda(aux.agendamento);
-				// } catch (IOException e) {
-				// e.printStackTrace();
-				// }
+				aux2 = aux;
 				aux = aux.prox;
 			}
+			System.out.println(aux2.agendamento.getIdAgendamento());
+			return aux2.agendamento.getIdAgendamento();
 		}
-		return s.toString();
 	}
 
-	// Cria um arquivo que abre no exceláááÁ
-	// se não houver uma diretorio e arquivo ele vai criar automaticamente
+	// Cria um arquivo que abre no excel
+	// Se não houver um diretorio e arquivo vai ser criado automaticamente
 	private void criaListaAgenda(Agenda c) throws IOException {
 
 		String userName = System.getProperty("user.name");
@@ -224,7 +230,7 @@ public class ListaAgenda {
 		File arq = new File(dir, "ListaAgenda.csv");
 
 		if (!dir.exists() && !dir.isDirectory()) {
-			dir.mkdirs(); // cria uma pasta se não existir, alterei mkdir para mkdirs
+			dir.mkdirs(); // cria uma pasta se não existir.
 		}
 
 		String conteudo = preencheListaAgenda(c);
@@ -237,8 +243,6 @@ public class ListaAgenda {
 
 	}
 
-	// A cada adição de temas, é chamado o metodo criaLista que chama este, e não
-	// sobrescreve o que já existe
 	private String preencheListaAgenda(Agenda t) throws IOException {
 
 		StringBuffer buffer = new StringBuffer();
@@ -247,7 +251,7 @@ public class ListaAgenda {
 		linha = ("ID:" + t.getIdAgendamento() + "; Data:" + t.getDataAgendamento() + "; Tema:" + t.getTema()
 				+ "; Cliente:" + t.getClienteId() + "; Endereço:" + t.getEndereco() + "; Hora de início:"
 				+ t.getHoraInicio() + "; Hora de término:" + t.getHoraFinal() + "; Forma de pagamento:"
-				+ t.getFormaPagamento() + "\n");
+				+ t.getFormaPagamento() + "; Status:" + t.getStatus());
 		buffer.append(linha + "\r");
 
 		return buffer.toString();
@@ -282,11 +286,10 @@ public class ListaAgenda {
 
 	}
 
-	// Este metodo recebe uma linha de elementos, separa eles pelo ; deixando o nome
-	// e o atibuto
+	// Este metodo recebe uma linha de elementos, separa eles pelo ; deixando o nome e o atributo
 	// depois separa o nome e deixa apenas o atributo
 	private static Agenda dividelinha(String linha) throws IOException {
-
+		String status = null;
 		String[] divideLinha = linha.split(";"); // Os itens das colunas vem todos na mesma linha separado pelo ;
 		String[] divideAtributo; // Dessa maneira é dividido e criado um array de elementos
 
@@ -315,11 +318,36 @@ public class ListaAgenda {
 		divideAtributo = divideLinha[7].split(":");
 		String formaPagamento = (divideAtributo[1]);
 
+		if (divideLinha.length > 7) {
+			divideAtributo = divideLinha[8].split(":");
+			status = (divideAtributo[1]);
+		}
+
 		Agenda agendamento = new Agenda(idAgendamento, dataAgendamento, temaId, clienteId, endereco, horaInicio,
-				horaFinal, formaPagamento);
+				horaFinal, formaPagamento, status);
 
 		return agendamento;
 
+	}
+
+	//Metodo para conferir e retornar o agendamento de acordo com o parametro.
+	public Agenda conferir(int id) {
+
+		NoAgenda aux = inicio;
+		if (aux == null) {
+			JOptionPane.showMessageDialog(null, "ERRO, Lista Tema Vázia");
+			return null;
+		} else {
+			while (aux != null) {
+				if (aux.agendamento.getIdAgendamento() == id) {
+					return aux.agendamento;
+				} else {
+					aux = aux.prox;
+				}
+			}
+		}
+
+		return null;
 	}
 
 }

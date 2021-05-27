@@ -11,9 +11,12 @@ public class Agenda {
 	private String horaInicio;
 	private String horaFinal;
 	private String formaPagamento;
+	private String status;
+
+
 
 	public Agenda(int idAgendamento, String dataAgendamento, String tema, int clienteId, String endereco,
-			String horaInicio, String horaFinal, String formaPagamento) {
+			String horaInicio, String horaFinal, String formaPagamento, String status) {
 		this.idAgendamento = idAgendamento;
 		this.dataAgendamento = dataAgendamento;
 		this.tema = tema;
@@ -22,6 +25,7 @@ public class Agenda {
 		this.horaInicio = horaInicio;
 		this.horaFinal = horaFinal;
 		this.formaPagamento = formaPagamento;
+		this.status = status;
 	}
 
 	public int getClienteId() {
@@ -87,5 +91,12 @@ public class Agenda {
 
 	public void setFormaPagamento(String formaPagamento) {
 		this.formaPagamento = formaPagamento;
+	}
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 }
