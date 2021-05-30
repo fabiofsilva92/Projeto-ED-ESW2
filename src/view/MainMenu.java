@@ -214,6 +214,18 @@ public class MainMenu {
 						JOptionPane.showMessageDialog(null, "Agendamento já foi pago");
 						break;
 					}
+					int opcPagamento = Integer.parseInt(JOptionPane.showInputDialog("Escolha a forma de pagamento: \n 1- Dinheiro;\n 2-Cartão de crédito ou débito"));
+					if(opcPagamento == 1) {
+						agendamento.setFormaPagamento("Dinheiro");
+					}
+					else if(opcPagamento ==2) {
+						agendamento.setFormaPagamento("Cartão");
+					}
+					else {
+						JOptionPane.showMessageDialog(null,"Opção inválida");
+						break;
+					}
+
 					// Confere se o Cliente existe se existir retorna a lista de clientes atuais
 					int idCliente = agendamento.getClienteId();
 					System.out.println(idCliente);

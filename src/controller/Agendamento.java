@@ -67,20 +67,20 @@ public class Agendamento {
 		String formaPagamento = null;
 		String status = null;
 		int opc = 0;
-		do {
-			opc = Integer
-					.parseInt(JOptionPane.showInputDialog("Digite a opção correspondente a forma de pagamento desejada:"
-							+ "\n 1 - Dinheiro" + "\n 2 - Cartão Débito/Crédito"));
-			switch (opc) {
-			case 1:
-				formaPagamento = "Dinheiro";
-				break;
-			case 2:
-				formaPagamento = "Cartão";
-				break;
-
-			}
-		} while (opc != 1 && opc != 2);
+	//	do {
+	//		opc = Integer
+	//				.parseInt(JOptionPane.showInputDialog("Digite a opção correspondente a forma de pagamento desejada:"
+	//						+ "\n 1 - Dinheiro" + "\n 2 - Cartão Débito/Crédito"));
+	//		switch (opc) {
+	//		case 1:
+	//			formaPagamento = "Dinheiro";
+	//			break;
+	//		case 2:
+	//			formaPagamento = "Cartão";
+	//			break;
+    //
+	//		}
+	//	} while (opc != 1 && opc != 2);
 
 		Agenda locacao = new Agenda(idAgendamento, dataAgendamento, nomeTema, idCliente, endereco, horaInicio,
 				horaFinal, formaPagamento, status);
