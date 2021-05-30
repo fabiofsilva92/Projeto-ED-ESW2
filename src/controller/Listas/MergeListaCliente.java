@@ -14,7 +14,7 @@ public class MergeListaCliente {
 	public NoCliente criaVetor(NoCliente aux) { // Faz a contagem do tamanho da lista encadeada, para gerar um vetor
 		int listaLength = 0;
 		NoCliente aux2 = aux;
-		NoCliente inicio = aux2;
+		
 
 		while (aux2 != null) {
 			listaLength++;
