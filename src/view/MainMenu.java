@@ -126,7 +126,7 @@ public class MainMenu {
 					opc = Integer.parseInt(JOptionPane.showInputDialog("1 - Adiciona Inicio \n"
 							+ "2 - Adiciona Final \n" + "3 - Escolhe posição \n" + "4 - Remove Inicio \n"
 							+ "5 - Remove Final\n" + "6 - Escolhe posição para remover\n" + "7 - Exibir lista\n"
-							+ "8 - TesteMerge\n" + "0 - Voltar Menu Anterior"));
+							+ "8 - MergeSort\n" + "0 - Voltar Menu Anterior"));
 					switch (opc) {
 					case 1:
 						Cliente clienteSetado = oa.setarCliente();
@@ -210,7 +210,7 @@ public class MainMenu {
 						JOptionPane.showMessageDialog(null, "Agendamento não existe ");
 						break;
 					}
-					if (agendamento.getStatus().contains("Pago")) {
+					if (agendamento.getStatus() !=null ) {
 						JOptionPane.showMessageDialog(null, "Agendamento já foi pago");
 						break;
 					}
