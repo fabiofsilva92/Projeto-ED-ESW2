@@ -171,7 +171,7 @@ public class ListaAgenda {
 		File dir = new File(diretorio);
 		File arquivo = new File(dir, "ListaAgenda.csv");
 		boolean success = (arquivo).delete();
-		System.out.println(success);
+		//System.out.println(success);
 
 		NoAgenda aux = inicio;
 		StringBuilder s = new StringBuilder();

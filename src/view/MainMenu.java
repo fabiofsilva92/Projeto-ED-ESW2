@@ -210,7 +210,7 @@ public class MainMenu {
 						JOptionPane.showMessageDialog(null, "Agendamento não existe ");
 						break;
 					}
-					if (agendamento.getStatus() !=null ) {
+					if (agendamento.getStatus().contains("Pago") ) {
 						JOptionPane.showMessageDialog(null, "Agendamento já foi pago");
 						break;
 					}

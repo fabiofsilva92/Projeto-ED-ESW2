@@ -179,7 +179,7 @@ public class ListaCliente {
 		File dir = new File(diretorio);
 		File arquivo = new File(dir, "ListaCliente.csv");
 		boolean success = (arquivo).delete();
-		System.out.println(success);
+		//System.out.println(success);
 
 		NoCliente aux = inicio;
 		StringBuilder s = new StringBuilder();

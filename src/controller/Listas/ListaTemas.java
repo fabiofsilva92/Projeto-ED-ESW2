@@ -159,7 +159,7 @@ public class ListaTemas {
 		File dir = new File(diretorio);
 		File arquivo = new File(dir, "ListaTema.csv");
 		boolean success = (arquivo).delete();
-		System.out.println(success);
+		//System.out.println(success);
 
 		NoTema aux = inicio;
 		StringBuilder s = new StringBuilder();

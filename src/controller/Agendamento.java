@@ -65,7 +65,7 @@ public class Agendamento {
 		String horaInicio = JOptionPane.showInputDialog("Digite a hora de início (HH:mm): ");
 		String horaFinal = JOptionPane.showInputDialog("Digite a hora de término (HH:mm): ");
 		String formaPagamento = null;
-		String status = null;
+		String status = "null";
 		int opc = 0;
 	//	do {
 	//		opc = Integer
